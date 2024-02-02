@@ -3,8 +3,8 @@ import "./Header.css";
 import 'remixicon/fonts/remixicon.css'
 
 function Header() {
-  let navItems = [
-    {},{},
+  const navItems = [
+    {title:"MOBILES & TABLETS"},{title:"TELEVISIONS"},{title:"AUDIO"},{title:"HOME APPLIANCES"},{title:"COMPUTERS"},{title:"CAMERAS"},{title:"KITCHEN APPLIANCES"},{title:"PERSONAL CARE"},{title:"ACCESSORIES"},
   ]
   return (
     <>
@@ -25,8 +25,12 @@ function Header() {
           <a href="#"><i className="ri-user-fill"></i> Login</a></div>
       </div>
     </div>
-    <div className='bg-[#003380]'>
-
+    <div className='bg-[#003380] text-white flex items-center justify-between px-10 py-1'>
+      {navItems.map((item, index)=>(
+        <div key={index} className='flex items-center justify-center'>
+          <p className='text-xs font-semibold'>{item.title}</p><i className="ri-arrow-drop-down-line text-2xl"></i>
+        </div>
+      ))}
     </div>
     </>
   )
