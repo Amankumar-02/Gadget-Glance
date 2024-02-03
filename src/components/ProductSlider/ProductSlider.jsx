@@ -38,8 +38,8 @@ function ProductSlider({ data }) {
                     <div className="productItemHover relative">
                       {!item?.teaserType?(null):(
                         <>
-                        <div className="absolute top-0 left-0 text-xs text-white bg-[#007FAD] font-semibold px-2 z-10 rounded-tl-lg rounded-br-lg">
-                          Limited Time Offer
+                        <div className="absolute top-0 left-0 text-xs text-white bg-[#007FAD] font-semibold px-2 py-1 z-10 rounded-tl-lg rounded-br-lg w-[60%] overflow-hidden leading-3">
+                          {item?.teaserType.replaceAll("_", " ")}
                         </div>
                         </>
                       )}
@@ -50,7 +50,7 @@ function ProductSlider({ data }) {
                           className=""
                         />
                       </div>
-                      <h2 className="productTitle text-[#003380] text-sm font-semibold py-6 text-left">
+                      <h2 className="productTitle text-[#003380] text-sm font-semibold py-6 text-left h-[68px] overflow-hidden">
                         {item.name}
                       </h2>
                       <div className="flex flex-col gap-1 items-start">

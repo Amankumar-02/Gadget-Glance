@@ -6,7 +6,7 @@ import './Slides.css';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 function Slides({data}) {
-    const liveCarousel = data?.data?.Section4[0]?.data;
+    const liveCarousel = data;
   return (
     <>
       {!liveCarousel ? null : (
