@@ -1,8 +1,5 @@
-import React from 'react'
-import Slides from '../Slides/Slides'
-import ProductSlider from '../ProductSlider/ProductSlider';
-import GreatDeals from '../GreatDeals/GreatDeals';
-import BrandSection from '../BrandSection/BrandSection';
+import React from 'react';
+import {Slides, ProductSlider, GreatDeals, BrandSection, ExploreProducts} from '../index.js'
 
 function Home({data}) {
     const sliderData1 = data?.data?.Section4[0]?.data;
@@ -28,6 +25,8 @@ function Home({data}) {
       <ProductSlider key={index} data={item}/>
       )))}
       <BrandSection data={brandData}/>
+      <ExploreProducts/>
+      
     </>
   )
 }
