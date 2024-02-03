@@ -17,7 +17,7 @@ function Header() {
           <a href="#" className='font-semibold'>Contact us</a>
         </div>
       </div>
-      <div className='py-2 flex justify-between items-center text-white'>
+      <div className='py-2 flex justify-between items-center text-white flex-col lg:flex-row'>
         <div><h1 className='text-3xl font-bold'>Gadget<span className='text-blue-400'>Glance</span></h1></div>
         <div className='flex items-center bg-white pe-3 rounded-3xl'><input type="search" className='bg-white w-[400px] ps-4 py-2 rounded-3xl' placeholder='Find your favourite products '/><i className="ri-search-line bg-white text-gray-500 cursor-pointer"></i></div>
         <div>
@@ -26,7 +26,7 @@ function Header() {
           <a href="#" className='font-semibold'><i className="ri-user-fill font-light"></i> Login</a></div>
       </div>
     </div>
-    <div className='bg-[#003380] text-white flex items-center justify-between px-10 py-1'>
+    <div className='bg-[#003380] text-white flex items-center lg:justify-between px-10 py-1 flex-wrap lg:flex-nowrap'>
       {navItems.map((item, index)=>(
         <div key={index} className='flex items-center justify-center'>
           <p className='text-xs font-semibold'>{item.title}</p><i className="ri-arrow-drop-down-line text-2xl"></i>

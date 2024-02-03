@@ -21,7 +21,7 @@ function ProductSlider({ data }) {
                 </button>
               </a>
             </div>
-            <div className="py-10">
+            <div className="pt-10">
               <Swiper
                 slidesPerView={5}
                 spaceBetween={30}
@@ -35,11 +35,19 @@ function ProductSlider({ data }) {
               >
                 {data?.data.map((item, index) => (
                   <SwiperSlide key={index}>
-                    <div className="productItemHover">
-                      <div className="productImg w-[80%] m-auto">
+                    <div className="productItemHover relative">
+                      {!item?.teaserType?(null):(
+                        <>
+                        <div className="absolute top-0 left-0 text-xs text-white bg-[#007FAD] font-semibold px-2 z-10 rounded-tl-lg rounded-br-lg">
+                          Limited Time Offer
+                        </div>
+                        </>
+                      )}
+                      <div className="productImg">
                         <img
                           src={`https://www.reliancedigital.in/${item?.imageUrl}`}
                           alt=""
+                          className=""
                         />
                       </div>
                       <h2 className="productTitle text-[#003380] text-sm font-semibold py-6 text-left">
