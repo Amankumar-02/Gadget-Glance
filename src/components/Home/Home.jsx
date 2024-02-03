@@ -6,7 +6,7 @@ function Home({data}) {
     const fetchData1 = data?.data?.Section5[0];
     const fetchData2 = data?.data?.Section12;
     const fetchData3 = data?.data?.Section2[0];
-    const sliderData2 = data?.data?.Section1[0]?.data;
+    // const sliderData2 = data?.data?.Section1[0]?.data;
     const sliderData3 = data?.data?.Section11[0]?.data;
     const fetchData4 = data?.data?.Section8;
     const brandData = data?.data?.Section9[0]?.data;
@@ -19,14 +19,14 @@ function Home({data}) {
     {!fetchData2?(null):(fetchData2.map((item, index)=>(
       <ProductSlider key={index} data={item}/>
       )))}
-    <Slides data={sliderData2}/>
-    <div className='p-4'></div>
+    {/* <Slides data={sliderData2}/> */}
+    {/* <div className='p-4'></div> */}
     <Slides data={sliderData3}/>
     {!fetchData4?(null):(fetchData4.map((item, index)=>(
       <ProductSlider key={index} data={item}/>
       )))}
-      <BrandSection data={brandData}/>
       <ExploreProducts data={exploreData}/>
+      <BrandSection data={brandData}/>
       
     </>
   )
