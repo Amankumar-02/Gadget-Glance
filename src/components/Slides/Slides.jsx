@@ -14,6 +14,7 @@ function Slides({data}) {
           <div>
             <Swiper
               spaceBetween={30}
+              loop={true}
               centeredSlides={true}
               autoplay={{
                 delay: 2500,
@@ -30,8 +31,8 @@ function Slides({data}) {
                 <SwiperSlide key={index}>
                     <a href={item.url} target='_blank'>
                     <img
-                        src={`https://www.reliancedigital.in/${item.imageUrl}`}
-                        alt={`https://www.reliancedigital.in/${item.alternateImageUrl}`}
+                        src={`https://www.reliancedigital.in/${item?.imageUrl}`}
+                        alt={`https://www.reliancedigital.in/${item?.alternateImageUrl}`}
                     />
                     </a>
                 </SwiperSlide>
