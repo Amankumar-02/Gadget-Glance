@@ -1,7 +1,7 @@
-import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
+import 'swiper/css/navigation';
 import "./ProductSlider.css";
 import { Pagination, Navigation } from "swiper/modules";
 
@@ -14,8 +14,8 @@ function ProductSlider({ data }) {
         <>
           <div className="py-8 px-10">
             <div className="flex">
-              <h1 className="me-4 font-semibold">{data?.name}</h1>
-              <a href={data?.viewAllUrl} target="_blank">
+              <h1 className="me-4 font-semibold">{productData?.name}</h1>
+              <a href={productData?.viewAllUrl} target="_blank">
                 <button className="bg-[#003380] text-white text-xs px-4 py-1 font-semibold">
                   View all
                 </button>
@@ -33,7 +33,7 @@ function ProductSlider({ data }) {
                 modules={[Pagination, Navigation]}
                 className="mySwiper productSwiper px-[30px]"
               >
-                {data?.data.map((item, index) => (
+                {productData?.data.map((item, index) => (
                   <SwiperSlide key={index}>
                     <div className="productItemHover relative">
                       {!item?.teaserType?(null):(

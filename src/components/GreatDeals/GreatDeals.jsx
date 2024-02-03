@@ -4,8 +4,8 @@ import "./GreatDeals.css";
 function GreatDeals({ data }) {
     const dealsData = data;
     const dealsDataItems = data?.data;
-    console.log(dealsData);
-    console.log(dealsDataItems);
+    // console.log(dealsData);
+    // console.log(dealsDataItems);
   return (
     <>
       {!dealsData ? null : (

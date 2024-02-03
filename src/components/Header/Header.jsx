@@ -10,16 +10,16 @@ function Header() {
     <>
     <div className='sticky top-0 z-50'>
     <div className='px-8 bg-[#E42529]'>
-      <div className='flex items-center justify-end text-white'>
+      {/* <div className='flex items-center justify-end text-white'>
         <div className=''>
           <a href="#" className='font-semibold'>Find a store</a>{'\ '}|{"\ "}
           <a href="#" className='font-semibold'>Buying guides</a>{'\ '}|{'\ '} 
           <a href="#" className='font-semibold'>Contact us</a>
         </div>
-      </div>
+      </div> */}
       <div className='py-2 flex justify-between items-center text-white flex-col lg:flex-row'>
         <div><h1 className='text-3xl font-bold'>Gadget<span className='text-blue-400'>Glance</span></h1></div>
-        <div className='flex items-center bg-white pe-3 rounded-3xl'><input type="search" className='bg-white w-[400px] ps-4 py-2 rounded-3xl' placeholder='Find your favourite products '/><i className="ri-search-line bg-white text-gray-500 cursor-pointer"></i></div>
+        <div className='flex items-center bg-white pe-3 rounded-3xl'><input type="search" className='bg-white w-[400px] ps-4 py-1 rounded-3xl' placeholder='Find your favourite products '/><i className="ri-search-line bg-white text-gray-500 cursor-pointer"></i></div>
         <div>
           <a href="#" className='font-semibold'><i className="ri-map-pin-2-fill font-light"></i> Deliver to DELHI 110059</a>{'\ '}|{"\ "}
           <a href="#" className='font-semibold'><i className="ri-shopping-cart-2-fill font-light"></i> Cart</a>{'\ '}|{'\ '} 

@@ -34,9 +34,9 @@ function Footer() {
         </div>
     </div>
     <div className='bg-[#0A244A] py-4 text-center text-white'>
-        <h2 className="underline pb-4">Disclaimer</h2>
+        {/* <h2 className="underline pb-4">Disclaimer</h2>
         <p className='leading-4 text-sm pb-4 w-[80%] m-auto'>Product prices, offers and availability are subject to change from time to time. All prices are inclusive of taxes. Product colours & images are only for illustration and they may not exactly match with the actual product. Product specs are subject to change & may vary from actual product. While every care is taken to avoid inaccuracies in content, these are provided as is, without warranty of any kind.</p>
-        <hr />
+        <hr /> */}
         <p className='pt-4 text-sm'>© 2024 Gadget Glance. All Rights Reserved.</p>
     </div>
     </div>

@@ -10,6 +10,7 @@ function Home({data}) {
     const sliderData3 = data?.data?.Section11[0]?.data;
     const fetchData4 = data?.data?.Section8;
     const brandData = data?.data?.Section9[0]?.data;
+    const exploreData = data?.data?.Section10[0];
   return (
     <>
     <Slides data={sliderData1}/>
@@ -25,7 +26,7 @@ function Home({data}) {
       <ProductSlider key={index} data={item}/>
       )))}
       <BrandSection data={brandData}/>
-      <ExploreProducts/>
+      <ExploreProducts data={exploreData}/>
       
     </>
   )
