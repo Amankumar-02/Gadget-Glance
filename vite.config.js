@@ -10,26 +10,26 @@ export default defineConfig({
   //   }
   // },
   // netlify
-  server: {
-    proxy: {
-      '/v2': {
-        target: 'https://www.reliancedigital.in',
-        pathRewrite: { '^/v2': '/rildigitalws' },
-        changeOrigin: true,
-        secure: false
-      }
-    }
-  },
-  //vercel
   // server: {
   //   proxy: {
   //     '/v2': {
-  //       target: 'https://www.reliancedigital.in/rildigitalws',
-  //       pathRewrite: { '^/v2': '' },
+  //       target: 'https://www.reliancedigital.in',
+  //       pathRewrite: { '^/v2': '/rildigitalws' },
   //       changeOrigin: true,
   //       secure: false
   //     }
   //   }
   // },
+  //vercel
+  server: {
+    proxy: {
+      '/v2': {
+        target: 'https://www.reliancedigital.in/rildigitalws',
+        pathRewrite: { '^/v2': '' },
+        changeOrigin: true,
+        secure: false
+      }
+    }
+  },
   plugins: [react()],
 })
