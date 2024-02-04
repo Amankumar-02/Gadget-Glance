@@ -21,15 +21,15 @@ export default defineConfig({
   //   }
   // },
   //vercel
-  server: {
-    proxy: {
-      '/v2': {
-        target: 'https://www.reliancedigital.in/rildigitalws',
-        pathRewrite: { '^/v2': '' },
-        changeOrigin: true,
-        secure: false
-      }
-    }
-  },
+  // server: {
+  //   proxy: {
+  //     '/v2': {
+  //       target: 'https://www.reliancedigital.in/rildigitalws',
+  //       pathRewrite: { '^/v2': '' },
+  //       changeOrigin: true,
+  //       secure: false
+  //     }
+  //   }
+  // },
   plugins: [react()],
 })
