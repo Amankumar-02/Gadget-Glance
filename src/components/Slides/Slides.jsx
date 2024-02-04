@@ -1,16 +1,17 @@
+import { IMG_URL } from '../../utils/constant';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import './Slides.css';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import './Slides.css';
 
-function Slides({data}) {
-    const liveCarousel = data;
+function Slides({liveCarousalData}) {
+    const liveCarousel = liveCarousalData;
   return (
     <>
-      {!liveCarousel ? null : (
-        <>
+      {/* {!liveCarousel ? null : (
+        <> */}
           <div>
             <Swiper
               spaceBetween={30}
@@ -27,20 +28,20 @@ function Slides({data}) {
               modules={[Autoplay, Pagination, Navigation]}
               className="mySwiper"
             >
-              {liveCarousel.map((item, index) => (
+              {liveCarousel.map(({url, imageUrl}, index) => (
                 <SwiperSlide key={index}>
-                    <a href={item.url} target='_blank'>
+                    <a href={url} target='_blank'>
                     <img
-                        src={`https://www.reliancedigital.in/${item?.imageUrl}`}
-                        alt={`https://www.reliancedigital.in/${item?.alternateImageUrl}`}
+                        src={IMG_URL + imageUrl}
+                        alt=""
                     />
                     </a>
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
-        </>
-      )}
+        {/* </>
+      )} */}
     </>
   );
 }

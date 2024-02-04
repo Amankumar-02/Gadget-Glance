@@ -1,25 +1,22 @@
-import React from "react";
+import { IMG_URL } from "../../utils/constant";
 import "./GreatDeals.css";
 
-function GreatDeals({ data }) {
-    const dealsData = data;
-    const dealsDataItems = data?.data;
-    // console.log(dealsData);
-    // console.log(dealsDataItems);
+function GreatDeals({ greatDealsData }) {
+    const {name, data} = greatDealsData;
   return (
     <>
-      {!dealsData ? null : (
-        <>
+      {/* {!dealsData ? null : (
+        <> */}
           <div className="py-8 px-10">
             <div>
-                <h1 className="me-4 font-semibold">{data?.name}</h1>
+                <h1 className="me-4 font-semibold">{name}</h1>
             </div>
             <div className="flex flex-wrap py-6">
-            {dealsDataItems.map((item, index) => (
+            {data.map(({url, imageUrl}, index) => (
               <div key={index} className="w-[25%] scale-[0.95] hover:scale-[1.02] transition">
-                <a href={item?.url} target="_blank">
+                <a href={url} target="_blank">
                 <img
-                  src={`https://www.reliancedigital.in/${item?.imageUrl}`}
+                  src={IMG_URL + imageUrl}
                   alt=""
                   className=""
                 />
@@ -28,8 +25,8 @@ function GreatDeals({ data }) {
             ))}
           </div>
           </div>
-        </>
-      )}
+        {/* </>
+      )} */}
     </>
   );
 }

@@ -1,11 +1,8 @@
-import React from 'react'
 import "./Header.css";
-import 'remixicon/fonts/remixicon.css'
+import 'remixicon/fonts/remixicon.css';
+import { navItems } from '../../utils/constant';
 
 function Header() {
-  const navItems = [
-    {title:"MOBILES & TABLETS"},{title:"TELEVISIONS"},{title:"AUDIO"},{title:"HOME APPLIANCES"},{title:"COMPUTERS"},{title:"CAMERAS"},{title:"KITCHEN APPLIANCES"},{title:"PERSONAL CARE"},{title:"ACCESSORIES"},
-  ]
   return (
     <>
     <div className='sticky top-0 z-50'>
