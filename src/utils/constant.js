@@ -55,6 +55,7 @@ const footerItems = [
     },
 ];
 const IMG_URL = "https://www.reliancedigital.in/";
-const HOME_URL = "v2/rrldigital/cms/pagedata?pageId=homepage&pageType=contentPage";
+// const HOME_URL = "v2/rrldigital/cms/pagedata?pageId=homepage&pageType=contentPage";
+const HOME_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageId=homepage&pageType=contentPage";
 const SEARCH_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=tv%3Arelevance&page=0&size=24&pc=110059";
 export {navItems, footerItems, IMG_URL, HOME_URL, SEARCH_URL};
