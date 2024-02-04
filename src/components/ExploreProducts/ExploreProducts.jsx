@@ -7,7 +7,7 @@ import { Pagination, Navigation } from 'swiper/modules';
 
 function ExploreProducts({data}) {
     const exploreSlideItems = data;
-    console.log(data);
+    // console.log(data);
   return (
     <>
     {!exploreSlideItems? (null):(
