@@ -66,6 +66,7 @@ const SEARCH_URL = "v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=tv%3
 
 //OG URL
 // const HOME_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageId=homepage&pageType=contentPage";
+const PRODUCT_INFO_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productPage&pageId=productPage&productCode="
 
 // const SEARCH_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=tv%3Arelevance&page=0&size=24&pc=110059";
 
@@ -76,4 +77,4 @@ const SEARCH_URL = "v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=tv%3
 // const SEARCH_URL = "https://corsproxy.org/?https%3A%2F%2Fwww.reliancedigital.in%2Frildigitalws%2Fv2%2Frrldigital%2Fcms%2Fpagedata%3FpageType%3DproductSearchPage%26q%3Dtv%253Arelevance%26page%3D0%26size%3D24%26pc%3D110059";
 
 
-export {navItems, footerItems, IMG_URL, HOME_URL, SEARCH_URL};
+export {navItems, footerItems, IMG_URL, HOME_URL, SEARCH_URL, PRODUCT_INFO_URL};

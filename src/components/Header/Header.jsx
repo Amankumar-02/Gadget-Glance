@@ -1,6 +1,7 @@
 import "./Header.css";
 import 'remixicon/fonts/remixicon.css';
 import { navItems } from '../../utils/constant';
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -15,7 +16,9 @@ function Header() {
         </div>
       </div> */}
       <div className='py-2 flex justify-between items-center text-white flex-col lg:flex-row'>
-        <div><h1 className='text-3xl font-bold'>Gadget<span className='text-blue-400'>Glance</span></h1></div>
+        <div><Link to={"/"}>
+        <h1 className='text-3xl font-bold'>Gadget<span className='text-blue-400'>Glance</span></h1>
+        </Link></div>
         <div className='flex items-center bg-white pe-3 rounded-3xl'><input type="search" className='bg-white w-[400px] ps-4 py-1 rounded-3xl' placeholder='Find your favourite products '/><i className="ri-search-line bg-white text-gray-500 cursor-pointer"></i></div>
         <div>
           <a href="#" className='font-semibold'><i className="ri-map-pin-2-fill font-light"></i> Deliver to DELHI 110059</a>{'\ '}|{"\ "}
