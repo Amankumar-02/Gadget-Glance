@@ -1,6 +1,7 @@
 const navItems = [
     {title:"MOBILES & TABLETS"},{title:"TELEVISIONS"},{title:"AUDIO"},{title:"HOME APPLIANCES"},{title:"COMPUTERS"},{title:"CAMERAS"},{title:"KITCHEN APPLIANCES"},{title:"PERSONAL CARE"},{title:"ACCESSORIES"},
 ]
+
 const footerItems = [
     {
       title: "PRODUCT CATEGORIES",
@@ -54,9 +55,25 @@ const footerItems = [
       ],
     },
 ];
+
 const IMG_URL = "https://www.reliancedigital.in/";
-// const HOME_URL = "v2/rrldigital/cms/pagedata?pageId=homepage&pageType=contentPage";
+
+//localHost cors
+const HOME_URL = "v2/rrldigital/cms/pagedata?pageId=homepage&pageType=contentPage";
+
+const SEARCH_URL = "v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=tv%3Arelevance&page=0&size=24&pc=110059";
+
+
+//OG URL
 // const HOME_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageId=homepage&pageType=contentPage";
-const HOME_URL = "https://corsproxy.org/?https%3A%2F%2Fwww.reliancedigital.in%2Frildigitalws%2Fv2%2Frrldigital%2Fcms%2Fpagedata%3FpageId%3Dhomepage%26pageType%3DcontentPage";
-const SEARCH_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=tv%3Arelevance&page=0&size=24&pc=110059";
+
+// const SEARCH_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=tv%3Arelevance&page=0&size=24&pc=110059";
+
+
+//Cors solve using corsproxy.io  ==> netlify & vercel supported
+// const HOME_URL = "https://corsproxy.org/?https%3A%2F%2Fwww.reliancedigital.in%2Frildigitalws%2Fv2%2Frrldigital%2Fcms%2Fpagedata%3FpageId%3Dhomepage%26pageType%3DcontentPage";
+
+// const SEARCH_URL = "https://corsproxy.org/?https%3A%2F%2Fwww.reliancedigital.in%2Frildigitalws%2Fv2%2Frrldigital%2Fcms%2Fpagedata%3FpageType%3DproductSearchPage%26q%3Dtv%253Arelevance%26page%3D0%26size%3D24%26pc%3D110059";
+
+
 export {navItems, footerItems, IMG_URL, HOME_URL, SEARCH_URL};
