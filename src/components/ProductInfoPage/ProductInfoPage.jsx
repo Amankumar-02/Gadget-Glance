@@ -58,7 +58,7 @@ function ProductInfoPage() {
           <div>
             <section>
               <div className="flex items-center justify-start py-1 px-4 text-gray-700">
-                <i className="ri-home-4-fill text-md"></i>
+                <i className="ri-home-4-fill text-base"></i>
                 {fetchProductInfoData?.productData?.breadcrumbs.map(
                   ({ name }, index) => (
                     <div key={index} className="ms-2 text-xs">
@@ -112,16 +112,23 @@ function ProductInfoPage() {
                   <div className="flex flex-col gap-1">
                     <h1 className="text-lg font-extrabold text-gray-800">
                       {fetchProductInfoData?.productData?.name}{" "}
-                      <span className='text-[15px]'>{`(${fetchProductInfoData?.productData?.code})`}</span>
+                      <span className="text-[15px]">{`(${fetchProductInfoData?.productData?.code})`}</span>
                     </h1>
                     <div className="flex gap-4 text-[#0B3B85]">
-                      <i className="ri-share-forward-box-fill font-semibold cursor-pointer"><span className="ps-2 font-medium">Share</span></i>
-                      <i className="ri-printer-line font-semibold cursor-pointer"><span className="ps-2 font-medium">Print</span></i>
+                      <i className="ri-share-forward-box-fill font-semibold cursor-pointer">
+                        <span className="ps-2 font-medium">Share</span>
+                      </i>
+                      <i className="ri-printer-line font-semibold cursor-pointer">
+                        <span className="ps-2 font-medium">Print</span>
+                      </i>
                     </div>
                   </div>
                   <div className="flex flex-col gap-1">
                     <p className="text-gray-700 font-extrabold">
-                      Save more with EMI/Cashback <span className="text-[#0B3B85] text-[13px] hover:underline cursor-pointer  transition">Read-T&C</span>
+                      Save more with EMI/Cashback{" "}
+                      <span className="text-[#0B3B85] text-[13px] hover:underline cursor-pointer  transition">
+                        Read-T&C
+                      </span>
                     </p>
                     <div className="flex items-center gap-2">
                       <i className="ri-calendar-todo-fill text-green-600 text-xl"></i>
@@ -136,21 +143,31 @@ function ProductInfoPage() {
                     </div>
                   </div>
                   <div className="flex flex-col gap-3">
-                    <h2 className="font-bold text-lg text-gray-700">Key Features</h2>
-                      {fetchProductInfoData?.productData?.summary
-                        .split("\n")
-                        .map((item, index) => (
-                            <>
-                            <ul key={index} className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: item }}>
-                            </ul>
-                            </>
-                        ))}
+                    <h2 className="font-bold text-lg text-gray-700">
+                      Key Features
+                    </h2>
+                    {fetchProductInfoData?.productData?.summary
+                      .split("\n")
+                      .map((item, index) => (
+                        <>
+                          <ul
+                            key={index}
+                            className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm"
+                            dangerouslySetInnerHTML={{ __html: item }}
+                          ></ul>
+                        </>
+                      ))}
                   </div>
                   <div className="flex flex-col gap-3">
-                    <h2 className="font-bold text-lg text-gray-700">Return Policy</h2>
+                    <h2 className="font-bold text-lg text-gray-700">
+                      Return Policy
+                    </h2>
                     <ul className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm">
                       <li>
-                        For return eligibility. <span className="text-[#0B3B85] text-[13px] hover:underline cursor-pointer  font-extrabold  transition">Read-T&C</span>
+                        For return eligibility.{" "}
+                        <span className="text-[#0B3B85] text-[13px] hover:underline cursor-pointer  font-extrabold  transition">
+                          Read-T&C
+                        </span>
                       </li>
                       <li>
                         All accessories, product & packaging need to be returned
@@ -160,30 +177,32 @@ function ProductInfoPage() {
                   </div>
                   <div className="font-extrabold text-gray-700">
                     Got Feedback to share on this page?{" "}
-                    <span className="text-[#0B3B85] hover:underline cursor-pointer transition">report here.</span>
+                    <span className="text-[#0B3B85] hover:underline cursor-pointer transition">
+                      report here.
+                    </span>
                   </div>
                 </div>
-                <div className="w-[25%] flex flex-col justify-center gap-2 pt-6">
-                  <p>
+                <div className="w-[25%] flex flex-col justify-center gap-2">
+                  <p className="text-lg text-gray-800">
                     Deal Price:{" "}
-                    <span>
-                      ₹{fetchProductInfoData?.productData?.price?.value}0
+                    <span className="text-xl text-[#0B3B85] font-semibold">
+                      ₹{fetchProductInfoData?.productData?.price?.value}.00
                     </span>
                   </p>
-                  <p>
+                  <p className="text-lg text-gray-800">
                     Offer Price:{" "}
-                    <span className="line-through">
-                      ₹{fetchProductInfoData?.productData?.price?.rrp}00
+                    <span className="line-through text-sm">
+                      ₹{fetchProductInfoData?.productData?.price?.rrp}.00
                     </span>
                   </p>
-                  <p>
+                  <p className="text-lg text-gray-800">
                     MRP:{" "}
-                    <span className="line-through">
-                      ₹{fetchProductInfoData?.productData?.price?.mrp}00
+                    <span className="line-through text-sm">
+                      ₹{fetchProductInfoData?.productData?.price?.mrp}.00
                     </span>{" "}
-                    (Inclusive of all taxes)
+                    <span className="text-base">(Inclusive of all taxes)</span>
                   </p>
-                  <p>
+                  <p className="text-green-600 text-sm font-semibold">
                     You Save:{" "}
                     <span>
                       ₹{fetchProductInfoData?.productData?.price?.discount}
@@ -191,21 +210,29 @@ function ProductInfoPage() {
                   </p>
                   {!fetchEmiData?.lowestEMIAmount ? null : (
                     <>
-                      <p>
+                      <p className="text-sm font-semibold text-gray-800">
                         EMIs (Credit Cards) from ₹
                         {fetchEmiData?.lowestEMIAmount}/month |{" "}
-                        <span>View-Plans</span>
+                        <span className="text-[#0B3B85] hover:underline cursor-pointer transition">
+                          View-Plans
+                        </span>
                       </p>
                     </>
                   )}
                   {!fetchProductInfoData?.productData?.freeshipping ? (
                     <>
-                      <h1>FREE Shipping!</h1>
+                      <h1 className="font-extrabold text-lg text-gray-800">
+                        FREE Shipping!
+                      </h1>
                     </>
                   ) : null}
                   <div className="flex gap-1 w-full">
-                    <button className="w-full">ADD TO CART</button>
-                    <button className="w-full">BUY NOW</button>
+                    <button className="w-full bg-red-500 text-white p-2 text-lg font-semibold">
+                      ADD TO CART
+                    </button>
+                    <button className="w-full bg-orange-500 text-white p-2 text-lg font-semibold">
+                      BUY NOW
+                    </button>
                   </div>
                 </div>
               </div>
@@ -214,18 +241,24 @@ function ProductInfoPage() {
             <section>
               <div className=" px-6 py-3">
                 <div className="flex gap-6">
-                    <a href="#desc">
-                        <h3 className="font-bold text-gray-800 hover:underline transition">Description</h3>
-                    </a>
-                    <a href="#specs">
-                        <h3 className="font-bold text-gray-800 hover:underline transition">Specifications</h3>
-                    </a>
-                    <a href="#review">
-                        <h3 className="font-bold text-gray-800 hover:underline transition">Customer Reviews</h3>
-                    </a>
+                  <a href="#desc">
+                    <h3 className="font-bold text-gray-800 hover:underline transition">
+                      Description
+                    </h3>
+                  </a>
+                  <a href="#specs">
+                    <h3 className="font-bold text-gray-800 hover:underline transition">
+                      Specifications
+                    </h3>
+                  </a>
+                  <a href="#review">
+                    <h3 className="font-bold text-gray-800 hover:underline transition">
+                      Customer Reviews
+                    </h3>
+                  </a>
                 </div>
                 <p
-                id="desc"
+                  id="desc"
                   className="py-8 font-light text-gray-600"
                   dangerouslySetInnerHTML={{
                     __html: fetchProductInfoData?.productData?.description,
@@ -233,7 +266,7 @@ function ProductInfoPage() {
                 >
                   {/* {fetchProductInfoData?.productData?.description} */}
                 </p>
-                <h1 className="pb-8 text-xl font-bold">
+                <h1 id="specs" className="pb-8 text-2xl font-bold text-gray-800">
                   Specifications (
                   {fetchProductInfoData?.productData?.name.length > 50
                     ? fetchProductInfoData?.productData?.name.slice(0, 50) +
@@ -241,7 +274,7 @@ function ProductInfoPage() {
                     : fetchProductInfoData?.productData?.name}
                   )
                 </h1>
-                <div id="specs" className="flex flex-col gap-7">
+                <div className="flex flex-col gap-7">
                   <ProductSpecifications
                     productSpecsData={
                       fetchProductInfoData?.productData?.classifications[4]
@@ -268,6 +301,18 @@ function ProductInfoPage() {
                     }
                   />
                 </div>
+                <h1 id="review" className="py-8 text-2xl font-bold text-gray-800">
+                  Customer Reviews{" "}{" "}{" "}
+                  <span className="text-[#0B3B85] text-base font-semibold">
+                    (
+                    {fetchProductInfoData?.productData?.name.length > 150
+                      ? fetchProductInfoData?.productData?.name.slice(0, 150) +
+                        `...`
+                      : fetchProductInfoData?.productData?.name}
+                    )
+                  </span>
+                </h1>
+
               </div>
             </section>
           </div>

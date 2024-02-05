@@ -3,7 +3,7 @@ function ProductSpecifications({ productSpecsData }) {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <h4 className="text-gray-600 font-bold">{productSpecsData?.name}</h4>
+        <h4 className="text-gray-600 text-[16px] font-bold">{productSpecsData?.name}</h4>
         <div className="flex">
           <div className="w-[30%] flex flex-col gap-1">
             {productSpecsData?.features.map((item, index) => (
