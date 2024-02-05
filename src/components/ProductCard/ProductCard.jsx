@@ -1,9 +1,11 @@
 import { IMG_URL } from "../../utils/constant";
+import { useNavigate, Link } from "react-router-dom";
 
 function ProductCard({items}) {
-    const {teaserType, imageUrl, name, sellingPrice, mrp, discount, hasPP} = items
+    const {teaserType, imageUrl, name, sellingPrice, mrp, discount, hasPP, skuId, url} = items;
   return (
     <>
+    <Link to={"/productInfo/" + url.replaceAll("/", "_")} target="_blank">
       <div className="productItemHover relative">
         {!teaserType ? null : (
           <>
@@ -36,6 +38,7 @@ function ProductCard({items}) {
           ) : null}
         </div>
       </div>
+    </Link>
     </>
   );
 }
