@@ -9,5 +9,6 @@ import ExploreProducts from "./ExploreProducts/ExploreProducts";
 import Shimmer from "./Shimmer/Shimmer";
 import ProductCard from "./ProductCard/ProductCard";
 import ProductInfoPage from "./ProductInfoPage/ProductInfoPage";
+import ProductSpecifications from "./ProductSpecifications/ProductSpecifications";
 
-export {Header, Footer, Home, Slides, ProductSlider, GreatDeals, BrandSection, ExploreProducts, Shimmer, ProductCard, ProductInfoPage};
+export {Header, Footer, Home, Slides, ProductSlider, GreatDeals, BrandSection, ExploreProducts, Shimmer, ProductCard, ProductInfoPage, ProductSpecifications};
