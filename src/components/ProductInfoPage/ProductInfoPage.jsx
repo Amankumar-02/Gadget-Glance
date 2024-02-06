@@ -39,7 +39,6 @@ function ProductInfoPage() {
         setFetchProductData(data[0]?.data);
         setFetchEmiData(data[1]);
         setZoomImg(data[0]?.data?.productData?.media[0].zoomUrl);
-        // console.log(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -108,13 +107,23 @@ function ProductInfoPage() {
                     )}
                   </Swiper>
                 </div>
-                <div className="w-[35%] flex flex-col gap-8 pt-6">
-                  <div className="flex flex-col gap-1">
-                    <h1 className="text-lg font-extrabold text-gray-800">
+                <div className="w-[60%] flex flex-wrap">
+                  <div className="w-full flex flex-col gap-2 py-4">
+                    <h1 className="w-[86%] leading-5 text-lg font-extrabold text-gray-800">
                       {fetchProductInfoData?.productData?.name}{" "}
                       <span className="text-[15px]">{`(${fetchProductInfoData?.productData?.code})`}</span>
                     </h1>
-                    <div className="flex gap-4 text-[#0B3B85]">
+                    <div className="flex gap-4 items-center text-[#0B3B85]">
+                      {!fetchProductInfoData?.productData?.numberOfRatings? (null) : (
+                        <>
+                          <div className="flex gap-2 items-center justify-center">
+                          <div className="text-yellow-500 font-medium text-lg">
+                          <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i>
+                          </div>
+                          <p>({fetchProductInfoData?.productData?.numberOfRatings} Ratings & {fetchProductInfoData?.productData?.numberOfReviews} Reviews)</p>
+                          </div>
+                        </>
+                      )}
                       <i className="ri-share-forward-box-fill font-semibold cursor-pointer">
                         <span className="ps-2 font-medium">Share</span>
                       </i>
@@ -123,29 +132,30 @@ function ProductInfoPage() {
                       </i>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-1">
-                    <p className="text-gray-700 font-extrabold">
-                      Save more with EMI/Cashback{" "}
-                      <span className="text-[#0B3B85] text-[13px] hover:underline cursor-pointer  transition">
-                        Read-T&C
-                      </span>
-                    </p>
-                    <div className="flex items-center gap-2">
-                      <i className="ri-calendar-todo-fill text-green-600 text-xl"></i>
-                      {!fetchEmiData?.lowestEMIAmount ? null : (
-                        <>
-                          <p className="text-gray-500">
-                            EMIs (Credit Cards) from ₹
-                            {fetchEmiData?.lowestEMIAmount}/month.
-                          </p>
-                        </>
-                      )}
+                  <div className="w-[60%] flex flex-col gap-8 py-4">
+                    <div className="flex flex-col gap-1">
+                      <p className="text-gray-700 font-extrabold">
+                        Save more with EMI/Cashback{" "}
+                        <span className="text-[#0B3B85] text-[13px] hover:underline cursor-pointer  transition">
+                          Read-T&C
+                        </span>
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <i className="ri-calendar-todo-fill text-green-600 text-xl"></i>
+                        {!fetchEmiData?.lowestEMIAmount ? null : (
+                          <>
+                            <p className="text-gray-500">
+                              EMIs (Credit Cards) from ₹
+                              {fetchEmiData?.lowestEMIAmount}/month.
+                            </p>
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    <h2 className="font-bold text-lg text-gray-700">
-                      Key Features
-                    </h2>
+                    <div className="flex flex-col gap-3">
+                      <h2 className="font-bold text-lg text-gray-700">
+                        Key Features
+                      </h2>
                       {/* <ul>
                     {fetchProductInfoData?.productData?.summary
                       .split("\n")
@@ -154,91 +164,103 @@ function ProductInfoPage() {
                         </a>
                         ))}
                         </ul> */}
-                        <ul className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: fetchProductInfoData?.productData?.summary }}></ul>
+                      <ul
+                        className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm"
+                        dangerouslySetInnerHTML={{
+                          __html: fetchProductInfoData?.productData?.summary,
+                        }}
+                      ></ul>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      <h2 className="font-bold text-lg text-gray-700">
+                        Return Policy
+                      </h2>
+                      <ul className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm">
+                        <li>
+                          For return eligibility.{" "}
+                          <span className="text-[#0B3B85] text-[13px] hover:underline cursor-pointer  font-extrabold  transition">
+                            Read-T&C
+                          </span>
+                        </li>
+                        <li>
+                          All accessories, product & packaging need to be
+                          returned in original condition.
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="font-extrabold text-gray-700">
+                      Got Feedback to share on this page?{" "}
+                      <span className="text-[#0B3B85] hover:underline cursor-pointer transition">
+                        report here.
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-3">
-                    <h2 className="font-bold text-lg text-gray-700">
-                      Return Policy
-                    </h2>
-                    <ul className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm">
-                      <li>
-                        For return eligibility.{" "}
-                        <span className="text-[#0B3B85] text-[13px] hover:underline cursor-pointer  font-extrabold  transition">
-                          Read-T&C
-                        </span>
-                      </li>
-                      <li>
-                        All accessories, product & packaging need to be returned
-                        in original condition.
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="font-extrabold text-gray-700">
-                    Got Feedback to share on this page?{" "}
-                    <span className="text-[#0B3B85] hover:underline cursor-pointer transition">
-                      report here.
-                    </span>
-                  </div>
-                </div>
-                <div className="w-[25%] flex flex-col justify-center gap-2">
-                  <p className="text-lg text-gray-800">
-                    Deal Price:{" "}
-                    <span className="text-xl text-[#0B3B85] font-semibold">
-                      ₹{fetchProductInfoData?.productData?.price?.value}.00
-                    </span>
-                  </p>
-                  <p className="text-lg text-gray-800">
-                    Offer Price:{" "}
-                    <span className="line-through text-sm">
-                      ₹{fetchProductInfoData?.productData?.price?.rrp}.00
-                    </span>
-                  </p>
-                  <p className="text-lg text-gray-800">
-                    MRP:{" "}
-                    <span className="line-through text-sm">
-                      ₹{fetchProductInfoData?.productData?.price?.mrp}.00
-                    </span>{" "}
-                    <span className="text-base">(Inclusive of all taxes)</span>
-                  </p>
-                  <p className="text-green-600 text-sm font-semibold">
-                    You Save:{" "}
-                    <span>
-                      ₹{fetchProductInfoData?.productData?.price?.discount}
-                    </span>
-                  </p>
-                  {!fetchEmiData?.lowestEMIAmount ? null : (
-                    <>
-                      <p className="text-sm font-semibold text-gray-800">
-                        EMIs (Credit Cards) from ₹
-                        {fetchEmiData?.lowestEMIAmount}/month |{" "}
-                        <span className="text-[#0B3B85] hover:underline cursor-pointer transition">
-                          View-Plans
-                        </span>
-                      </p>
-                    </>
-                  )}
-                  {!fetchProductInfoData?.productData?.freeshipping ? (
-                    <>
-                      <h1 className="font-extrabold text-lg text-gray-800">
-                        FREE Shipping!
-                      </h1>
-                    </>
-                  ) : null}
-                  <div className="flex gap-1 w-full">
-                    <button className="w-full bg-red-500 text-white p-2 text-lg font-semibold">
-                      ADD TO CART
-                    </button>
-                    <button className="w-full bg-orange-500 text-white p-2 text-lg font-semibold">
-                      BUY NOW
-                    </button>
+                  <div className="w-[40%] flex flex-col gap-2 py-4">
+                    <p className="text-lg text-gray-800">
+                      Deal Price:{" "}
+                      <span className="text-xl text-[#0B3B85] font-semibold">
+                        ₹{fetchProductInfoData?.productData?.price?.value}.00
+                      </span>
+                    </p>
+                    {!fetchProductInfoData?.productData?.price?.rrp? (null) :(
+                      <>
+                        <p className="text-lg text-gray-800">
+                          Offer Price:{" "}
+                          <span className="line-through text-sm">
+                            ₹{fetchProductInfoData?.productData?.price?.rrp}.00
+                          </span>
+                        </p>
+                      </>
+                    )}
+                    <p className="text-lg text-gray-800">
+                      MRP:{" "}
+                      <span className="line-through text-sm">
+                        ₹{fetchProductInfoData?.productData?.price?.mrp}.00
+                      </span>{" "}
+                      <span className="text-base">
+                        (Inclusive of all taxes)
+                      </span>
+                    </p>
+                    <p className="text-green-600 text-sm font-semibold">
+                      You Save:{" "}
+                      <span>
+                        ₹{fetchProductInfoData?.productData?.price?.discount}
+                      </span>
+                    </p>
+                    {!fetchEmiData?.lowestEMIAmount ? null : (
+                      <>
+                        <p className="text-sm font-semibold text-gray-800">
+                          EMIs (Credit Cards) from ₹
+                          {fetchEmiData?.lowestEMIAmount}/month |{" "}
+                          <span className="text-[#0B3B85] hover:underline cursor-pointer transition">
+                            View-Plans
+                          </span>
+                        </p>
+                      </>
+                    )}
+                    {!fetchProductInfoData?.productData?.freeshipping ? (
+                      <>
+                        <h1 className="font-extrabold text-lg text-gray-800">
+                          FREE Shipping!
+                        </h1>
+                      </>
+                    ) : null}
+                    <div className="flex gap-1 w-full">
+                      <button className="w-full bg-red-500 text-white p-2 text-lg font-semibold">
+                        ADD TO CART
+                      </button>
+                      <button className="w-full bg-orange-500 text-white p-2 text-lg font-semibold">
+                        BUY NOW
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </section>
             <hr />
             <section>
-              <div className=" px-6 py-3">
-                <div className="flex gap-6">
+              <div className="relative px-6 py-3">
+                <div className="flex gap-6 sticky top-[93px] left-0 bg-white">
                   <a href="#desc">
                     <h3 className="font-bold text-gray-800 hover:underline transition">
                       Description
@@ -264,7 +286,10 @@ function ProductInfoPage() {
                 >
                   {/* {fetchProductInfoData?.productData?.description} */}
                 </p>
-                <h1 id="specs" className="pb-8 text-2xl font-bold text-gray-800">
+                <h1
+                  id="specs"
+                  className="pb-8 text-2xl font-bold text-gray-800"
+                >
                   Specifications (
                   {fetchProductInfoData?.productData?.name.length > 50
                     ? fetchProductInfoData?.productData?.name.slice(0, 50) +
@@ -273,15 +298,20 @@ function ProductInfoPage() {
                   )
                 </h1>
                 <div className="flex flex-col gap-7">
-                  {
-                    fetchProductInfoData?.productData?.classifications.map((item, index)=>(
-                      <ProductSpecifications key={index} productSpecsData={item}
-                  />
-                    ))
-                  }
+                  {fetchProductInfoData?.productData?.classifications.map(
+                    (item, index) => (
+                      <ProductSpecifications
+                        key={index}
+                        productSpecsData={item}
+                      />
+                    )
+                  )}
                 </div>
-                <h1 id="review" className="py-8 text-2xl font-bold text-gray-800">
-                  Customer Reviews{" "}{" "}{" "}
+                <h1
+                  id="review"
+                  className="py-8 text-2xl font-bold text-gray-800"
+                >
+                  Customer Reviews{" "}
                   <span className="text-[#0B3B85] text-base font-semibold">
                     (
                     {fetchProductInfoData?.productData?.name.length > 150
@@ -291,7 +321,6 @@ function ProductInfoPage() {
                     )
                   </span>
                 </h1>
-
               </div>
             </section>
           </div>
