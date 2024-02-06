@@ -279,7 +279,7 @@ function ProductInfoPage() {
                 </div>
                 <p
                   id="desc"
-                  className="py-8 font-light text-gray-600"
+                  className="py- pt-[120px] font-light text-gray-600"
                   dangerouslySetInnerHTML={{
                     __html: fetchProductInfoData?.productData?.description,
                   }}
@@ -288,7 +288,7 @@ function ProductInfoPage() {
                 </p>
                 <h1
                   id="specs"
-                  className="pb-8 text-2xl font-bold text-gray-800"
+                  className="pb- pt-[120px] text-2xl font-bold text-gray-800"
                 >
                   Specifications (
                   {fetchProductInfoData?.productData?.name.length > 50
@@ -309,7 +309,7 @@ function ProductInfoPage() {
                 </div>
                 <h1
                   id="review"
-                  className="py-8 text-2xl font-bold text-gray-800"
+                  className="py- pt-[120px] text-2xl font-bold text-gray-800"
                 >
                   Customer Reviews{" "}
                   <span className="text-[#0B3B85] text-base font-semibold">
