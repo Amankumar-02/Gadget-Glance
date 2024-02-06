@@ -18,8 +18,8 @@ import { ProductSpecifications } from "../index";
 
 function ProductInfoPage() {
   const { userId } = useParams();
-  let productUrl = PRODUCT_INFO_URL + userId.slice(-9);
-  let productEmi = PRODUCT_EMI_INFO_URL + userId.slice(-9);
+  let productUrl = PRODUCT_INFO_URL+userId.slice(-9);
+  let productEmi = PRODUCT_EMI_INFO_URL+userId.slice(-9);
   let [fetchProductInfoData, setFetchProductData] = useState(null);
   let [fetchEmiData, setFetchEmiData] = useState(null);
   let [zoomImg, setZoomImg] = useState("");
@@ -146,17 +146,15 @@ function ProductInfoPage() {
                     <h2 className="font-bold text-lg text-gray-700">
                       Key Features
                     </h2>
+                      {/* <ul>
                     {fetchProductInfoData?.productData?.summary
                       .split("\n")
                       .map((item, index) => (
-                        <>
-                          <ul
-                            key={index}
-                            className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm"
-                            dangerouslySetInnerHTML={{ __html: item }}
-                          ></ul>
-                        </>
-                      ))}
+                        <a key={index} className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: item }}>
+                        </a>
+                        ))}
+                        </ul> */}
+                        <ul className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: fetchProductInfoData?.productData?.summary }}></ul>
                   </div>
                   <div className="flex flex-col gap-3">
                     <h2 className="font-bold text-lg text-gray-700">
@@ -275,31 +273,12 @@ function ProductInfoPage() {
                   )
                 </h1>
                 <div className="flex flex-col gap-7">
-                  <ProductSpecifications
-                    productSpecsData={
-                      fetchProductInfoData?.productData?.classifications[4]
-                    }
+                  {
+                    fetchProductInfoData?.productData?.classifications.map((item, index)=>(
+                      <ProductSpecifications key={index} productSpecsData={item}
                   />
-                  <ProductSpecifications
-                    productSpecsData={
-                      fetchProductInfoData?.productData?.classifications[0]
-                    }
-                  />
-                  <ProductSpecifications
-                    productSpecsData={
-                      fetchProductInfoData?.productData?.classifications[1]
-                    }
-                  />
-                  <ProductSpecifications
-                    productSpecsData={
-                      fetchProductInfoData?.productData?.classifications[2]
-                    }
-                  />
-                  <ProductSpecifications
-                    productSpecsData={
-                      fetchProductInfoData?.productData?.classifications[3]
-                    }
-                  />
+                    ))
+                  }
                 </div>
                 <h1 id="review" className="py-8 text-2xl font-bold text-gray-800">
                   Customer Reviews{" "}{" "}{" "}

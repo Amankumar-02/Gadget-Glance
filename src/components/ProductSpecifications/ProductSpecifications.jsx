@@ -7,20 +7,14 @@ function ProductSpecifications({ productSpecsData }) {
         <div className="flex">
           <div className="w-[30%] flex flex-col gap-1">
             {productSpecsData?.features.map((item, index) => (
-              <>
-                <p key={index} className="text-gray-600" dangerouslySetInnerHTML={{ __html: item?.name }}>
-                  {/* {item?.name} */}
+                <p key={index} className="text-gray-600" dangerouslySetInnerHTML={{ __html: item?.name.replaceAll("reliancedigital@ril.com", "gadgetglance@xyz.com").replaceAll("Reliance Digital", "Gadget Glance").replaceAll("Reliance Retail Ltd.", "Gadget Retail Ltd.").replaceAll("Reliance", "Gadget").replaceAll("Digital", "Glance") }}>
                 </p>
-              </>
             ))}
           </div>
           <div className="w-[70%] flex flex-col gap-1">
             {productSpecsData?.features.map((item, index) => (
-              <>
-                <p key={index} className="text-gray-600" dangerouslySetInnerHTML={{ __html: item?.featureValues[0]?.value }}>
-                  {/* {item?.featureValues[0]?.value} */}
+                <p key={index} className="text-gray-600" dangerouslySetInnerHTML={{ __html: item?.featureValues[0]?.value.replaceAll("reliancedigital@ril.com", "gadgetGlance@xyz.com").replaceAll("Reliance Digital", "Gadget Glance").replaceAll("Reliance Retail Ltd.", "Gadget Retail Ltd.").replaceAll("Reliance", "Gadget").replaceAll("Digital", "Glance") }}>
                 </p>
-              </>
             ))}
           </div>
         </div>
