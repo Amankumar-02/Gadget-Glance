@@ -45,7 +45,7 @@ function ProductInfoPage() {
     };
     fetchDataFromAPI();
   }, []);
-  //   console.log(fetchProductInfoData?.productData?.summary.split("\n"));
+    console.log(fetchProductInfoData);
   //   console.log(fetchEmiData)
 
   return (
@@ -118,7 +118,7 @@ function ProductInfoPage() {
                         <>
                           <div className="flex gap-2 items-center justify-center">
                           <div className="text-yellow-500 font-medium text-lg">
-                          <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i>
+                          <i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-line"></i>
                           </div>
                           <p>({fetchProductInfoData?.productData?.numberOfRatings} Ratings & {fetchProductInfoData?.productData?.numberOfReviews} Reviews)</p>
                           </div>
