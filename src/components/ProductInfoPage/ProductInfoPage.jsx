@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
-import { ProductSpecifications } from "../index";
+import { ProductSpecifications, ProductReviews } from "../index";
 
 function ProductInfoPage() {
   const { userId } = useParams();
@@ -321,6 +321,51 @@ function ProductInfoPage() {
                     )
                   </span>
                 </h1>
+                {!fetchProductInfoData?.productData?.numberOfRatings? (
+                  <>
+                  <p className="py-4 text-gray-700">There are no reviews for this product yet.</p>
+                  </>
+                ) :(
+                  <>
+                  <div className="flex items-center py-4 gap-2">
+                  <div className="text-yellow-500 font-medium text-lg">
+                  <i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-line"></i>
+                  </div>
+                  <p className="text-xs text-yellow-600 font-semibold">{fetchProductInfoData?.productData?.averageRating}/5</p>
+                  <p className="text-gray-600 font-semibold text-sm">({fetchProductInfoData?.productData?.numberOfRatings} Ratings & {fetchProductInfoData?.productData?.numberOfReviews} Reviews)</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <button className="text-[#0B3B85] border border-[#0B3B85] py-1 px-10 text-sm font-semibold">WRITE A REVIEW</button>
+                    <p className="text-[#0B3B85] font-semibold">(Read-T&C)</p>
+                  </div>
+                  {/* box */}
+                  {fetchProductInfoData?.productData?.reviews.map((item, index)=>(
+                    <ProductReviews key={index} productReviewData={item}/>
+                  ))}
+                  {/* <div>
+                    <div className="flex items-center">
+                      <h3>{fetchProductInfoData?.productData?.reviews[0]?.principal?.name}</h3>
+                      {fetchProductInfoData?.productData?.reviews[0]?.certified? (
+                        <>
+                        <div className="flex items-center">
+                        <i className="ri-checkbox-circle-fill text-green-600"></i>
+                        <p className="text-green-600 text-sm">Certified Buyer</p>
+                        </div>
+                        </>
+                      ) : (null)}
+                    </div>
+                    <div className="flex items-center">
+                      <div className="text-yellow-500 font-medium text-lg">
+                      <i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i>
+                      </div>
+                      <p>{fetchProductInfoData?.productData?.reviews[0]?.headline}</p>
+                    </div>
+                    <div>{fetchProductInfoData?.productData?.reviews[0]?.location}, {new Date(fetchProductInfoData?.productData?.reviews[0]?.date).getDate()}/{new Date(fetchProductInfoData?.productData?.reviews[0]?.date).getMonth()+1}/{new Date(fetchProductInfoData?.productData?.reviews[0]?.date).getFullYear()}</div>
+                    <p>{fetchProductInfoData?.productData?.reviews[0]?.comment}</p>
+                  </div> */}
+                  </>
+                )}
+                
               </div>
             </section>
           </div>
