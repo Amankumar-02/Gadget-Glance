@@ -10,8 +10,8 @@ function ProductSlider({ productSlideData }) {
   const {name, viewAllUrl, data } = productSlideData;
   return (
     <>
-      {/* {!productData ? null : (
-        <> */}
+      {!productSlideData ? null : (
+        <>
           <div className="py-8 px-10">
             <div className="flex">
               <h1 className="me-4 font-semibold">{name}</h1>
@@ -42,8 +42,8 @@ function ProductSlider({ productSlideData }) {
             </div>
           </div>
         </>
-    //   )}
-    // </>
+      )}
+    </>
   );
 }
 

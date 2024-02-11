@@ -10,8 +10,8 @@ function Slides({liveCarousalData}) {
     const liveCarousel = liveCarousalData;
   return (
     <>
-      {/* {!liveCarousel ? null : (
-        <> */}
+      {!liveCarousel ? null : (
+        <>
           <div>
             <Swiper
               spaceBetween={30}
@@ -40,8 +40,8 @@ function Slides({liveCarousalData}) {
               ))}
             </Swiper>
           </div>
-        {/* </>
-      )} */}
+        </>
+      )}
     </>
   );
 }

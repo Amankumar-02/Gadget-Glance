@@ -37,9 +37,11 @@ function Home() {
         <>
           <section>
             <Slides liveCarousalData={fetchHomeData?.Section4[0]?.data} />
+            <Slides liveCarousalData={fetchHomeData?.Section4[1]?.data} />
           </section>
           <section>
             <ProductSlider productSlideData={fetchHomeData?.Section5[0]} />
+            <ProductSlider productSlideData={fetchHomeData?.Section5[1]} />
           </section>
           <section>
             <GreatDeals greatDealsData={fetchHomeData?.Section2[0]} />

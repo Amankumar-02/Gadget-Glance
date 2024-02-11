@@ -5,8 +5,8 @@ function GreatDeals({ greatDealsData }) {
     const {name, data} = greatDealsData;
   return (
     <>
-      {/* {!dealsData ? null : (
-        <> */}
+      {!greatDealsData ? null : (
+        <>
           <div className="py-8 px-10">
             <div>
                 <h1 className="me-4 font-semibold">{name}</h1>
@@ -25,8 +25,8 @@ function GreatDeals({ greatDealsData }) {
             ))}
           </div>
           </div>
-        {/* </>
-      )} */}
+        </>
+      )}
     </>
   );
 }

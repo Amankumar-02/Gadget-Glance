@@ -45,7 +45,7 @@ function ProductInfoPage() {
     };
     fetchDataFromAPI();
   }, []);
-    console.log(fetchProductInfoData);
+    // console.log(fetchProductInfoData);
   //   console.log(fetchEmiData)
 
   return (

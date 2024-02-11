@@ -10,8 +10,8 @@ function ExploreProducts({exploreProductsData}) {
     const {name, data} = exploreProductsData;
   return (
     <>
-    {/* {!exploreSlideItems? (null):(
-        <> */}
+    {!exploreProductsData? (null):(
+        <>
         <div className='py-8 px-10'>
         <div><h1 className='text-center text-2xl font-bold'>{name}</h1></div>
         <div className='pt-10'>
@@ -40,8 +40,8 @@ function ExploreProducts({exploreProductsData}) {
           <button className='bg-[#003380] text-white text-sm px-4 py-2 rounded-3xl font-semibold'>View All</button>
         </div>
         </div>
-        {/* </>
-    )} */}
+        </>
+    )}
     </>
   )
 }
