@@ -61,7 +61,12 @@ const IMG_URL = "https://www.reliancedigital.in/";
 //localHost cors
 const HOME_URL = "v2/rrldigital/cms/pagedata?pageId=homepage&pageType=contentPage";
 
-const SEARCH_URL = "v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=tv%3Arelevance&page=0&size=24&pc=110059";
+const SEARCH_URL_All = "v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=tv%3Arelevance&page=0&size=24&pc=110059";
+const SEARCH_URL_CUSTOM = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=hp%20gaming%20laptop%3Arelevance&page=0&size=24&pc="
+// "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=categoryPage&categoryCode=S101210&searchQuery=%3Arelevance%3Aavailability%3AExclude%20out%20of%20Stock&page=0&size=24&pc="
+const SEARCH_URL_CUSTOM2 = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=laptop%3Arelevance&page=0&size=24&pc=110059"
+
+// "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=hp%20gaming%20laptop%3Arelevance&page=0&size=24&pc=110059"
 
 
 //OG URL
@@ -80,4 +85,4 @@ const PRODUCT_EMI_INFO_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrl
 // const SEARCH_URL = "https://corsproxy.org/?https%3A%2F%2Fwww.reliancedigital.in%2Frildigitalws%2Fv2%2Frrldigital%2Fcms%2Fpagedata%3FpageType%3DproductSearchPage%26q%3Dtv%253Arelevance%26page%3D0%26size%3D24%26pc%3D110059";
 
 
-export {navItems, footerItems, IMG_URL, HOME_URL, SEARCH_URL, PRODUCT_INFO_URL, PRODUCT_EMI_INFO_URL};
+export {navItems, footerItems, IMG_URL, HOME_URL, SEARCH_URL_All, SEARCH_URL_CUSTOM, SEARCH_URL_CUSTOM2, PRODUCT_INFO_URL, PRODUCT_EMI_INFO_URL};

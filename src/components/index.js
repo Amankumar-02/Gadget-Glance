@@ -11,5 +11,6 @@ import ProductCard from "./ProductCard/ProductCard";
 import ProductInfoPage from "./ProductInfoPage/ProductInfoPage";
 import ProductSpecifications from "./ProductSpecifications/ProductSpecifications";
 import ProductReviews from "./ProductReview/ProductReviews";
+import SearchProducts from "./SearchProducts/SearchProducts";
 
-export {Header, Footer, Home, Slides, ProductSlider, GreatDeals, BrandSection, ExploreProducts, Shimmer, ProductCard, ProductInfoPage, ProductSpecifications, ProductReviews};
+export {Header, Footer, Home, Slides, ProductSlider, GreatDeals, BrandSection, ExploreProducts, Shimmer, ProductCard, ProductInfoPage, ProductSpecifications, ProductReviews, SearchProducts};

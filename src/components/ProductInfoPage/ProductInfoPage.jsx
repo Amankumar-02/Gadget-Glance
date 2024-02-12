@@ -6,15 +6,13 @@ import {
 } from "../../utils/constant";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Shimmer from "../Shimmer/Shimmer";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
-import { ProductSpecifications, ProductReviews } from "../index";
+import { ProductSpecifications, ProductReviews, Shimmer } from "../index";
 
 function ProductInfoPage() {
   const { userId } = useParams();

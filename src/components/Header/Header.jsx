@@ -1,9 +1,17 @@
 import "./Header.css";
 import 'remixicon/fonts/remixicon.css';
 import { navItems } from '../../utils/constant';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Header() {
+  const [searchInput, setSearchInput] = useState("");
+  const navigate = useNavigate();
+  const searchSubmitEvent = (e)=>{
+    e.preventDefault();
+    console.log(searchInput)
+    navigate(`/search/${searchInput.toLowerCase()}`)
+  }
   return (
     <>
     <div className='sticky top-0 z-50'>
@@ -19,7 +27,9 @@ function Header() {
         <div><Link to={"/"}>
         <h1 className='text-3xl font-bold'>Gadget<span className='text-blue-400'>Glance</span></h1>
         </Link></div>
-        <div className='flex items-center bg-white pe-3 rounded-3xl'><input type="search" className='bg-white w-[400px] ps-4 py-1 rounded-3xl' placeholder='Find your favourite products '/><i className="ri-search-line bg-white text-gray-500 cursor-pointer"></i></div>
+        <form onSubmit={searchSubmitEvent}>
+        <div className='flex items-center bg-white pe-3 rounded-3xl'><input type="search" className='bg-white w-[400px] ps-4 py-1 rounded-3xl text-gray-800' placeholder='Find your favourite products' value={searchInput} onChange={(e)=>{setSearchInput(e.target.value)}}/><i className="ri-search-line bg-white text-gray-500 cursor-pointer"></i></div>
+        </form>
         <div>
           <a href="#" className='font-semibold'><i className="ri-map-pin-2-fill font-light"></i> Deliver to DELHI 110059</a>{'\ '}|{"\ "}
           <a href="#" className='font-semibold'><i className="ri-shopping-cart-2-fill font-light"></i> Cart</a>{'\ '}|{'\ '} 
