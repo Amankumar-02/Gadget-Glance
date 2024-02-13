@@ -151,7 +151,7 @@ function SearchProducts() {
                   <div className='flex w-fit justify-between items-center gap-4 float-right py-4'>
                   <button onClick={prevPage} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Prev</button>
                   <p className='text-gray-600 text-lg font-semibold'>
-                    {fetchSearchList?.productListData?.pagination?.currentPage}
+                    {fetchSearchList?.productListData?.pagination?.currentPage + 1}
                   </p>
                   <button onClick={nextPage} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Next</button>
                   <p className='text-gray-600 text-lg font-semibold'>Total Pages: {fetchSearchList?.productListData?.pagination?.numberOfPages}</p>
