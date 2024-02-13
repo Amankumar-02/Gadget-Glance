@@ -73,6 +73,7 @@ function SearchProducts() {
       return prev.replace(`%3A${currentFilter}`, `%3Arelevance`)
     })
   }
+  
 
   return (
     <>
@@ -92,7 +93,23 @@ function SearchProducts() {
           <section>
             <div className="flex gap-6 py-4 px-6">
               <div className="w-[20%]">
-                <SideFilter sideFilterData={fetchSearchList}/>
+                <SideFilter sideFilterData={fetchSearchList} event={setChangeUrl}/>
+                {/* <h2 className='text-lg font-semibold text-gray-700'>FILTERS</h2>
+                <div className="pt-14">
+                  <p className='text-xl text-gray-700 pb-2'>Price</p>
+                  <div className='flex justify-between items-center'>
+                    <div className='flex flex-col items-center justify-center border border-[#1774EF]'>
+                        <p className='text-[#1774EF] text-xs'>Min.</p>
+                        <input type="text" className='w-[70px] text-center text-gray-700 outline-none' value={minPrice} onChange={(e)=>{setMinPrice(e.target.value)}}/>
+                    </div>
+                    <p>to</p>
+                    <div className='flex flex-col items-center justify-center border border-[#1774EF]'>
+                        <p className='text-[#1774EF] text-xs'>Max.</p>
+                        <input type="text" className='w-[70px] text-center text-gray-700 outline-none' value={maxPrice} onChange={(e)=>{setMaxPrice(e.target.value)}}/>
+                    </div>
+                    <button onClick={priceFilterEvent} className='bg-[#1774EF] text-white font-semibold hover:bg-white hover:border-2 hover:border-[#1774EF] hover:text-[#1774EF] p-2'>Go</button>
+                  </div>
+                </div> */}
               </div>
               <div className="w-[80%]">
                 <div className="flex justify-between pb-4">
@@ -138,7 +155,7 @@ function SearchProducts() {
                   </p>
                   <button onClick={nextPage} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Next</button>
                   <p className='text-gray-600 text-lg font-semibold'>Total Pages: {fetchSearchList?.productListData?.pagination?.numberOfPages}</p>
-                </div>
+                  </div>
                   </>
                 ):(null)}
               </div>
