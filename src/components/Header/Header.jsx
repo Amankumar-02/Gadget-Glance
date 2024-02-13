@@ -33,7 +33,7 @@ function Header() {
         </form>
         <div>
           <a href="#" className='font-semibold'><i className="ri-map-pin-2-fill font-light"></i> Deliver to DELHI 110059</a>{'\ '}|{"\ "}
-          <a href="#" className='font-semibold'><i className="ri-shopping-cart-2-fill font-light"></i> Cart</a>{'\ '}|{'\ '} 
+          <Link to={'/cart'} className='font-semibold'><i className="ri-shopping-cart-2-fill font-light"></i> Cart</Link>{'\ '}|{'\ '} 
           <a href="#" className='font-semibold'><i className="ri-user-fill font-light"></i> Login</a></div>
       </div>
     </div>
