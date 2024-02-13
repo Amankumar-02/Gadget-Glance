@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 function SideFilter({sideFilterData, event}) {
     const [minPrice, setMinPrice] = useState(sideFilterData?.productListData?.facets[0]?.minPrice.replace(".0",""));
     const [maxPrice, setMaxPrice] = useState(sideFilterData?.productListData?.facets[0]?.maxPrice.replace(".0",""));
+    const [excludeOutOfStock, setExcludeOutOfStock] = useState(false);
     const priceFilterEvent = ()=>{
         event(prev=>{
             const pricefilterIndex1 = prev.indexOf('%3Arelevance');
@@ -14,31 +15,29 @@ function SideFilter({sideFilterData, event}) {
             return prev.replace(`%3Arelevance${currentFilter1}`, `%3Arelevance%3Aprice%3A%5B${minPrice}%20TO%20${maxPrice}%5D`).replace(`%3Aprice-asc${currentFilter2}`, `%3Aprice-asc%3Aprice%3A%5B${minPrice}%20TO%20${maxPrice}%5D`).replace(`%3Aprice-desc${currentFilter3}`, `%3Aprice-desc%3Aprice%3A%5B${minPrice}%20TO%20${maxPrice}%5D`)
         })
     }
-    const availEvent = ()=>{
-        event(prev=>{
-            const filterIndex = prev.indexOf('%3Arelevance');
-            const currentFilter = prev.slice(filterIndex + 12, prev.indexOf('&',filterIndex));
-            console.log("first")
-            return prev.replace(`%3Arelevance${currentFilter}`, `%3Arelevance%3Aavailability%3AExclude%20out%20of%20Stock`)
-        })
-        // event(prev => {
-        //     const filterIndex = prev.indexOf('%3Arelevance');
-        //     if (filterIndex !== -1) {
-        //         const currentFilter = prev.slice(filterIndex + 15, prev.indexOf('&', filterIndex));
-        //         console.log("Current Filter:", currentFilter); // Debugging statement
-        //         const newUrl = prev.replace(`%3Arelevance${currentFilter}`, `%3Arelevance%3Aavailability%3AExclude%20out%20of%20Stock`);
-        //         console.log("New URL:", newUrl); // Debugging statement
-        //         return newUrl;
-        //     } else {
-        //         console.log("Filter not found"); // Debugging statement
-        //         return prev;
-        //     }
-        // });
+    const availEvent = () => {
+        event(prev => {
+          let newUrl = prev;
+          const filterIndex = prev.indexOf('%3Arelevance');
+          const currentFilter = prev.slice(filterIndex + 12, prev.indexOf('&', filterIndex));
+          if (!excludeOutOfStock) {
+            console.log("Exclude out of stock");
+            newUrl = prev.replace(`%3Arelevance${currentFilter}`, `%3Arelevance%3Aavailability%3AExclude%20out%20of%20Stock`);
+          } else {
+            console.log("Include out of stock");
+            newUrl = prev.replace(`%3Arelevance%3Aavailability%3AExclude%20out%20of%20Stock`, '%3Arelevance');
+          }
+          return newUrl;
+        });
+    }
+    const handleCheckboxChange = (e) => {
+    setExcludeOutOfStock(e.target.checked);
+    availEvent();
     }
   return (
     <>
     <h2 className='text-lg font-semibold text-gray-700'>FILTERS</h2>
-    <div className="pt-14">
+    <div className="pt-12">
         <p className='text-xl text-gray-700 pb-2'>Price</p>
         <div className='flex justify-between items-center'>
         <div className='flex flex-col items-center justify-center border border-[#1774EF]'>
@@ -53,11 +52,18 @@ function SideFilter({sideFilterData, event}) {
         <button onClick={priceFilterEvent} className='bg-[#1774EF] text-white font-semibold hover:bg-white hover:border-2 hover:border-[#1774EF] hover:text-[#1774EF] p-2'>Go</button>
         </div>
     </div>
-    <div>
-        <p>Availability</p>
-        <button onClick={availEvent}>Exclude out of Stock
-        </button>
+    <div className='py-12'>
+        <p className='text-xl text-gray-700 pb-2'>Availability</p>
+        <input type="checkbox" id='avail' className='me-2' checked={excludeOutOfStock} onClick={handleCheckboxChange}/>
+        <label htmlFor="avail" className='text-gray-500'>Exclude out of Stock
+        </label>
     </div>
+    {/* <div>
+    <p className='text-xl text-gray-700 pb-2'>Category</p>
+        <input type="checkbox" id='avail' className='me-2' checked={excludeOutOfStock} onClick={handleCheckboxChange}/>
+        <label htmlFor="avail" className='text-gray-500'>Laptops
+        </label>
+    </div> */}
     </>
   )
 }
