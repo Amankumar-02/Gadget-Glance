@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { SEARCH_URL_CUSTOM } from '../../utils/constant';
-import { ProductCard, Shimmer, Slides } from '../index'
+import { Shimmer } from '../index'
+import {ItemCard, SideFilter} from './index';
 
 function SearchProducts() {
   const { userId } = useParams();
@@ -9,11 +10,12 @@ function SearchProducts() {
   const searchProductList2 = userId.replaceAll(" ", "%20");
   const searchProductList3 = SEARCH_URL_CUSTOM.slice(-31);
   const [fetchSearchList, setFetchSearchList] = useState(null);
-  // console.log(searchProductList1+searchProductList2+searchProductList3)
+  const [changeUrl , setChangeUrl] = useState(searchProductList1+searchProductList2+searchProductList3);
+
   useEffect(() => {
     const fetchDataFromAPI = async () => {
       try {
-        const res = await fetch(searchProductList1+searchProductList2+searchProductList3);
+        const res = await fetch(changeUrl);
         if (!res.ok) {
           throw new Error("Error Serving Data");
         } else {
@@ -25,65 +27,129 @@ function SearchProducts() {
       }
     };
     fetchDataFromAPI();
-  }, []);
-  // console.log(fetchSearchList);
+  }, [changeUrl, userId]);
+  const prevPage = ()=>{
+    setChangeUrl(prev => {
+      const pageIndex = prev.indexOf('page=');
+      if (pageIndex !==-1) {
+        const currentPage = parseInt(prev.slice(pageIndex + 5, prev.indexOf('&', pageIndex)));
+        const prevPage = currentPage - 1;
+        return prev.replace(`page=${currentPage}`, `page=${prevPage}`);
+      } else {
+        return prev;
+      }
+    });
+  }
+  const nextPage = ()=>{
+    setChangeUrl(prev => {
+      const pageIndex = prev.indexOf('page=');
+      const currentPage = parseInt(prev.slice(pageIndex + 5, prev.indexOf('&', pageIndex)));
+      if (currentPage < fetchSearchList?.productListData?.pagination?.numberOfPages) {
+        const nextPage = currentPage + 1;
+        return prev.replace(`page=${currentPage}`, `page=${nextPage}`);
+      } else {
+        return prev;
+      }
+    });
+  }
+  const highToLowEvent = ()=>{
+    setChangeUrl(prev=>{
+      const filterIndex = prev.indexOf('%3A');
+      const currentFilter = prev.slice(filterIndex + 3, prev.indexOf('&',filterIndex));
+      return prev.replace(`%3A${currentFilter}`, `%3Aprice-desc`)
+    })
+  }
+  const lowToHighEvent = ()=>{
+    setChangeUrl(prev=>{
+      const filterIndex = prev.indexOf('%3A');
+      const currentFilter = prev.slice(filterIndex + 3, prev.indexOf('&',filterIndex));
+      return prev.replace(`%3A${currentFilter}`, `%3Aprice-asc`)
+    })
+  }
+  const relevanceEvent = ()=>{
+    setChangeUrl(prev=>{
+      const filterIndex = prev.indexOf('%3A');
+      const currentFilter = prev.slice(filterIndex + 3, prev.indexOf('&',filterIndex));
+      return prev.replace(`%3A${currentFilter}`, `%3Arelevance`)
+    })
+  }
 
   return (
     <>
-    {!fetchSearchList? (<Shimmer/>) : (
-      <>
-      {/* <section>
-        <Slides liveCarousalData={fetchSearchList?.BannerSection[0]?.data}/>
-      </section> */}
-      <section>
-        <div className="flex items-center justify-start py-1 px-4 text-gray-700">
-          <i className="ri-home-4-fill text-base"></i>
-          <div className="ms-2 text-xs capitalize">
-            {`> ${userId} > Search`}
-          </div>
-        </div>
-        <hr />
-      </section>
-      <section>
-        <div className='flex py-2 px-4'>
-          <div className='w-[20%]'>
-            <h2>FILTERS</h2>
-            <div className='w-full'>
-              <p>Price</p>
-              <input type="range" max={fetchSearchList?.productListData?.facets[0]?.maxPrice.replace(".0", "")} min={fetchSearchList?.productListData?.facets[0]?.minPrice.replace(".0", "")} className='w-full' />
-              <div className='flex justify-between w-full'>
-                <p>₹{fetchSearchList?.productListData?.facets[0]?.minPrice.replace(".0", "")}</p>
-                <p>₹{fetchSearchList?.productListData?.facets[0]?.maxPrice.replace(".0", "")}</p>
+      {!fetchSearchList ? (
+        <Shimmer />
+      ) : (
+        <>
+          <section>
+            <div className="flex items-center justify-start py-1 px-4 text-gray-700">
+              <i className="ri-home-4-fill text-base"></i>
+              <div className="ms-2 text-xs capitalize">
+                {`> ${fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value.split(":")[0]} > Search`}
               </div>
             </div>
-          </div>
-          <div className='w-[80%]'>
-            <div className='flex justify-between'>
-              <div>
-                <h1 className='uppercase'>{userId}</h1>
-                <p>(Showing {fetchSearchList?.productListData?.pagination?.numberOfPages}-{fetchSearchList?.productListData?.pagination?.pageSize} products of {fetchSearchList?.productListData?.pagination?.totalNumberOfResults} products)</p>
+          </section>
+          <hr />
+          <section>
+            <div className="flex gap-6 py-4 px-6">
+              <div className="w-[20%]">
+                <SideFilter sideFilterData={fetchSearchList}/>
               </div>
-              <div className='flex items-center gap-4'>
-                <p>Sort By:</p>
-                <button>Relevance</button>
-                <button>Price(Low-High)</button>
-                <button>Price(High-Low)</button>
+              <div className="w-[80%]">
+                <div className="flex justify-between pb-4">
+                  <div>
+                    <h1 className="uppercase text-xl font-bold text-gray-700">{fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value.split(":")[0]}</h1>
+                    <p className='text-gray-400'>
+                      (Showing{" "}
+                      {
+                        fetchSearchList?.productListData?.pagination
+                          ?.currentPage
+                      }
+                      -{fetchSearchList?.productListData?.pagination?.pageSize}{" "}
+                      products of{" "}
+                      {
+                        fetchSearchList?.productListData?.pagination
+                          ?.totalNumberOfResults
+                      }{" "}
+                      products)
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <p>Sort By:</p>
+                    <button onClick={relevanceEvent} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Relevance</button>
+                    <button onClick={lowToHighEvent} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Price(Low-High)</button>
+                    <button onClick={highToLowEvent} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Price(High-Low)</button>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap">
+                  {fetchSearchList?.productListData?.results.map(
+                    (item, index) => (
+                      <ItemCard key={index} items={item}/>
+                    )
+                  )}
+                </div>
+
+                {fetchSearchList?.productListData?.pagination?.numberOfPages>1? (
+                  <>
+                  <div className='flex w-fit justify-between items-center gap-4 float-right py-4'>
+                  <button onClick={prevPage} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Prev</button>
+                  <p className='text-gray-600 text-lg font-semibold'>
+                    {fetchSearchList?.productListData?.pagination?.currentPage}
+                  </p>
+                  <button onClick={nextPage} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Next</button>
+                  <p className='text-gray-600 text-lg font-semibold'>Total Pages: {fetchSearchList?.productListData?.pagination?.numberOfPages}</p>
+                </div>
+                  </>
+                ):(null)}
               </div>
             </div>
-            <div>
-              {fetchSearchList?.productListData?.results.map((item, index)=>(
-              <div key={index} className='w-[25%]'>
-                <ProductCard items={item}/>
-              </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-      </>
-    )}
+          </section>
+          <hr />
+          <section></section>
+        </>
+      )}
     </>
-  )
+  );
 }
 
 export default SearchProducts

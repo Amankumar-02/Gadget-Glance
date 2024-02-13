@@ -10,7 +10,8 @@ function Header() {
   const searchSubmitEvent = (e)=>{
     e.preventDefault();
     console.log(searchInput)
-    navigate(`/search/${searchInput.toLowerCase()}`)
+    navigate(`/search/${searchInput.toLowerCase()}`);
+    window.location.reload();
   }
   return (
     <>
