@@ -5,7 +5,7 @@ import {
   PRODUCT_EMI_INFO_URL,
 } from "../../utils/constant";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -13,14 +13,16 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
 import { ProductSpecifications, ProductReviews, Shimmer } from "../index";
+import { storeCartData } from "../../features/cart/cartSlice";
+import { useDispatch } from "react-redux";
 
 function ProductInfoPage() {
   const { userId } = useParams();
-  let productUrl = PRODUCT_INFO_URL+userId.slice(-9);
-  let productEmi = PRODUCT_EMI_INFO_URL+userId.slice(-9);
-  let [fetchProductInfoData, setFetchProductData] = useState(null);
-  let [fetchEmiData, setFetchEmiData] = useState(null);
-  let [zoomImg, setZoomImg] = useState("");
+  const productUrl = PRODUCT_INFO_URL+userId.slice(-9);
+  const productEmi = PRODUCT_EMI_INFO_URL+userId.slice(-9);
+  const [fetchProductInfoData, setFetchProductData] = useState(null);
+  const [fetchEmiData, setFetchEmiData] = useState(null);
+  const [zoomImg, setZoomImg] = useState("");
   useEffect(() => {
     const fetchDataFromAPI = async () => {
       try {
@@ -43,8 +45,12 @@ function ProductInfoPage() {
     };
     fetchDataFromAPI();
   }, []);
-    // console.log(fetchProductInfoData);
-  //   console.log(fetchEmiData)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const addProduct = (data)=>{
+    dispatch(storeCartData(data));
+    navigate("/cart")
+  }
 
   return (
     <>
@@ -244,7 +250,7 @@ function ProductInfoPage() {
                       </>
                     ) : null}
                     <div className="flex gap-1 w-full">
-                      <button className="w-full bg-red-500 text-white p-2 text-lg font-semibold">
+                      <button className="w-full bg-red-500 text-white p-2 text-lg font-semibold" onClick={()=>addProduct(fetchProductInfoData)}>
                         ADD TO CART
                       </button>
                       <button className="w-full bg-orange-500 text-white p-2 text-lg font-semibold">
