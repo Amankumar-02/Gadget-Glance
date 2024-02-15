@@ -37,7 +37,8 @@ function Home() {
         <>
           <section>
             <Slides liveCarousalData={fetchHomeData?.Section4[0]?.data} />
-            <Slides liveCarousalData={fetchHomeData?.Section4[1]?.data} />
+            <Slides liveCarousalData={fetchHomeData?.Section11[0]?.data} />
+            {/* <Slides liveCarousalData={fetchHomeData?.Section4[1]?.data} /> */}
           </section>
           <section>
             <ProductSlider productSlideData={fetchHomeData?.Section5[0]} />
@@ -54,7 +55,8 @@ function Home() {
           <section>
             <Slides liveCarousalData={fetchHomeData?.Section1[0]?.data}/>
             <div className='p-4'></div>
-            <Slides liveCarousalData={fetchHomeData?.Section11[0]?.data} />
+            <Slides liveCarousalData={fetchHomeData?.Section4[1]?.data} />
+            {/* <Slides liveCarousalData={fetchHomeData?.Section11[0]?.data} /> */}
           </section>
           <section>
             {fetchHomeData?.Section8.map((item, index) => (

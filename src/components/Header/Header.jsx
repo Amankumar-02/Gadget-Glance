@@ -11,7 +11,7 @@ function Header() {
     e.preventDefault();
     console.log(searchInput)
     navigate(`/search/${searchInput.toLowerCase()}`);
-    window.location.reload();
+    // window.location.reload();
   }
   return (
     <>

@@ -8,7 +8,7 @@ function ItemCard({items}) {
     <>
       <Link
         to={"/productInfo/" + url.replaceAll("/", "_")}
-        target="_blank"
+        // target="_blank"
         className="w-[25%] my-4 px-2"
       >
         <div className="productItemHover">

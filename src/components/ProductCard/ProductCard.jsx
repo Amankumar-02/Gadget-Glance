@@ -5,7 +5,8 @@ function ProductCard({items}) {
     const {teaserType, imageUrl, name, sellingPrice, mrp, discount, hasPP, skuId, url} = items;
   return (
     <>
-    <Link to={"/productInfo/" + url.replaceAll("/", "_")} target="_blank">
+    {/* <Link to={"/productInfo/" + url.replaceAll("/", "_")} target="_blank"> */}
+    <Link to={"/productInfo/" + url.replaceAll("/", "_")}>
       <div className="productItemHover relative">
         {!teaserType ? null : (
           <>

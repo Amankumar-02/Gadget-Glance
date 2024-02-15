@@ -5,6 +5,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import './Slides.css';
+import { Link } from 'react-router-dom';
 
 function Slides({liveCarousalData}) {
     const liveCarousel = liveCarousalData;
@@ -28,13 +29,15 @@ function Slides({liveCarousalData}) {
               modules={[Autoplay, Pagination, Navigation]}
               className="mySwiper"
             >
-              {liveCarousel.map(({url, imageUrl}, index) => (
+              {liveCarousel.map(({url, imageUrl, name}, index) => (
                 <SwiperSlide key={index}>
                     {/* <a href={url} target='_blank'> */}
-                    <img
+                    <Link to={`/search/${url.split('campaign=')[1].split('&')[0].replaceAll("_", " ").replaceAll("&", "and").replaceAll("-", " ")}`}>
+                      <img
                         src={IMG_URL + imageUrl}
                         alt=""
-                    />
+                      />
+                    </Link>
                     {/* </a> */}
                 </SwiperSlide>
               ))}

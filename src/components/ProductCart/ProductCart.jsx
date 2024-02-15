@@ -2,13 +2,14 @@ import 'remixicon/fonts/remixicon.css';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IMG_URL } from '../../utils/constant';
-// import { removeCartData } from '../../features/cart/cartSlice';
+import { removeCartData } from '../../features/cart/cartSlice';
 import { useNavigate, Link } from 'react-router-dom';
 
 function ProductCart() {
   const storeData = useSelector(state=>state.cart.cart);
+  console.log(storeData)
   const [newStoreData, setNewStoreData] = useState(storeData);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const descQuantity = (e)=>{
     setNewStoreData(prev=>prev.map((prev)=>prev?.productData?.code===e? {...prev, productQuantity: (prev.productQuantity || 0)-1} : prev ))
@@ -17,10 +18,13 @@ function ProductCart() {
     setNewStoreData(prev=>prev.map((prev)=>prev?.productData?.code===e? {...prev, productQuantity: (prev.productQuantity || 0)+1} : prev ))
   }
   const removeProduct = (e)=>{
-    setNewStoreData(prev => prev.filter(newPrev => newPrev?.productData?.code !== e))
+    // setNewStoreData(prev => prev.filter(newPrev => newPrev?.productData?.code !== e))
+    // dispatch(removeCartData(prev => prev.filter(newPrev => newPrev?.productData?.code !== e)))
+    dispatch(removeCartData(e));
   }
   useEffect(()=>{
-    localStorage.setItem('cart', JSON.stringify(newStoreData))
+    // localStorage.setItem('cart', JSON.stringify(newStoreData))
+    setNewStoreData(storeData);
   }, [descQuantity, incrQuantity, removeProduct])
   const checkOutEvent = ()=>{
     navigate("/checkout")

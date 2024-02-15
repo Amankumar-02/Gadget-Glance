@@ -62,7 +62,7 @@ const IMG_URL = "https://www.reliancedigital.in/";
 const HOME_URL = "v2/rrldigital/cms/pagedata?pageId=homepage&pageType=contentPage";
 
 // const SEARCH_URL_All = "v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=tv%3Arelevance&page=0&size=24&pc=110059";
-const SEARCH_URL_CUSTOM = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=hp%20gaming%20laptop%3Arelevance&page=0&size=24&pc="
+const SEARCH_URL_CUSTOM = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=hp%20gaming%20laptop%3Arelevance&page=0&size=24&pc=110059"
 // "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=categoryPage&categoryCode=S101210&searchQuery=%3Arelevance%3Aavailability%3AExclude%20out%20of%20Stock&page=0&size=24&pc="
 // const SEARCH_URL_CUSTOM2 = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=laptop%3Arelevance&page=0&size=24&pc=110059"
 

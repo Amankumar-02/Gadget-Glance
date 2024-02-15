@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import { SEARCH_URL_CUSTOM } from '../../utils/constant';
+// import { SEARCH_URL_CUSTOM } from '../../utils/constant';
 import { Shimmer } from '../index'
 import {ItemCard, SideFilter} from './index';
 
 function SearchProducts() {
   const { userId } = useParams();
-  const searchProductList1 = SEARCH_URL_CUSTOM.slice(0, 100);
+  // const searchProductList1 = SEARCH_URL_CUSTOM.slice(0, 100);
   const searchProductList2 = userId.replaceAll(" ", "%20");
-  const searchProductList3 = SEARCH_URL_CUSTOM.slice(-31);
+  // const searchProductList3 = SEARCH_URL_CUSTOM.slice(-37);
+  // const [changeUrl , setChangeUrl] = useState(searchProductList1+searchProductList2+searchProductList3);
+  const [changeUrl , setChangeUrl] = useState("https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q="+searchProductList2+"%3Arelevance&page=0&size=24&pc=110059");
   const [fetchSearchList, setFetchSearchList] = useState(null);
-  const [changeUrl , setChangeUrl] = useState(searchProductList1+searchProductList2+searchProductList3);
 
   useEffect(() => {
     const fetchDataFromAPI = async () => {
@@ -27,7 +28,7 @@ function SearchProducts() {
       }
     };
     fetchDataFromAPI();
-  }, [changeUrl, userId]);
+  }, [changeUrl]);
   const prevPage = ()=>{
     setChangeUrl(prev => {
       const pageIndex = prev.indexOf('page=');
@@ -52,29 +53,14 @@ function SearchProducts() {
       }
     });
   }
-  const highToLowEvent = ()=>{
+  const applyFilter  = (filter)=>{
     setChangeUrl(prev=>{
       const filterIndex = prev.indexOf('%3A');
       const currentFilter = prev.slice(filterIndex + 3, prev.indexOf('&',filterIndex));
-      return prev.replace(`%3A${currentFilter}`, `%3Aprice-desc`)
-    })
-  }
-  const lowToHighEvent = ()=>{
-    setChangeUrl(prev=>{
-      const filterIndex = prev.indexOf('%3A');
-      const currentFilter = prev.slice(filterIndex + 3, prev.indexOf('&',filterIndex));
-      return prev.replace(`%3A${currentFilter}`, `%3Aprice-asc`)
-    })
-  }
-  const relevanceEvent = ()=>{
-    setChangeUrl(prev=>{
-      const filterIndex = prev.indexOf('%3A');
-      const currentFilter = prev.slice(filterIndex + 3, prev.indexOf('&',filterIndex));
-      return prev.replace(`%3A${currentFilter}`, `%3Arelevance`)
+      return prev.replace(`%3A${currentFilter}`, `%3A${filter}`)
     })
   }
   
-
   return (
     <>
       {!fetchSearchList ? (
@@ -132,9 +118,9 @@ function SearchProducts() {
                   </div>
                   <div className="flex items-center gap-4">
                     <p>Sort By:</p>
-                    <button onClick={relevanceEvent} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Relevance</button>
-                    <button onClick={lowToHighEvent} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Price(Low-High)</button>
-                    <button onClick={highToLowEvent} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Price(High-Low)</button>
+                    <button onClick={()=>{applyFilter("relevance")}} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Relevance</button>
+                    <button onClick={()=>{applyFilter("price-asc")}} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Price(Low-High)</button>
+                    <button onClick={()=>{applyFilter("price-desc")}} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Price(High-Low)</button>
                   </div>
                 </div>
 
