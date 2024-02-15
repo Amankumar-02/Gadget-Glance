@@ -30,12 +30,12 @@ function Slides({liveCarousalData}) {
             >
               {liveCarousel.map(({url, imageUrl}, index) => (
                 <SwiperSlide key={index}>
-                    <a href={url} target='_blank'>
+                    {/* <a href={url} target='_blank'> */}
                     <img
                         src={IMG_URL + imageUrl}
                         alt=""
                     />
-                    </a>
+                    {/* </a> */}
                 </SwiperSlide>
               ))}
             </Swiper>

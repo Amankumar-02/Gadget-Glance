@@ -13,5 +13,6 @@ import ProductSpecifications from "./ProductSpecifications/ProductSpecifications
 import ProductReviews from "./ProductReview/ProductReviews";
 import SearchProducts from "./SearchProducts/SearchProducts";
 import ProductCart from "./ProductCart/ProductCart";
+import CheckOut from "./CheckOut/CheckOut";
 
-export {Header, Footer, Home, Slides, ProductSlider, GreatDeals, BrandSection, ExploreProducts, Shimmer, ProductCard, ProductInfoPage, ProductSpecifications, ProductReviews, SearchProducts, ProductCart};
+export {Header, Footer, Home, Slides, ProductSlider, GreatDeals, BrandSection, ExploreProducts, Shimmer, ProductCard, ProductInfoPage, ProductSpecifications, ProductReviews, SearchProducts, ProductCart, CheckOut};

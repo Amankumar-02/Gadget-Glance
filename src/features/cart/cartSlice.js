@@ -13,13 +13,14 @@ export const cartSlice = createSlice({
             state.cart = newCart;
             localStorage.setItem('cart', JSON.stringify(newCart));
         },
-        removeCartData: (state, action) => {
-            state.cart = state.cart.filter(prev => prev?.productData?.code !== action.payload);
-            localStorage.setItem('cart', JSON.stringify(state.cart));
-        }
+        // removeCartData: (state, action) => {
+        //     state.cart = state.cart.filter(prev => prev?.productData?.code !== action.payload);
+        //     localStorage.setItem('cart', JSON.stringify(state.cart));
+        // }
     }
 })
 
-export const {storeCartData, removeCartData} = cartSlice.actions
+// export const {storeCartData, removeCartData} = cartSlice.actions
+export const {storeCartData} = cartSlice.actions
 
 export default cartSlice.reducer

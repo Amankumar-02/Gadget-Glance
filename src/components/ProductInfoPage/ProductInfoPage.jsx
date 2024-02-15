@@ -48,7 +48,7 @@ function ProductInfoPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const addProduct = (data)=>{
-    dispatch(storeCartData(data));
+    dispatch(storeCartData({productQuantity: 1, ...data}));
     navigate("/cart")
   }
 
