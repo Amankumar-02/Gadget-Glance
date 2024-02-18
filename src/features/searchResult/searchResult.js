@@ -1,27 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    cart: localStorage.getItem('cart')? JSON.parse(localStorage.getItem('cart')) : [],
+    searchResult: "",
 }
 
-export const cartSlice = createSlice({
-    name: 'cart',
+export const searchResultSlice = createSlice({
+    name: 'searchResult',
     initialState,
     reducers:{
-        storeCartData : (state, action)=>{
-            const newCart = [action.payload, ...state.cart];
-            state.cart = newCart;
-            // localStorage.setItem('cart', JSON.stringify(newCart));
-        },
-        removeCartData : (state, action) => {
-            const newCart = state.cart.filter(prev => prev?.productData?.code !== action.payload);
-            state.cart = newCart;
-            // localStorage.setItem('cart', JSON.stringify(state.cart));
+        storeSearchResult : (state, action)=>{
+            const newState = action.payload;
+            state.searchResult = newState;
         },
     }
 })
 
-export const {storeCartData, removeCartData} = cartSlice.actions
-// export const {storeCartData} = cartSlice.actions
+export const {storeSearchResult, } = searchResultSlice.actions
 
-export default cartSlice.reducer
+export default searchResultSlice.reducer

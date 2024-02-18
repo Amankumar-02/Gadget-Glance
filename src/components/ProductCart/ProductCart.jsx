@@ -2,30 +2,23 @@ import 'remixicon/fonts/remixicon.css';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IMG_URL } from '../../utils/constant';
-import { removeCartData } from '../../features/cart/cartSlice';
+import { removeCartData, editCartQuantityData } from '../../features/cart/cartSlice';
 import { useNavigate, Link } from 'react-router-dom';
 
 function ProductCart() {
   const storeData = useSelector(state=>state.cart.cart);
-  console.log(storeData)
   const [newStoreData, setNewStoreData] = useState(storeData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const descQuantity = (e)=>{
-    setNewStoreData(prev=>prev.map((prev)=>prev?.productData?.code===e? {...prev, productQuantity: (prev.productQuantity || 0)-1} : prev ))
-  }
-  const incrQuantity = (e)=>{
-    setNewStoreData(prev=>prev.map((prev)=>prev?.productData?.code===e? {...prev, productQuantity: (prev.productQuantity || 0)+1} : prev ))
+  const editQuantityEvent = (code, task)=>{
+    dispatch(editCartQuantityData({code: code, task: task}));
   }
   const removeProduct = (e)=>{
-    // setNewStoreData(prev => prev.filter(newPrev => newPrev?.productData?.code !== e))
-    // dispatch(removeCartData(prev => prev.filter(newPrev => newPrev?.productData?.code !== e)))
     dispatch(removeCartData(e));
   }
   useEffect(()=>{
-    // localStorage.setItem('cart', JSON.stringify(newStoreData))
     setNewStoreData(storeData);
-  }, [descQuantity, incrQuantity, removeProduct])
+  }, [editQuantityEvent, removeProduct])
   const checkOutEvent = ()=>{
     navigate("/checkout")
   }
@@ -66,21 +59,21 @@ function ProductCart() {
                     <div className="flex justify-between py-3 px-4 ">
                       <div id="left" className="flex w-[60%]">
                         <div className="flex flex-col items-center">
-                          <Link to={"/productInfo/" + item?.productData?.url.replaceAll("/", "_")}>
-                          <div className="w-[160px] py-4 pe-4">
-                            <img
-                              src={
-                                IMG_URL + item?.productData?.media[0]?.zoomUrl
-                              }
-                              alt=""
-                              />
-                          </div>
+                          <Link to={"/productInfo/" + item?.productData?.code}>
+                            <div className="w-[160px] py-4 pe-4">
+                              <img
+                                src={
+                                  IMG_URL + item?.productData?.media[0]?.zoomUrl
+                                }
+                                alt=""
+                                />
+                            </div>
                           </Link>
                           <div className="border flex rounded w-fit">
                             <button
                               className="px-4 hover:font-semibold"
                               onClick={() => {
-                                descQuantity(item?.productData?.code);
+                                editQuantityEvent(item?.productData?.code, "decrease");
                               }}
                             >
                               -
@@ -89,45 +82,45 @@ function ProductCart() {
                             <button
                               className="px-4 hover:font-semibold"
                               onClick={() => {
-                                incrQuantity(item?.productData?.code);
+                                editQuantityEvent(item?.productData?.code, "increase");
                               }}
                             >
                               +
                             </button>
                           </div>
                         </div>
-                        <Link to={"/productInfo/" + item?.productData?.url.replaceAll("/", "_")}>
-                        <div>
-                          {item?.productData?.name.length > 90 ? (
-                            <>
-                              <p className="text-[#003088] font-semibold text-sm">
-                                {item?.productData?.name.slice(0, 90) + "..."}
-                              </p>
-                            </>
-                          ) : (
-                            <>
-                              <p className="text-[#003088] font-semibold">
-                                {item?.productData?.name}
-                              </p>
-                            </>
-                          )}
-                          <p className="text-gray-500 font-semibold text-sm">
-                            {item?.productData?.code}
-                          </p>
-                          <div className="flex items-center">
-                            <div className="text-yellow-500 font-medium text-lg">
-                              <i className="ri-star-fill"></i>
-                              <i className="ri-star-fill"></i>
-                              <i className="ri-star-fill"></i>
-                              <i className="ri-star-fill"></i>
-                              <i className="ri-star-line"></i>
-                            </div>
-                            <p className="ms-2 text-sm text-[#003088]">
-                              ({item?.productData?.numberOfRatings} Ratings &{" "}
-                              {item?.productData?.numberOfReviews} Reviews)
+                        <Link to={"/productInfo/" + item?.productData?.code}>
+                          <div>
+                            {item?.productData?.name.length > 90 ? (
+                              <>
+                                <p className="text-[#003088] font-semibold text-sm">
+                                  {item?.productData?.name.slice(0, 90) + "..."}
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <p className="text-[#003088] font-semibold">
+                                  {item?.productData?.name}
+                                </p>
+                              </>
+                            )}
+                            <p className="text-gray-500 font-semibold text-sm">
+                              {item?.productData?.code}
                             </p>
+                            <div className="flex items-center">
+                              <div className="text-yellow-500 font-medium text-lg">
+                                <i className="ri-star-fill"></i>
+                                <i className="ri-star-fill"></i>
+                                <i className="ri-star-fill"></i>
+                                <i className="ri-star-fill"></i>
+                                <i className="ri-star-line"></i>
+                              </div>
+                              <p className="ms-2 text-sm text-[#003088]">
+                                ({item?.productData?.numberOfRatings} Ratings &{" "}
+                                {item?.productData?.numberOfReviews} Reviews)
+                              </p>
+                            </div>
                           </div>
-                        </div>
                         </Link>
                       </div>
                       <div id="right" className="flex flex-col gap-1 w-[38%]">
@@ -227,15 +220,6 @@ function ProductCart() {
                       Items)
                     </p>
                     <p className="text-gray-600 text-sm font-semibold">
-                      {/* {newStoreData
-                        .reduce(
-                          (a, b) => a + (b?.productData?.price?.value || 0),
-                          0
-                        )
-                        .toLocaleString("en-IN", {
-                          style: "currency",
-                          currency: "INR",
-                        })} */}
                         {parseInt(
                         newStoreData.reduce(
                           (a, b) =>
@@ -271,15 +255,6 @@ function ProductCart() {
                     <h4 className="text-gray-600 font-semibold">
                       AMOUNT PAYABLE
                     </h4>
-                    {/* <p className='text-[#003088] font-semibold'>{newStoreData
-                          .reduce(
-                            (a, b) => a + (b?.productData?.price?.value || 0),
-                            0
-                          )
-                          .toLocaleString("en-IN", {
-                            style: "currency",
-                            currency: "INR",
-                          })*newStoreData.reduce((a,b)=>{ return a + (b?.productQuantity ||0);})}</p> */}
                     <p className="text-[#003088] font-semibold">
                       {parseInt(
                         newStoreData.reduce(

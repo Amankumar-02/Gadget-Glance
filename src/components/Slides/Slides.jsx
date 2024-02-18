@@ -13,36 +13,77 @@ function Slides({liveCarousalData}) {
     <>
       {!liveCarousel ? null : (
         <>
-          <div>
-            <Swiper
-              spaceBetween={30}
-              loop={true}
-              centeredSlides={true}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              pagination={{
-                clickable: true,
-              }}
-              navigation={true}
-              modules={[Autoplay, Pagination, Navigation]}
-              className="mySwiper"
-            >
-              {liveCarousel.map(({url, imageUrl, name}, index) => (
-                <SwiperSlide key={index}>
-                    {/* <a href={url} target='_blank'> */}
-                    <Link to={`/search/${url.split('campaign=')[1].split('&')[0].replaceAll("_", " ").replaceAll("&", "and").replaceAll("-", " ")}`}>
-                      <img
-                        src={IMG_URL + imageUrl}
-                        alt=""
-                      />
-                    </Link>
-                    {/* </a> */}
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
+          {liveCarousel.length > 1 ? (
+            <>
+              <div>
+                <Swiper
+                  spaceBetween={30}
+                  loop={true}
+                  centeredSlides={true}
+                  autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                  }}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  navigation={true}
+                  modules={[Autoplay, Pagination, Navigation]}
+                  className="mySwiper"
+                >
+                  {liveCarousel.map(({ url, imageUrl, name }, index) => (
+                    <SwiperSlide key={index}>
+                      <Link
+                        to={`search/${name
+                          .toLowerCase()
+                          .replaceAll("%", " ")
+                          .replaceAll("|", " ")
+                          .replaceAll("/", " ")
+                          .replaceAll("&", "and")}`}
+                      >
+                        <img src={IMG_URL + imageUrl} alt="" />
+                      </Link>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <Swiper
+                  spaceBetween={30}
+                  loop={false}
+                  centeredSlides={true}
+                  autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                  }}
+                  pagination={{
+                    clickable: false,
+                  }}
+                  navigation={false}
+                  modules={[Autoplay, Pagination, Navigation]}
+                  className="mySwiper"
+                >
+                  {liveCarousel.map(({ url, imageUrl, name }, index) => (
+                    <SwiperSlide key={index}>
+                      <Link
+                        to={`search/${name
+                          .toLowerCase()
+                          .replaceAll("%", " ")
+                          .replaceAll("|", " ")
+                          .replaceAll("/", " ")
+                          .replaceAll("&", "and")}`}
+                      >
+                        <img src={IMG_URL + imageUrl} alt="" />
+                      </Link>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </>
+          )}
         </>
       )}
     </>

@@ -8,7 +8,7 @@ import {ProductCard} from '../index';
 import { Link } from "react-router-dom";
 
 function ProductSlider({ productSlideData }) {
-  const {name, viewAllUrl, data } = productSlideData;
+  const {name, data } = productSlideData;
   return (
     <>
       {!productSlideData ? null : (
@@ -16,13 +16,11 @@ function ProductSlider({ productSlideData }) {
           <div className="py-8 px-10">
             <div className="flex">
               <h1 className="me-4 font-semibold">{name}</h1>
-              {/* <a href={viewAllUrl} target="_blank"> */}
-              <Link to={`/search/${name.toLowerCase().replace("%", " ").replace("|", " ").replace("/", " ")}`}>
+              <Link to={`/search/${name.toLowerCase().replaceAll("%", " ").replaceAll("|", " ").replaceAll("/", " ").replaceAll("&", "and")}`}>
                 <button className="bg-[#003380] text-white text-xs px-4 py-1 font-semibold">
                   View all
                 </button>
               </Link>
-              {/* </a> */}
             </div>
             <div className="pt-10">
               <Swiper

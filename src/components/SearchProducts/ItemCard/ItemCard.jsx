@@ -2,13 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { IMG_URL } from "../../../utils/constant";
 
-function ItemCard({items}) {
-    const { media, name, price, hasPP, url } = items;
+function ItemCard({ items }) {
+  const { media, name, price, hasPP, code } = items;
   return (
     <>
       <Link
-        to={"/productInfo/" + url.replaceAll("/", "_")}
-        // target="_blank"
+        to={"/productInfo/" + code}
         className="w-[25%] my-4 px-2"
       >
         <div className="productItemHover">

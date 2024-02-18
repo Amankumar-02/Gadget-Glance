@@ -11,6 +11,7 @@ import { HOME_URL } from "../../utils/constant.js";
 
 function Home() {
   let [fetchHomeData, setFetchHomeData] = useState(null);
+  // fetch Api
   useEffect(() => {
     const fetchDataFromAPI = async () => {
       try {
@@ -38,11 +39,11 @@ function Home() {
           <section>
             <Slides liveCarousalData={fetchHomeData?.Section4[0]?.data} />
             <Slides liveCarousalData={fetchHomeData?.Section11[0]?.data} />
-            {/* <Slides liveCarousalData={fetchHomeData?.Section4[1]?.data} /> */}
           </section>
           <section>
-            <ProductSlider productSlideData={fetchHomeData?.Section5[0]} />
-            <ProductSlider productSlideData={fetchHomeData?.Section5[1]} />
+            {fetchHomeData?.Section5.map((item, index) => (
+              <ProductSlider key={index} productSlideData={item} />
+            ))}
           </section>
           <section>
             <GreatDeals greatDealsData={fetchHomeData?.Section2[0]} />
@@ -53,10 +54,7 @@ function Home() {
             ))}
           </section>
           <section>
-            <Slides liveCarousalData={fetchHomeData?.Section1[0]?.data}/>
-            <div className='p-4'></div>
             <Slides liveCarousalData={fetchHomeData?.Section4[1]?.data} />
-            {/* <Slides liveCarousalData={fetchHomeData?.Section11[0]?.data} /> */}
           </section>
           <section>
             {fetchHomeData?.Section8.map((item, index) => (
@@ -64,8 +62,12 @@ function Home() {
             ))}
           </section>
           <section>
-            <ExploreProducts exploreProductsData={fetchHomeData?.Section10[0]} />
-            <BrandSection brandSelectionData={fetchHomeData?.Section9[0]?.data} />
+            <ExploreProducts
+              exploreProductsData={fetchHomeData?.Section10[0]}
+            />
+            <BrandSection
+              brandSelectionData={fetchHomeData?.Section9[0]?.data}
+            />
           </section>
         </>
       )}

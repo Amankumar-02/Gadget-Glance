@@ -4,31 +4,65 @@ function SideFilter({sideFilterData, event}) {
     const [minPrice, setMinPrice] = useState(sideFilterData?.productListData?.facets[0]?.minPrice.replace(".0",""));
     const [maxPrice, setMaxPrice] = useState(sideFilterData?.productListData?.facets[0]?.maxPrice.replace(".0",""));
     const [excludeOutOfStock, setExcludeOutOfStock] = useState(false);
+
+    //Original
+    // const priceFilterEvent = ()=>{
+    //     event(prev=>{
+    //         const pricefilterIndex1 = prev.indexOf('%3Arelevance');
+    //         const pricefilterIndex2 = prev.indexOf('%3Aprice-asc');
+    //         const pricefilterIndex3 = prev.indexOf('%3Aprice-desc');
+    //         const currentFilter1 = prev.slice(pricefilterIndex1 + 12, prev.indexOf('&',pricefilterIndex1));
+    //         const currentFilter2 = prev.slice(pricefilterIndex2 + 12, prev.indexOf('&',pricefilterIndex2));
+    //         const currentFilter3 = prev.slice(pricefilterIndex3 + 13, prev.indexOf('&',pricefilterIndex3));
+    //         return prev.replace(`%3Arelevance${currentFilter1}`, `%3Arelevance%3Aprice%3A%5B${minPrice}%20TO%20${maxPrice}%5D`).replace(`%3Aprice-asc${currentFilter2}`, `%3Aprice-asc%3Aprice%3A%5B${minPrice}%20TO%20${maxPrice}%5D`).replace(`%3Aprice-desc${currentFilter3}`, `%3Aprice-desc%3Aprice%3A%5B${minPrice}%20TO%20${maxPrice}%5D`)
+    //     })
+    // }
+
+    //corsProxy
     const priceFilterEvent = ()=>{
-        event(prev=>{
-            const pricefilterIndex1 = prev.indexOf('%3Arelevance');
-            const pricefilterIndex2 = prev.indexOf('%3Aprice-asc');
-            const pricefilterIndex3 = prev.indexOf('%3Aprice-desc');
-            const currentFilter1 = prev.slice(pricefilterIndex1 + 12, prev.indexOf('&',pricefilterIndex1));
-            const currentFilter2 = prev.slice(pricefilterIndex2 + 12, prev.indexOf('&',pricefilterIndex2));
-            const currentFilter3 = prev.slice(pricefilterIndex3 + 13, prev.indexOf('&',pricefilterIndex3));
-            return prev.replace(`%3Arelevance${currentFilter1}`, `%3Arelevance%3Aprice%3A%5B${minPrice}%20TO%20${maxPrice}%5D`).replace(`%3Aprice-asc${currentFilter2}`, `%3Aprice-asc%3Aprice%3A%5B${minPrice}%20TO%20${maxPrice}%5D`).replace(`%3Aprice-desc${currentFilter3}`, `%3Aprice-desc%3Aprice%3A%5B${minPrice}%20TO%20${maxPrice}%5D`)
-        })
+      event(prev=>{
+          const pricefilterIndex1 = prev.indexOf('%253Arelevance');
+          const pricefilterIndex2 = prev.indexOf('%253Aprice-asc');
+          const pricefilterIndex3 = prev.indexOf('%253Aprice-desc');
+          const currentFilter1 = prev.slice(pricefilterIndex1 + 14, prev.indexOf('%26',pricefilterIndex1));
+          const currentFilter2 = prev.slice(pricefilterIndex2 + 14, prev.indexOf('%26',pricefilterIndex2));
+          const currentFilter3 = prev.slice(pricefilterIndex3 + 15, prev.indexOf('%26',pricefilterIndex3));
+          return prev.replace(`%253Arelevance${currentFilter1}`, `%253Arelevance%3Aprice%3A%5B${minPrice}%2520TO%2520${maxPrice}%5D`).replace(`%253Aprice-asc${currentFilter2}`, `%253Aprice-asc%3Aprice%3A%5B${minPrice}%2520TO%2520${maxPrice}%5D`).replace(`%253Aprice-desc${currentFilter3}`, `%253Aprice-desc%3Aprice%3A%5B${minPrice}%2520TO%2520${maxPrice}%5D`)
+      })
     }
+
+    //Original
+    // const availEvent = () => {
+    //     event(prev => {
+    //       let newUrl = prev;
+    //       const filterIndex = prev.indexOf('%3Arelevance');
+    //       const currentFilter = prev.slice(filterIndex + 12, prev.indexOf('&', filterIndex));
+    //       if (!excludeOutOfStock) {
+    //         console.log("Exclude out of stock");
+    //         newUrl = prev.replace(`%3Arelevance${currentFilter}`, `%3Arelevance%3Aavailability%3AExclude%20out%20of%20Stock`);
+    //       } else {
+    //         console.log("Include out of stock");
+    //         newUrl = prev.replace(`%3Arelevance%3Aavailability%3AExclude%20out%20of%20Stock`, '%3Arelevance');
+    //       }
+    //       return newUrl;
+    //     });
+    // }
+
+    //corsProxy
     const availEvent = () => {
-        event(prev => {
-          let newUrl = prev;
-          const filterIndex = prev.indexOf('%3Arelevance');
-          const currentFilter = prev.slice(filterIndex + 12, prev.indexOf('&', filterIndex));
-          if (!excludeOutOfStock) {
-            console.log("Exclude out of stock");
-            newUrl = prev.replace(`%3Arelevance${currentFilter}`, `%3Arelevance%3Aavailability%3AExclude%20out%20of%20Stock`);
-          } else {
-            console.log("Include out of stock");
-            newUrl = prev.replace(`%3Arelevance%3Aavailability%3AExclude%20out%20of%20Stock`, '%3Arelevance');
-          }
-          return newUrl;
-        });
+      event(prev => {
+        let newUrl = prev;
+        const filterIndex = prev.indexOf('%253Arelevance');
+        const currentFilter = prev.slice(filterIndex + 14, prev.indexOf('%26', filterIndex));
+        if (!excludeOutOfStock) {
+          // console.log("Exclude out of stock");
+          newUrl = prev.replace(`%253Arelevance${currentFilter}`, `%253Arelevance%253Aavailability%253AExclude%2520out%2520of%2520Stock`);
+        } else {
+          // console.log("Include out of stock");
+          newUrl = prev.replace(`%253Arelevance%253Aavailability%253AExclude%2520out%2520of%2520Stock`, '%253Arelevance');
+        }
+        return newUrl;
+      });
     }
     const handleCheckboxChange = (e) => {
     setExcludeOutOfStock(e.target.checked);
@@ -58,12 +92,6 @@ function SideFilter({sideFilterData, event}) {
         <label htmlFor="avail" className='text-gray-500'>Exclude out of Stock
         </label>
     </div>
-    {/* <div>
-    <p className='text-xl text-gray-700 pb-2'>Category</p>
-        <input type="checkbox" id='avail' className='me-2' checked={excludeOutOfStock} onClick={handleCheckboxChange}/>
-        <label htmlFor="avail" className='text-gray-500'>Laptops
-        </label>
-    </div> */}
     </>
   )
 }

@@ -18,11 +18,12 @@ import { useDispatch } from "react-redux";
 
 function ProductInfoPage() {
   const { userId } = useParams();
-  const productUrl = PRODUCT_INFO_URL+userId.slice(-9);
-  const productEmi = PRODUCT_EMI_INFO_URL+userId.slice(-9);
+  const productUrl = PRODUCT_INFO_URL+userId;
+  const productEmi = PRODUCT_EMI_INFO_URL+userId;
   const [fetchProductInfoData, setFetchProductData] = useState(null);
   const [fetchEmiData, setFetchEmiData] = useState(null);
   const [zoomImg, setZoomImg] = useState("");
+  //fetch api
   useEffect(() => {
     const fetchDataFromAPI = async () => {
       try {
@@ -160,14 +161,6 @@ function ProductInfoPage() {
                       <h2 className="font-bold text-lg text-gray-700">
                         Key Features
                       </h2>
-                      {/* <ul>
-                    {fetchProductInfoData?.productData?.summary
-                      .split("\n")
-                      .map((item, index) => (
-                        <a key={index} className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: item }}>
-                        </a>
-                        ))}
-                        </ul> */}
                       <ul
                         className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm"
                         dangerouslySetInnerHTML={{
@@ -203,7 +196,10 @@ function ProductInfoPage() {
                     <p className="text-lg text-gray-800">
                       Deal Price:{" "}
                       <span className="text-xl text-[#0B3B85] font-semibold">
-                        ₹{fetchProductInfoData?.productData?.price?.value}.00
+                        {fetchProductInfoData?.productData?.price?.value.toLocaleString("en-IN", {
+                        style: "currency",
+                        currency: "INR",
+                      })}
                       </span>
                     </p>
                     {!fetchProductInfoData?.productData?.price?.rrp? (null) :(
@@ -288,7 +284,6 @@ function ProductInfoPage() {
                     __html: fetchProductInfoData?.productData?.description,
                   }}
                 >
-                  {/* {fetchProductInfoData?.productData?.description} */}
                 </p>
                 <h1
                   id="specs"
@@ -342,31 +337,9 @@ function ProductInfoPage() {
                     <button className="text-[#0B3B85] border border-[#0B3B85] py-1 px-10 text-sm font-semibold">WRITE A REVIEW</button>
                     <p className="text-[#0B3B85] font-semibold">(Read-T&C)</p>
                   </div>
-                  {/* box */}
                   {fetchProductInfoData?.productData?.reviews.map((item, index)=>(
                     <ProductReviews key={index} productReviewData={item}/>
                   ))}
-                  {/* <div>
-                    <div className="flex items-center">
-                      <h3>{fetchProductInfoData?.productData?.reviews[0]?.principal?.name}</h3>
-                      {fetchProductInfoData?.productData?.reviews[0]?.certified? (
-                        <>
-                        <div className="flex items-center">
-                        <i className="ri-checkbox-circle-fill text-green-600"></i>
-                        <p className="text-green-600 text-sm">Certified Buyer</p>
-                        </div>
-                        </>
-                      ) : (null)}
-                    </div>
-                    <div className="flex items-center">
-                      <div className="text-yellow-500 font-medium text-lg">
-                      <i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i>
-                      </div>
-                      <p>{fetchProductInfoData?.productData?.reviews[0]?.headline}</p>
-                    </div>
-                    <div>{fetchProductInfoData?.productData?.reviews[0]?.location}, {new Date(fetchProductInfoData?.productData?.reviews[0]?.date).getDate()}/{new Date(fetchProductInfoData?.productData?.reviews[0]?.date).getMonth()+1}/{new Date(fetchProductInfoData?.productData?.reviews[0]?.date).getFullYear()}</div>
-                    <p>{fetchProductInfoData?.productData?.reviews[0]?.comment}</p>
-                  </div> */}
                   </>
                 )}
                 

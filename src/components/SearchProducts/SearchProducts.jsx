@@ -1,18 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-// import { SEARCH_URL_CUSTOM } from '../../utils/constant';
+import { SEARCH_URL_CUSTOM } from '../../utils/constant';
 import { Shimmer } from '../index'
 import {ItemCard, SideFilter} from './index';
+// import { useSelector } from 'react-redux';
 
 function SearchProducts() {
   const { userId } = useParams();
-  // const searchProductList1 = SEARCH_URL_CUSTOM.slice(0, 100);
-  const searchProductList2 = userId.replaceAll(" ", "%20");
-  // const searchProductList3 = SEARCH_URL_CUSTOM.slice(-37);
-  // const [changeUrl , setChangeUrl] = useState(searchProductList1+searchProductList2+searchProductList3);
-  const [changeUrl , setChangeUrl] = useState("https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q="+searchProductList2+"%3Arelevance&page=0&size=24&pc=110059");
+  // const searchStoreData = useSelector(state=>state.searchResult.searchResult);
+  const [changeUrl , setChangeUrl] = useState(null);
   const [fetchSearchList, setFetchSearchList] = useState(null);
+  
+  // verify the params input
+  useEffect(() => {
+    if (userId) {
+      // Original
+      // const searchQuery = userId.toLowerCase().replaceAll("%", " ").replaceAll("|", " ").replaceAll("/", " ").replaceAll("&", "and").replaceAll(" ", "%20");
 
+      // corsProxy
+      const searchQuery = userId.toLowerCase().replaceAll("%", " ").replaceAll("|", " ").replaceAll("/", " ").replaceAll("&", "and").replaceAll(" ", "%2520");
+
+      // Original
+      // const url = `${SEARCH_URL_CUSTOM.slice(0, 100)}${searchQuery}${SEARCH_URL_CUSTOM.slice(-37)}`;
+
+      //corsProxy
+      const url = `${SEARCH_URL_CUSTOM.slice(0, 147)}${searchQuery}${SEARCH_URL_CUSTOM.slice(-51)}`;
+
+      setChangeUrl(url);
+    }
+  }, [userId]);
+
+  // fetch the api depending on params
   useEffect(() => {
     const fetchDataFromAPI = async () => {
       try {
@@ -27,40 +45,142 @@ function SearchProducts() {
         console.error("Error fetching data:", error);
       }
     };
-    fetchDataFromAPI();
+    if (changeUrl) {
+      fetchDataFromAPI();
+    }
   }, [changeUrl]);
-  const prevPage = ()=>{
+
+  // Original
+  // const prevPage = ()=>{
+  //   setChangeUrl(prev => {
+  //     const pageIndex = prev.indexOf('page=');
+  //     if (pageIndex !==-1) {
+  //       const currentPage = parseInt(prev.slice(pageIndex + 5, prev.indexOf('&', pageIndex)));
+  //       const prevPage = currentPage - 1;
+  //       return prev.replace(`page=${currentPage}`, `page=${prevPage}`);
+  //     } else {
+  //       return prev;
+  //     }
+  //   });
+  // }
+
+  //corsProxy
+  // const prevPage = ()=>{
+  //   setChangeUrl(prev => {
+  //     const pageIndex = prev.indexOf('page%3D');
+  //     if (pageIndex !==-1) {
+  //       const currentPage = parseInt(prev.slice(pageIndex + 7, prev.indexOf('%26', pageIndex)));
+  //       const prevPage = currentPage - 1;
+  //       return prev.replace(`page%3D${currentPage}`, `page%3D${prevPage}`);
+  //     } else {
+  //       return prev;
+  //     }
+  //   });
+  // }
+
+  // Original
+  // const nextPage = ()=>{
+  //   setChangeUrl(prev => {
+  //     const pageIndex = prev.indexOf('page=');
+  //     const currentPage = parseInt(prev.slice(pageIndex + 5, prev.indexOf('&', pageIndex)));
+  //     if (currentPage < fetchSearchList?.productListData?.pagination?.numberOfPages) {
+  //       const nextPage = currentPage + 1;
+  //       return prev.replace(`page=${currentPage}`, `page=${nextPage}`);
+  //     } else {
+  //       return prev;
+  //     }
+  //   });
+  // }
+
+  //corsProxy
+  // const nextPage = ()=>{
+  //   setChangeUrl(prev => {
+  //     const pageIndex = prev.indexOf('page%3D');
+  //     const currentPage = parseInt(prev.slice(pageIndex + 7, prev.indexOf('%26', pageIndex)));
+  //     if (currentPage < fetchSearchList?.productListData?.pagination?.numberOfPages) {
+  //       const nextPage = currentPage + 1;
+  //       return prev.replace(`page%3D${currentPage}`, `page%3D${nextPage}`);
+  //     } else {
+  //       return prev;
+  //     }
+  //   });
+  // }
+
+  // Original
+  // const paginationItems = (direction)=>{
+  //   setChangeUrl(prev => {
+  //     const pageIndex = prev.indexOf('page=');
+  //     // if (pageIndex !== -1) {
+  //       const currentPage = parseInt(prev.slice(pageIndex + 5, prev.indexOf('&', pageIndex)));
+  //       let newPage;
+  //       if (direction === 'prev') {
+  //         if(currentPage > 0){
+  //           newPage = currentPage - 1;
+  //         }else{
+  //           newPage = 0;
+  //         }
+  //       } else if (direction === 'next') {
+  //         if (currentPage < fetchSearchList?.productListData?.pagination?.numberOfPages-1) {
+  //           newPage = currentPage + 1;
+  //         } else {
+  //           newPage = fetchSearchList?.productListData?.pagination?.numberOfPages-1;
+  //         }
+  //       }
+
+  //       return prev.replace(`page=${currentPage}`, `page=${newPage}`);
+  //     // } else {
+  //       // return prev;
+  //     // }
+  //   });
+  // }
+
+  // corsProxy
+  const paginationItems = (direction)=>{
     setChangeUrl(prev => {
-      const pageIndex = prev.indexOf('page=');
-      if (pageIndex !==-1) {
-        const currentPage = parseInt(prev.slice(pageIndex + 5, prev.indexOf('&', pageIndex)));
-        const prevPage = currentPage - 1;
-        return prev.replace(`page=${currentPage}`, `page=${prevPage}`);
-      } else {
-        return prev;
-      }
+      const pageIndex = prev.indexOf('page%3D');
+      // if (pageIndex !== -1) {
+        const currentPage = parseInt(prev.slice(pageIndex + 7, prev.indexOf('%26', pageIndex)));
+        let newPage;
+        if (direction === 'prev') {
+          if(currentPage > 0){
+            newPage = currentPage - 1;
+          }else{
+            newPage = 0;
+          }
+        } else if (direction === 'next') {
+          if (currentPage < fetchSearchList?.productListData?.pagination?.numberOfPages-1) {
+            newPage = currentPage + 1;
+          } else {
+            newPage = fetchSearchList?.productListData?.pagination?.numberOfPages-1;
+          }
+        }
+
+        return prev.replace(`page%3D${currentPage}`, `page%3D${newPage}`);
+      // } else {
+        // return prev;
+      // }
     });
-  }
-  const nextPage = ()=>{
-    setChangeUrl(prev => {
-      const pageIndex = prev.indexOf('page=');
-      const currentPage = parseInt(prev.slice(pageIndex + 5, prev.indexOf('&', pageIndex)));
-      if (currentPage < fetchSearchList?.productListData?.pagination?.numberOfPages) {
-        const nextPage = currentPage + 1;
-        return prev.replace(`page=${currentPage}`, `page=${nextPage}`);
-      } else {
-        return prev;
-      }
-    });
-  }
-  const applyFilter  = (filter)=>{
-    setChangeUrl(prev=>{
-      const filterIndex = prev.indexOf('%3A');
-      const currentFilter = prev.slice(filterIndex + 3, prev.indexOf('&',filterIndex));
-      return prev.replace(`%3A${currentFilter}`, `%3A${filter}`)
-    })
   }
   
+
+  // Original
+  // const applyFilter  = (filter)=>{
+  //   setChangeUrl(prev=>{
+  //     const filterIndex = prev.indexOf('%3A');
+  //     const currentFilter = prev.slice(filterIndex + 3, prev.indexOf('&',filterIndex));
+  //     return prev.replace(`%3A${currentFilter}`, `%3A${filter}`)
+  //   })
+  // }
+
+  //corsProxy
+  const applyFilter  = (filter)=>{
+    setChangeUrl(prev=>{
+      const filterIndex = prev.indexOf('%253A');
+      const currentFilter = prev.slice(filterIndex + 5, prev.indexOf('%26',filterIndex));
+      return prev.replace(`%253A${currentFilter}`, `%253A${filter}`)
+    })
+  }
+
   return (
     <>
       {!fetchSearchList ? (
@@ -71,7 +191,7 @@ function SearchProducts() {
             <div className="flex items-center justify-start py-1 px-4 text-gray-700">
               <i className="ri-home-4-fill text-base"></i>
               <div className="ms-2 text-xs capitalize">
-                {`> ${fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value.split(":")[0]} > Search`}
+                {`> ${fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value.split(":")[0].replaceAll("%2520", " ").replaceAll("%20", " ")} > Search`}
               </div>
             </div>
           </section>
@@ -80,27 +200,11 @@ function SearchProducts() {
             <div className="flex gap-6 py-4 px-6">
               <div className="w-[20%]">
                 <SideFilter sideFilterData={fetchSearchList} event={setChangeUrl}/>
-                {/* <h2 className='text-lg font-semibold text-gray-700'>FILTERS</h2>
-                <div className="pt-14">
-                  <p className='text-xl text-gray-700 pb-2'>Price</p>
-                  <div className='flex justify-between items-center'>
-                    <div className='flex flex-col items-center justify-center border border-[#1774EF]'>
-                        <p className='text-[#1774EF] text-xs'>Min.</p>
-                        <input type="text" className='w-[70px] text-center text-gray-700 outline-none' value={minPrice} onChange={(e)=>{setMinPrice(e.target.value)}}/>
-                    </div>
-                    <p>to</p>
-                    <div className='flex flex-col items-center justify-center border border-[#1774EF]'>
-                        <p className='text-[#1774EF] text-xs'>Max.</p>
-                        <input type="text" className='w-[70px] text-center text-gray-700 outline-none' value={maxPrice} onChange={(e)=>{setMaxPrice(e.target.value)}}/>
-                    </div>
-                    <button onClick={priceFilterEvent} className='bg-[#1774EF] text-white font-semibold hover:bg-white hover:border-2 hover:border-[#1774EF] hover:text-[#1774EF] p-2'>Go</button>
-                  </div>
-                </div> */}
               </div>
               <div className="w-[80%]">
                 <div className="flex justify-between pb-4">
                   <div>
-                    <h1 className="uppercase text-xl font-bold text-gray-700">{fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value.split(":")[0]}</h1>
+                    <h1 className="uppercase text-xl font-bold text-gray-700">{fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value.split(":")[0].replaceAll("%2520", " ").replaceAll("%20", " ")}</h1>
                     <p className='text-gray-400'>
                       (Showing{" "}
                       {
@@ -135,11 +239,11 @@ function SearchProducts() {
                 {fetchSearchList?.productListData?.pagination?.numberOfPages>1? (
                   <>
                   <div className='flex w-fit justify-between items-center gap-4 float-right py-4'>
-                  <button onClick={prevPage} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Prev</button>
+                  <button onClick={()=>{paginationItems("prev")}} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Prev</button>
                   <p className='text-gray-600 text-lg font-semibold'>
                     {fetchSearchList?.productListData?.pagination?.currentPage + 1}
                   </p>
-                  <button onClick={nextPage} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Next</button>
+                  <button onClick={()=>{paginationItems("next")}} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Next</button>
                   <p className='text-gray-600 text-lg font-semibold'>Total Pages: {fetchSearchList?.productListData?.pagination?.numberOfPages}</p>
                   </div>
                   </>
