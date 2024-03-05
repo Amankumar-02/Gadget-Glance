@@ -3,10 +3,13 @@ import "remixicon/fonts/remixicon.css";
 import { navItems } from "../../utils/constant";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 // import { storeSearchResult } from "../../features/searchResult/searchResult";
 
 function Header() {
+  const storeData = useSelector(state=>state.cart.cart);
+  console.log(storeData)
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -28,10 +31,10 @@ function Header() {
     <>
       <div className="sticky top-0 z-50">
         <div className="px-8 bg-[#E42529]">
-          <div className="py-2 flex justify-between items-center text-white flex-col lg:flex-row">
+          <div className="py-2 flex gap-1 justify-between items-center text-white flex-col lg:flex-row">
             <div>
               <Link to={"/"}>
-                <h1 className="text-3xl font-bold">
+                <h1 className="text-xl lg:text-3xl font-bold">
                   Gadget<span className="text-blue-400">Glance</span>
                 </h1>
               </Link>
@@ -40,7 +43,7 @@ function Header() {
               <div className="flex items-center bg-white pe-3 rounded-3xl">
                 <input
                   type="text"
-                  className="bg-white w-[400px] ps-4 py-1 rounded-3xl text-gray-800 outline-none"
+                  className="bg-white lg:w-[400px] ps-4 lg:py-1 rounded-3xl text-gray-800 outline-none"
                   placeholder="Find your favourite products"
                   value={searchInput}
                   onChange={(e) => {
@@ -51,24 +54,24 @@ function Header() {
               </div>
             </form>
             <div>
-              <div className="inline-block font-semibold">
-                <i className="ri-map-pin-2-fill font-light"></i> Deliver to NEW
-                DELHI
+              <div className="inline-block font-semibold text-sm lg:text-base">
+                <i className="ri-map-pin-2-fill font-light"></i> Deliver to New
+                Delhi
               </div>{" "}
               |{" "}
               <Link
                 to={"/cart"}
-                className="font-semibold hover:border hover:border-x-0 hover:border-t-0 hover:border-b-2"
+                className="font-semibold text-sm lg:text-base hover:border hover:border-x-0 hover:border-t-0 hover:border-b-2"
               >
                 <i className="ri-shopping-cart-2-fill font-light">
                   {" "}
-                  <span className="font-semibold">Cart</span>
+                  <span className="font-semibold">Cart{storeData.length > 0? (<>: {storeData.length}</>):null}</span>
                 </i>
               </Link>{" "}
               |{" "}
               <Link
                 to={"/"}
-                className="font-semibold hover:border hover:border-x-0 hover:border-t-0 hover:border-b-2"
+                className="font-semibold text-sm lg:text-base hover:border hover:border-x-0 hover:border-t-0 hover:border-b-2"
               >
                 <i className="ri-user-fill font-light">
                   {" "}
@@ -78,7 +81,7 @@ function Header() {
             </div>
           </div>
         </div>
-        <div className="bg-[#003380] text-white flex items-center lg:justify-between px-10 py-1 flex-wrap lg:flex-nowrap">
+        <div className="bg-[#003380] text-white hidden lg:flex items-center lg:justify-between px-10 py- flex-wrap lg:flex-nowrap">
           {navItems.map((item, index) => (
             // <div className="flex items-center justify-center">
               <Link to={`search/${item.title.toLowerCase()}`} key={index} className="flex items-center justify-center">
@@ -88,6 +91,7 @@ function Header() {
             // </div>
           ))}
         </div>
+        <div className="h-[4px] bg-[#003380] w-full block lg:hidden"></div>
       </div>
     </>
   );

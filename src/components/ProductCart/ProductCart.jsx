@@ -2,7 +2,7 @@ import 'remixicon/fonts/remixicon.css';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IMG_URL } from '../../utils/constant';
-import { removeCartData, editCartQuantityData } from '../../features/cart/cartSlice';
+import { removeCartData, editCartQuantityData, clearCartItems } from '../../features/cart/cartSlice';
 import { useNavigate, Link } from 'react-router-dom';
 
 function ProductCart() {
@@ -20,7 +20,8 @@ function ProductCart() {
     setNewStoreData(storeData);
   }, [editQuantityEvent, removeProduct])
   const checkOutEvent = ()=>{
-    navigate("/checkout")
+    // navigate("/checkout")
+    dispatch(clearCartItems());
   }
   return (
     <>
@@ -33,8 +34,8 @@ function ProductCart() {
         </>
       ) : (
         <>
-          <div className="flex py-6 px-14">
-            <div className="w-[65%]">
+          <div className="flex flex-col lg:flex-row py-2 lg:py-6 px-4 lg:px-14">
+            <div className="w-full lg:w-[65%]">
               <div
                 id="topBar"
                 className="flex justify-between items-center border py-2 px-4"
@@ -56,8 +57,8 @@ function ProductCart() {
               <div id="items">
                 {newStoreData.map((item, index) => (
                   <div key={index} className="border my-2">
-                    <div className="flex justify-between py-3 px-4 ">
-                      <div id="left" className="flex w-[60%]">
+                    <div className="flex justify-between flex-col lg:flex-row py-3 lg:px-4 ">
+                      <div id="left" className="flex w-full lg:w-[60%]">
                         <div className="flex flex-col items-center">
                           <Link to={"/productInfo/" + item?.productData?.code}>
                             <div className="w-[160px] py-4 pe-4">
@@ -107,15 +108,15 @@ function ProductCart() {
                             <p className="text-gray-500 font-semibold text-sm">
                               {item?.productData?.code}
                             </p>
-                            <div className="flex items-center">
-                              <div className="text-yellow-500 font-medium text-lg">
+                            <div className="flex lg:items-center flex-col lg:flex-row">
+                              <div className="text-yellow-500 font-medium lg:text-lg">
                                 <i className="ri-star-fill"></i>
                                 <i className="ri-star-fill"></i>
                                 <i className="ri-star-fill"></i>
                                 <i className="ri-star-fill"></i>
                                 <i className="ri-star-line"></i>
                               </div>
-                              <p className="ms-2 text-sm text-[#003088]">
+                              <p className="lg:ms-2 text-sm text-[#003088]">
                                 ({item?.productData?.numberOfRatings} Ratings &{" "}
                                 {item?.productData?.numberOfReviews} Reviews)
                               </p>
@@ -123,7 +124,7 @@ function ProductCart() {
                           </div>
                         </Link>
                       </div>
-                      <div id="right" className="flex flex-col gap-1 w-[38%]">
+                      <div id="right" className="flex flex-col gap-1 w-full lg:w-[38%]">
                         <h2 className="text-end text-lg font-extrabold">
                           {item?.productData?.price?.value.toLocaleString(
                             "en-IN",
@@ -196,7 +197,7 @@ function ProductCart() {
                 ))}
               </div>
             </div>
-            <div className="w-[35%] ms-10">
+            <div className="w-full lg:w-[35%] lg:ms-10">
               <div>
                 <button
                   className="bg-red-600 text-white w-full rounded py-2 text-sm font-semibold"

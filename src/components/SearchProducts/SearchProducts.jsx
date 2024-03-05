@@ -187,25 +187,27 @@ function SearchProducts() {
         <Shimmer />
       ) : (
         <>
-          <section>
+          <section className=''>
+            <div>
             <div className="flex items-center justify-start py-1 px-4 text-gray-700">
               <i className="ri-home-4-fill text-base"></i>
               <div className="ms-2 text-xs capitalize">
                 {`> ${fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value.split(":")[0].replaceAll("%2520", " ").replaceAll("%20", " ")} > Search`}
               </div>
             </div>
+            </div>
           </section>
           <hr />
           <section>
-            <div className="flex gap-6 py-4 px-6">
-              <div className="w-[20%]">
+            <div className="flex gap-6 py-2 lg:py-4 px-4 lg:px-6">
+              <div className="relative w-[20%]">
                 <SideFilter sideFilterData={fetchSearchList} event={setChangeUrl}/>
               </div>
               <div className="w-[80%]">
-                <div className="flex justify-between pb-4">
+                <div className="flex justify-between pb-4 flex-col lg:flex-row">
                   <div>
-                    <h1 className="uppercase text-xl font-bold text-gray-700">{fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value.split(":")[0].replaceAll("%2520", " ").replaceAll("%20", " ")}</h1>
-                    <p className='text-gray-400'>
+                    <h1 className="uppercase text-sm lg:text-lg font-bold text-gray-700">{fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value.split(":")[0].replaceAll("%2520", " ").replaceAll("%20", " ")}</h1>
+                    <p className='text-xs lg:text-base text-gray-400'>
                       (Showing{" "}
                       {
                         fetchSearchList?.productListData?.pagination
@@ -220,11 +222,11 @@ function SearchProducts() {
                       products)
                     </p>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 lg:gap-4 flex-wrap lg:flex-nowrap">
                     <p>Sort By:</p>
-                    <button onClick={()=>{applyFilter("relevance")}} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Relevance</button>
-                    <button onClick={()=>{applyFilter("price-asc")}} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Price(Low-High)</button>
-                    <button onClick={()=>{applyFilter("price-desc")}} className='text-green-600 border border-green-600 text-sm px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl'>Price(High-Low)</button>
+                    <button onClick={()=>{applyFilter("relevance")}} className='text-green-600 border border-green-600 text-sm px-1 lg:px-3 lg:py-1 hover:bg-green-600 hover:text-white rounded-xl'>Relevance</button>
+                    <button onClick={()=>{applyFilter("price-asc")}} className='text-green-600 border border-green-600 text-sm px-1 lg:px-3 lg:py-1 hover:bg-green-600 hover:text-white rounded-xl'>Price(Low-High)</button>
+                    <button onClick={()=>{applyFilter("price-desc")}} className='text-green-600 border border-green-600 text-sm px-1 lg:px-3 lg:py-1 hover:bg-green-600 hover:text-white rounded-xl'>Price(High-Low)</button>
                   </div>
                 </div>
 
@@ -238,13 +240,13 @@ function SearchProducts() {
 
                 {fetchSearchList?.productListData?.pagination?.numberOfPages>1? (
                   <>
-                  <div className='flex w-fit justify-between items-center gap-4 float-right py-4'>
+                  <div className='flex w-fit justify-between items-center gap-2 lg:gap-4 float-right py-4'>
                   <button onClick={()=>{paginationItems("prev")}} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Prev</button>
                   <p className='text-gray-600 text-lg font-semibold'>
                     {fetchSearchList?.productListData?.pagination?.currentPage + 1}
                   </p>
                   <button onClick={()=>{paginationItems("next")}} className='text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white '>Next</button>
-                  <p className='text-gray-600 text-lg font-semibold'>Total Pages: {fetchSearchList?.productListData?.pagination?.numberOfPages}</p>
+                  <p className='text-gray-600 text-sm lg:text-lg font-semibold'>Total Pages: {fetchSearchList?.productListData?.pagination?.numberOfPages}</p>
                   </div>
                   </>
                 ):(null)}

@@ -70,10 +70,11 @@ function SideFilter({sideFilterData, event}) {
     }
   return (
     <>
-    <h2 className='text-lg font-semibold text-gray-700'>FILTERS</h2>
-    <div className="pt-12">
-        <p className='text-xl text-gray-700 pb-2'>Price</p>
-        <div className='flex justify-between items-center'>
+    <div className='sticky lg:relative top-[145px] lg:top-0 left-0'>
+    <h2 className='text-sm lg:text-lg font-semibold text-gray-700'>FILTERS</h2>
+    <div className="pt-2 lg:pt-12">
+        <p className='text-sm lg:text-xl text-gray-700 pb-2'>Price</p>
+        <div className='flex justify-between items-center flex-col lg:flex-row gap-2 lg:gap-0'>
         <div className='flex flex-col items-center justify-center border border-[#1774EF]'>
             <p className='text-[#1774EF] text-xs'>Min.</p>
             <input type="text" className='w-[70px] text-center text-gray-700 outline-none' value={minPrice} onChange={(e)=>{setMinPrice(e.target.value)}}/>
@@ -83,14 +84,15 @@ function SideFilter({sideFilterData, event}) {
             <p className='text-[#1774EF] text-xs'>Max.</p>
             <input type="text" className='w-[70px] text-center text-gray-700 outline-none' value={maxPrice} onChange={(e)=>{setMaxPrice(e.target.value)}}/>
         </div>
-        <button onClick={priceFilterEvent} className='bg-[#1774EF] text-white font-semibold hover:bg-white hover:border-2 hover:border-[#1774EF] hover:text-[#1774EF] p-2'>Go</button>
+        <button onClick={priceFilterEvent} className='bg-[#1774EF] text-white font-semibold hover:bg-white hover:border-2 hover:border-[#1774EF] hover:text-[#1774EF] p-1 lg:p-2'>Go</button>
         </div>
     </div>
-    <div className='py-12'>
-        <p className='text-xl text-gray-700 pb-2'>Availability</p>
+    <div className='pt-2 lg:pt-12'>
+        <p className='text-sm lg:text-xl text-gray-700 pb-2'>Availability</p>
         <input type="checkbox" id='avail' className='me-2' checked={excludeOutOfStock} onClick={handleCheckboxChange}/>
         <label htmlFor="avail" className='text-gray-500'>Exclude out of Stock
         </label>
+    </div>
     </div>
     </>
   )

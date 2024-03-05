@@ -61,7 +61,7 @@ function ProductInfoPage() {
         <>
           <div>
             <section>
-              <div className="flex items-center justify-start py-1 px-4 text-gray-700">
+              <div className="flex items-center justify-start flex-wrap py-1 px-4 text-gray-700">
                 <i className="ri-home-4-fill text-base"></i>
                 {fetchProductInfoData?.productData?.breadcrumbs.map(
                   ({ name }, index) => (
@@ -74,8 +74,8 @@ function ProductInfoPage() {
             </section>
             <hr />
             <section>
-              <div className="flex justify-between gap-10 px-4 pb-6">
-                <div className="w-[40%] flex flex-col gap-2 relative">
+              <div className="flex justify-between gap-10 flex-col lg:flex-row px-4 pb-6">
+                <div className="w-full lg:w-[40%] flex flex-col gap-2 relative">
                   <div className="absolute top-4 right-4">
                     <i className="ri-heart-line text-red-500 text-xl z-10"></i>
                   </div>
@@ -112,16 +112,16 @@ function ProductInfoPage() {
                     )}
                   </Swiper>
                 </div>
-                <div className="w-[60%] flex flex-wrap">
+                <div className="w-full lg:w-[60%] flex flex-wrap">
                   <div className="w-full flex flex-col gap-2 py-4">
                     <h1 className="w-[86%] leading-5 text-lg font-extrabold text-gray-800">
                       {fetchProductInfoData?.productData?.name}{" "}
                       <span className="text-[15px]">{`(${fetchProductInfoData?.productData?.code})`}</span>
                     </h1>
-                    <div className="flex gap-4 items-center text-[#0B3B85]">
+                    <div className="flex gap-1 lg:gap-4 flex-col lg:flex-row lg:items-center text-[#0B3B85]">
                       {!fetchProductInfoData?.productData?.numberOfRatings? (null) : (
                         <>
-                          <div className="flex gap-2 items-center justify-center">
+                          <div className="flex gap-2 items-center">
                           <div className="text-yellow-500 font-medium text-lg">
                           <i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-line"></i>
                           </div>
@@ -129,15 +129,17 @@ function ProductInfoPage() {
                           </div>
                         </>
                       )}
+                      <div className="flex gap-2 lg:gap-4">
                       <i className="ri-share-forward-box-fill font-semibold cursor-pointer">
                         <span className="ps-2 font-medium">Share</span>
                       </i>
                       <i className="ri-printer-line font-semibold cursor-pointer">
                         <span className="ps-2 font-medium">Print</span>
                       </i>
+                      </div>
                     </div>
                   </div>
-                  <div className="w-[60%] flex flex-col gap-8 py-4">
+                  <div className="w-full lg:w-[60%] flex flex-col gap-8 py-4">
                     <div className="flex flex-col gap-1">
                       <p className="text-gray-700 font-extrabold">
                         Save more with EMI/Cashback{" "}
@@ -192,7 +194,7 @@ function ProductInfoPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="w-[40%] flex flex-col gap-2 py-4">
+                  <div className="w-full lg:w-[40%] flex flex-col gap-2 py-4">
                     <p className="text-lg text-gray-800">
                       Deal Price:{" "}
                       <span className="text-xl text-[#0B3B85] font-semibold">
@@ -259,8 +261,8 @@ function ProductInfoPage() {
             </section>
             <hr />
             <section>
-              <div className="relative px-6 py-3">
-                <div className="flex gap-6 sticky top-[93px] left-0 bg-white">
+              <div className="relative px-4 lg:px-6 py-3">
+                <div className="flex gap-2 lg:gap-6 sticky top-[105px] lg:top-[84px] left-0 bg-white">
                   <a href="#desc">
                     <h3 className="font-bold text-gray-800 hover:underline transition">
                       Description
@@ -279,7 +281,7 @@ function ProductInfoPage() {
                 </div>
                 <p
                   id="desc"
-                  className="py- pt-[120px] font-light text-gray-600"
+                  className="py- pt-[132px] lg:pt-[120px] font-light text-gray-600"
                   dangerouslySetInnerHTML={{
                     __html: fetchProductInfoData?.productData?.description,
                   }}
@@ -287,7 +289,7 @@ function ProductInfoPage() {
                 </p>
                 <h1
                   id="specs"
-                  className="pb- pt-[120px] text-2xl font-bold text-gray-800"
+                  className="pb- pt-[132px] lg:pt-[120px] text-lg lg:text-2xl leading-5 lg:leading-none font-bold text-gray-800"
                 >
                   Specifications (
                   {fetchProductInfoData?.productData?.name.length > 50
@@ -308,10 +310,10 @@ function ProductInfoPage() {
                 </div>
                 <h1
                   id="review"
-                  className="py- pt-[120px] text-2xl font-bold text-gray-800"
+                  className="py- pt-[132px] lg:pt-[120px] text-lg lg:text-2xl leading-5 lg:leading-none font-bold text-gray-800"
                 >
                   Customer Reviews{" "}
-                  <span className="text-[#0B3B85] text-base font-semibold">
+                  <span className="text-[#0B3B85] leading-5 lg:leading-none text-sm lg:text-base font-semibold">
                     (
                     {fetchProductInfoData?.productData?.name.length > 150
                       ? fetchProductInfoData?.productData?.name.slice(0, 150) +
@@ -334,8 +336,8 @@ function ProductInfoPage() {
                   <p className="text-gray-600 font-semibold text-sm">({fetchProductInfoData?.productData?.numberOfRatings} Ratings & {fetchProductInfoData?.productData?.numberOfReviews} Reviews)</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <button className="text-[#0B3B85] border border-[#0B3B85] py-1 px-10 text-sm font-semibold">WRITE A REVIEW</button>
-                    <p className="text-[#0B3B85] font-semibold">(Read-T&C)</p>
+                    <button className="text-[#0B3B85] border border-[#0B3B85] py-1 px-4 lg:px-10 text-xs lg:text-sm font-semibold">WRITE A REVIEW</button>
+                    <p className="text-[#0B3B85] font-semibold text-sm lg:text-base">(Read-T&C)</p>
                   </div>
                   {fetchProductInfoData?.productData?.reviews.map((item, index)=>(
                     <ProductReviews key={index} productReviewData={item}/>

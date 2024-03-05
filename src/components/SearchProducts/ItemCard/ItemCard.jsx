@@ -8,7 +8,7 @@ function ItemCard({ items }) {
     <>
       <Link
         to={"/productInfo/" + code}
-        className="w-[25%] my-4 px-2"
+        className="w-[50%] lg:w-[25%] my-2 lg:my-4 px-2"
       >
         <div className="productItemHover">
           <div className="productImg">
@@ -34,7 +34,7 @@ function ItemCard({ items }) {
             <p className="text-sm text-gray-500">You Save: {price?.discount}</p>
             {hasPP ? (
               <>
-                <div className="text-green-600 text-xs rounded-3xl border border-green-600 px-1">
+                <div className="text-green-600 text-[10px] lg:text-xs rounded-3xl border border-green-600 px-1">
                   OFFERS AVAILABLE
                 </div>
               </>
