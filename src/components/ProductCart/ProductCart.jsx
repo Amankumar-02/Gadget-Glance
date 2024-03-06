@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IMG_URL } from '../../utils/constant';
 import { removeCartData, editCartQuantityData, clearCartItems } from '../../features/cart/cartSlice';
 import { useNavigate, Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 function ProductCart() {
   const storeData = useSelector(state=>state.cart.cart);
@@ -11,10 +12,17 @@ function ProductCart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const editQuantityEvent = (code, task)=>{
-    dispatch(editCartQuantityData({code: code, task: task}));
+    if(task === "decrease"){
+      dispatch(editCartQuantityData({code: code, task: task}));
+      toast.success("Item quantity is decreased.")
+    }else{
+      dispatch(editCartQuantityData({code: code, task: task}));
+      toast.success("Item quantity is increased.")
+    }
   }
   const removeProduct = (e)=>{
     dispatch(removeCartData(e));
+    toast.success("Item removed Successfully")
   }
   useEffect(()=>{
     setNewStoreData(storeData);
@@ -22,6 +30,7 @@ function ProductCart() {
   const checkOutEvent = ()=>{
     // navigate("/checkout")
     dispatch(clearCartItems());
+    toast.success("Your Order is Placed Successfully")
   }
   return (
     <>

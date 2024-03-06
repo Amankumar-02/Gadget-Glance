@@ -1,5 +1,5 @@
 import './App.css'
-// import { Toaster } from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 import {Outlet} from 'react-router-dom'
 import { Header, Footer} from './components';
 
@@ -9,7 +9,7 @@ function App() {
     <Header />
     <Outlet/>
     <Footer />
-    {/* <Toaster/> */}
+    <Toaster/>
     </>
   )
 }

@@ -15,6 +15,7 @@ import { Pagination, Navigation } from "swiper/modules";
 import { ProductSpecifications, ProductReviews, Shimmer } from "../index";
 import { storeCartData } from "../../features/cart/cartSlice";
 import { useDispatch } from "react-redux";
+import toast, { Toaster } from 'react-hot-toast';
 
 function ProductInfoPage() {
   const { userId } = useParams();
@@ -50,7 +51,8 @@ function ProductInfoPage() {
   const navigate = useNavigate();
   const addProduct = (data)=>{
     dispatch(storeCartData({productQuantity: 1, ...data}));
-    navigate("/cart")
+    navigate("/cart");
+    toast.success("Product Added Successfully")
   }
 
   return (
