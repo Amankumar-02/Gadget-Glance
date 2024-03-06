@@ -15,16 +15,18 @@ function Header() {
   // const dispatch = useDispatch();
   const searchSubmitEvent = (e) => {
     e.preventDefault();
-    // dispatch(storeSearchResult(searchInput.toLowerCase()));
-    navigate(
-      `/search/${searchInput
-        .toLowerCase()
-        .replaceAll("%", " ")
-        .replaceAll("|", " ")
-        .replaceAll("/", " ")
-        .replaceAll("&", "and")}`
-    );
-    setSearchInput("");
+    if(searchInput.length > 0){
+      // dispatch(storeSearchResult(searchInput.toLowerCase()));
+      navigate(
+        `/search/${searchInput
+          .toLowerCase()
+          .replaceAll("%", " ")
+          .replaceAll("|", " ")
+          .replaceAll("/", " ")
+          .replaceAll("&", "and")}`
+      );
+      setSearchInput("");
+    }
     // window.location.reload();
   };
   return (
