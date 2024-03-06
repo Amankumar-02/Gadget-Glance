@@ -197,7 +197,8 @@ function ProductCart() {
                 ))}
               </div>
             </div>
-            <div className="w-full lg:w-[35%] lg:ms-10">
+            <div className="relative w-full lg:w-[35%] lg:ms-10">
+              <div className='lg:sticky lg:top-[100px] lg:right-0'>
               <div>
                 <button
                   className="bg-red-600 text-white w-full rounded py-2 text-sm font-semibold"
@@ -277,6 +278,7 @@ function ProductCart() {
                     products.
                   </p>
                 </div>
+              </div>
               </div>
             </div>
           </div>
