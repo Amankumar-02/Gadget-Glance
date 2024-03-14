@@ -15,16 +15,16 @@ function SearchProducts() {
   useEffect(() => {
     if (userId) {
       // Original
-      // const searchQuery = userId.toLowerCase().replaceAll("%", " ").replaceAll("|", " ").replaceAll("/", " ").replaceAll("&", "and").replaceAll(" ", "%20");
+      const searchQuery = userId.toLowerCase().replaceAll("%", " ").replaceAll("|", " ").replaceAll("/", " ").replaceAll("&", "and").replaceAll(" ", "%20");
 
       // corsProxy
-      const searchQuery = userId.toLowerCase().replaceAll("%", " ").replaceAll("|", " ").replaceAll("/", " ").replaceAll("&", "and").replaceAll(" ", "%2520");
+      // const searchQuery = userId.toLowerCase().replaceAll("%", " ").replaceAll("|", " ").replaceAll("/", " ").replaceAll("&", "and").replaceAll(" ", "%2520");
 
       // Original
-      // const url = `${SEARCH_URL_CUSTOM.slice(0, 100)}${searchQuery}${SEARCH_URL_CUSTOM.slice(-37)}`;
+      const url = `${SEARCH_URL_CUSTOM.slice(0, 100)}${searchQuery}${SEARCH_URL_CUSTOM.slice(-37)}`;
 
       //corsProxy
-      const url = `${SEARCH_URL_CUSTOM.slice(0, 147)}${searchQuery}${SEARCH_URL_CUSTOM.slice(-51)}`;
+      // const url = `${SEARCH_URL_CUSTOM.slice(0, 147)}${searchQuery}${SEARCH_URL_CUSTOM.slice(-51)}`;
 
       setChangeUrl(url);
     }
@@ -107,39 +107,11 @@ function SearchProducts() {
   // }
 
   // Original
-  // const paginationItems = (direction)=>{
-  //   setChangeUrl(prev => {
-  //     const pageIndex = prev.indexOf('page=');
-  //     // if (pageIndex !== -1) {
-  //       const currentPage = parseInt(prev.slice(pageIndex + 5, prev.indexOf('&', pageIndex)));
-  //       let newPage;
-  //       if (direction === 'prev') {
-  //         if(currentPage > 0){
-  //           newPage = currentPage - 1;
-  //         }else{
-  //           newPage = 0;
-  //         }
-  //       } else if (direction === 'next') {
-  //         if (currentPage < fetchSearchList?.productListData?.pagination?.numberOfPages-1) {
-  //           newPage = currentPage + 1;
-  //         } else {
-  //           newPage = fetchSearchList?.productListData?.pagination?.numberOfPages-1;
-  //         }
-  //       }
-
-  //       return prev.replace(`page=${currentPage}`, `page=${newPage}`);
-  //     // } else {
-  //       // return prev;
-  //     // }
-  //   });
-  // }
-
-  // corsProxy
   const paginationItems = (direction)=>{
     setChangeUrl(prev => {
-      const pageIndex = prev.indexOf('page%3D');
+      const pageIndex = prev.indexOf('page=');
       // if (pageIndex !== -1) {
-        const currentPage = parseInt(prev.slice(pageIndex + 7, prev.indexOf('%26', pageIndex)));
+        const currentPage = parseInt(prev.slice(pageIndex + 5, prev.indexOf('&', pageIndex)));
         let newPage;
         if (direction === 'prev') {
           if(currentPage > 0){
@@ -155,31 +127,59 @@ function SearchProducts() {
           }
         }
 
-        return prev.replace(`page%3D${currentPage}`, `page%3D${newPage}`);
+        return prev.replace(`page=${currentPage}`, `page=${newPage}`);
       // } else {
         // return prev;
       // }
     });
   }
+
+  // corsProxy
+  // const paginationItems = (direction)=>{
+  //   setChangeUrl(prev => {
+  //     const pageIndex = prev.indexOf('page%3D');
+  //     // if (pageIndex !== -1) {
+  //       const currentPage = parseInt(prev.slice(pageIndex + 7, prev.indexOf('%26', pageIndex)));
+  //       let newPage;
+  //       if (direction === 'prev') {
+  //         if(currentPage > 0){
+  //           newPage = currentPage - 1;
+  //         }else{
+  //           newPage = 0;
+  //         }
+  //       } else if (direction === 'next') {
+  //         if (currentPage < fetchSearchList?.productListData?.pagination?.numberOfPages-1) {
+  //           newPage = currentPage + 1;
+  //         } else {
+  //           newPage = fetchSearchList?.productListData?.pagination?.numberOfPages-1;
+  //         }
+  //       }
+
+  //       return prev.replace(`page%3D${currentPage}`, `page%3D${newPage}`);
+  //     // } else {
+  //       // return prev;
+  //     // }
+  //   });
+  // }
   
 
   // Original
-  // const applyFilter  = (filter)=>{
-  //   setChangeUrl(prev=>{
-  //     const filterIndex = prev.indexOf('%3A');
-  //     const currentFilter = prev.slice(filterIndex + 3, prev.indexOf('&',filterIndex));
-  //     return prev.replace(`%3A${currentFilter}`, `%3A${filter}`)
-  //   })
-  // }
-
-  //corsProxy
   const applyFilter  = (filter)=>{
     setChangeUrl(prev=>{
-      const filterIndex = prev.indexOf('%253A');
-      const currentFilter = prev.slice(filterIndex + 5, prev.indexOf('%26',filterIndex));
-      return prev.replace(`%253A${currentFilter}`, `%253A${filter}`)
+      const filterIndex = prev.indexOf('%3A');
+      const currentFilter = prev.slice(filterIndex + 3, prev.indexOf('&',filterIndex));
+      return prev.replace(`%3A${currentFilter}`, `%3A${filter}`)
     })
   }
+
+  //corsProxy
+  // const applyFilter  = (filter)=>{
+  //   setChangeUrl(prev=>{
+  //     const filterIndex = prev.indexOf('%253A');
+  //     const currentFilter = prev.slice(filterIndex + 5, prev.indexOf('%26',filterIndex));
+  //     return prev.replace(`%253A${currentFilter}`, `%253A${filter}`)
+  //   })
+  // }
 
   return (
     <>
