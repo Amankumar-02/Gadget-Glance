@@ -8,6 +8,7 @@ import { ItemCard, SideFilter } from "./index";
 function SearchProducts() {
   const { userId } = useParams();
   // const searchStoreData = useSelector(state=>state.searchResult.searchResult);
+  const [loading, setLoading] = useState(false);
   const [fetchSearchList, setFetchSearchList] = useState(null);
   const [changeUrl, setChangeUrl] = useState(null);
   const [orderType, setOrderType] = useState("relevance");
@@ -43,6 +44,7 @@ function SearchProducts() {
 
   // fetch the api depending on params
   useEffect(() => {
+    setLoading(true);
     const fetchDataFromAPI = async () => {
       try {
         const res = await fetch(changeUrl);
@@ -54,6 +56,7 @@ function SearchProducts() {
           console.log(data?.data?.data);
           setMinPrice(parseInt(data?.data?.data?.productListData?.facets[0]?.selectedMinPrice) || data?.data?.data?.productListData?.facets[0]?.minPrice.replace(".0", ""));
           setMaxPrice(parseInt(data?.data?.data?.productListData?.facets[0]?.selectedMaxPrice) || data?.data?.data?.productListData?.facets[0]?.maxPrice.replace(".0", ""));
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -148,7 +151,8 @@ function SearchProducts() {
         <Shimmer />
       ) : (
         <>
-          <section className="">
+          <section className="relative">
+            {loading ? (<><div className="fixed top-auto h-1 bg-green-500 w-full animate-pulse transition-all"></div></>):null}
             <div>
               <div className="flex items-center justify-start py-1 px-4 text-gray-700">
                 <i className="ri-home-4-fill text-base"></i>
