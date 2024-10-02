@@ -19,8 +19,8 @@ import toast, { Toaster } from 'react-hot-toast';
 
 function ProductInfoPage() {
   const { userId } = useParams();
-  const productUrl = PRODUCT_INFO_URL+userId;
-  const productEmi = PRODUCT_EMI_INFO_URL+userId;
+  const productUrl = `${PRODUCT_INFO_URL}/${userId}`;
+  const productEmi = `${PRODUCT_EMI_INFO_URL}/${userId}`;
   const [fetchProductInfoData, setFetchProductData] = useState(null);
   const [fetchEmiData, setFetchEmiData] = useState(null);
   const [zoomImg, setZoomImg] = useState("");
@@ -38,9 +38,9 @@ function ProductInfoPage() {
             return res.json();
           })
         );
-        setFetchProductData(data[0]?.data);
-        setFetchEmiData(data[1]);
-        setZoomImg(data[0]?.data?.productData?.media[0].zoomUrl);
+        setFetchProductData(data[0]?.data?.data);
+        setFetchEmiData(data[1]?.data);
+        setZoomImg(data[0]?.data?.data?.productData?.media[0].zoomUrl);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

@@ -20,7 +20,7 @@ function Home() {
           throw new Error("Error Serving Data");
         } else {
           const data = await res.json();
-          setFetchHomeData(data?.data);
+          setFetchHomeData(data?.data?.data);
           // console.log(data);
         }
       } catch (error) {

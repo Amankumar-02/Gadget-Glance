@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 function Header() {
   const storeData = useSelector(state=>state.cart.cart);
-  console.log(storeData)
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
   // const dispatch = useDispatch();
