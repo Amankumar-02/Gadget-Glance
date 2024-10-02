@@ -9,7 +9,6 @@ import useApiFetch from "../../hooks/useApiFetch";
 function SearchProducts() {
   const { userId } = useParams();
   // const searchStoreData = useSelector(state=>state.searchResult.searchResult);
-  const [loading, setLoading] = useState(false);
   const [changeUrl, setChangeUrl] = useState(null);
   const [fetchSearchList, setFetchSearchList] = useState(null);
   const [orderType, setOrderType] = useState("relevance");
@@ -44,13 +43,12 @@ function SearchProducts() {
   }, [userId]);
 
   // fetch the api depending on params
-  const fetchedSearchedData = useApiFetch(changeUrl);
+  const {data: fetchedSearchedData, loading} = useApiFetch(changeUrl);
   useEffect(()=>{
     if(fetchedSearchedData?.data){
       setFetchSearchList(fetchedSearchedData?.data?.data);
       setMinPrice(parseInt(fetchedSearchedData?.data?.data?.productListData?.facets[0]?.selectedMinPrice) || fetchedSearchedData?.data?.data?.productListData?.facets[0]?.minPrice.replace(".0", ""));
       setMaxPrice(parseInt(fetchedSearchedData?.data?.data?.productListData?.facets[0]?.selectedMaxPrice) || fetchedSearchedData?.data?.data?.productListData?.facets[0]?.maxPrice.replace(".0", ""));
-      setLoading(false);  
 }
   }, [fetchedSearchedData, changeUrl]);
 

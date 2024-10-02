@@ -13,7 +13,7 @@ import { HOME_URL } from "../../utils/constant.js";
 function Home() {
   let [fetchHomeData, setFetchHomeData] = useState(null);
   // fetch Api
-  const fetchedHomeData = useApiFetch(HOME_URL)
+  const {data: fetchedHomeData} = useApiFetch(HOME_URL)
   useEffect(()=>{
     if(fetchedHomeData?.data)
     setFetchHomeData(fetchedHomeData?.data?.data);

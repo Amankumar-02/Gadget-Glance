@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { SERVER_APIKEY } from "../utils/constant.js";
 
 function useApiFetch(URL) {
-  const [FetchedInfo, setFetchedInfo] = useState("");
+  const [fetchedInfo, setFetchedInfo] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchRelianceData = async () => {
       if (!URL) return;
+      setLoading(true);
       try {
         const res = await fetch(URL, { headers: { apikey: SERVER_APIKEY } });
         if (!res.ok) {
@@ -16,12 +18,14 @@ function useApiFetch(URL) {
         }
       } catch (error) {
         console.log("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchRelianceData();
   }, [URL])
-  return FetchedInfo;
+  return {data: fetchedInfo, loading};
 }
 
 export default useApiFetch;

@@ -27,8 +27,8 @@ function ProductInfoPage() {
   const [zoomImg, setZoomImg] = useState("");
 
   //fetch api
-  const fetchedProductData = useApiFetch(productUrl);
-  const fetchedProductEmiData = useApiFetch(productEmi);
+  const {data: fetchedProductData} = useApiFetch(productUrl);
+  const {data: fetchedProductEmiData} = useApiFetch(productEmi);
   useEffect(() => {
     if (fetchedProductData?.data && fetchedProductEmiData?.data) {
       setFetchProductData(fetchedProductData?.data?.data);
