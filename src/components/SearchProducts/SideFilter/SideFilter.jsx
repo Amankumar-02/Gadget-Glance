@@ -77,7 +77,8 @@ function SideFilter({
             <div className="flex flex-col items-center justify-center border border-[#1774EF]">
               <p className="text-[#1774EF] text-xs">Min.</p>
               <input
-                type="text"
+                type="number"
+                min={sideFilterData?.productListData?.facets[0]?.minPrice.replace(".0", "")}
                 className="w-[70px] text-center text-gray-700 outline-none"
                 value={minPrice}
                 onChange={(e) => {
@@ -89,7 +90,8 @@ function SideFilter({
             <div className="flex flex-col items-center justify-center border border-[#1774EF]">
               <p className="text-[#1774EF] text-xs">Max.</p>
               <input
-                type="text"
+                type="number"
+                max={sideFilterData?.productListData?.facets[0]?.maxPrice.replace(".0", "")}
                 className="w-[70px] text-center text-gray-700 outline-none"
                 value={maxPrice}
                 onChange={(e) => {

@@ -52,8 +52,8 @@ function SearchProducts() {
           const data = await res.json();
           setFetchSearchList(data?.data?.data);
           console.log(data?.data?.data);
-          setMinPrice(data?.data?.data?.productListData?.facets[0]?.selectedMinPrice || data?.data?.data?.productListData?.facets[0]?.minPrice.replace(".0", ""));
-          setMaxPrice(data?.data?.data?.productListData?.facets[0]?.selectedMaxPrice || data?.data?.data?.productListData?.facets[0]?.maxPrice.replace(".0", ""));
+          setMinPrice(parseInt(data?.data?.data?.productListData?.facets[0]?.selectedMinPrice) || data?.data?.data?.productListData?.facets[0]?.minPrice.replace(".0", ""));
+          setMaxPrice(parseInt(data?.data?.data?.productListData?.facets[0]?.selectedMaxPrice) || data?.data?.data?.productListData?.facets[0]?.maxPrice.replace(".0", ""));
         }
       } catch (error) {
         console.error("Error fetching data:", error);
