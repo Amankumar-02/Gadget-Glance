@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useApiFetch from "../../hooks/useApiFetch.js";
 import {
   Slides,
   ProductSlider,
@@ -12,23 +13,11 @@ import { HOME_URL } from "../../utils/constant.js";
 function Home() {
   let [fetchHomeData, setFetchHomeData] = useState(null);
   // fetch Api
-  useEffect(() => {
-    const fetchDataFromAPI = async () => {
-      try {
-        const res = await fetch(HOME_URL);
-        if (!res.ok) {
-          throw new Error("Error Serving Data");
-        } else {
-          const data = await res.json();
-          setFetchHomeData(data?.data?.data);
-          // console.log(data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchDataFromAPI();
-  }, []);
+  const fetchedHomeData = useApiFetch(HOME_URL)
+  useEffect(()=>{
+    if(fetchedHomeData?.data)
+    setFetchHomeData(fetchedHomeData?.data?.data);
+  }, [fetchedHomeData])
 
   return (
     <>

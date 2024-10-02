@@ -3,14 +3,15 @@ import { useParams } from "react-router-dom";
 import { SEARCH_URL_CUSTOM } from "../../utils/constant";
 import { Shimmer } from "../index";
 import { ItemCard, SideFilter } from "./index";
+import useApiFetch from "../../hooks/useApiFetch";
 // import { useSelector } from 'react-redux';
 
 function SearchProducts() {
   const { userId } = useParams();
   // const searchStoreData = useSelector(state=>state.searchResult.searchResult);
   const [loading, setLoading] = useState(false);
-  const [fetchSearchList, setFetchSearchList] = useState(null);
   const [changeUrl, setChangeUrl] = useState(null);
+  const [fetchSearchList, setFetchSearchList] = useState(null);
   const [orderType, setOrderType] = useState("relevance");
   const [pageNumb, setPageNumb] = useState(0);
   const [minPrice, setMinPrice] = useState(0);
@@ -43,29 +44,15 @@ function SearchProducts() {
   }, [userId]);
 
   // fetch the api depending on params
-  useEffect(() => {
-    setLoading(true);
-    const fetchDataFromAPI = async () => {
-      try {
-        const res = await fetch(changeUrl);
-        if (!res.ok) {
-          throw new Error("Error Serving Data");
-        } else {
-          const data = await res.json();
-          setFetchSearchList(data?.data?.data);
-          console.log(data?.data?.data);
-          setMinPrice(parseInt(data?.data?.data?.productListData?.facets[0]?.selectedMinPrice) || data?.data?.data?.productListData?.facets[0]?.minPrice.replace(".0", ""));
-          setMaxPrice(parseInt(data?.data?.data?.productListData?.facets[0]?.selectedMaxPrice) || data?.data?.data?.productListData?.facets[0]?.maxPrice.replace(".0", ""));
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    if (changeUrl) {
-      fetchDataFromAPI();
-    }
-  }, [changeUrl]);
+  const fetchedSearchedData = useApiFetch(changeUrl);
+  useEffect(()=>{
+    if(fetchedSearchedData?.data){
+      setFetchSearchList(fetchedSearchedData?.data?.data);
+      setMinPrice(parseInt(fetchedSearchedData?.data?.data?.productListData?.facets[0]?.selectedMinPrice) || fetchedSearchedData?.data?.data?.productListData?.facets[0]?.minPrice.replace(".0", ""));
+      setMaxPrice(parseInt(fetchedSearchedData?.data?.data?.productListData?.facets[0]?.selectedMaxPrice) || fetchedSearchedData?.data?.data?.productListData?.facets[0]?.maxPrice.replace(".0", ""));
+      setLoading(false);  
+}
+  }, [fetchedSearchedData, changeUrl]);
 
   // const paginationItems = (direction)=>{
   //   setChangeUrl(prev => {

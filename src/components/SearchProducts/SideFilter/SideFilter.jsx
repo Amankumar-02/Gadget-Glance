@@ -33,6 +33,7 @@ function SideFilter({
     const url = `${mainUrl}/${searchQuery}?orderType=relevance&paginate=0&range=${newRange}&stock=`;
     setOrderType('relevance');
     setPageNumb(0);
+    setStock("");
     setExcludeOutOfStock(false);
     setChangeUrl(url);
   };

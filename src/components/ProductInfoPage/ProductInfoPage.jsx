@@ -15,7 +15,8 @@ import { Pagination, Navigation } from "swiper/modules";
 import { ProductSpecifications, ProductReviews, Shimmer } from "../index";
 import { storeCartData } from "../../features/cart/cartSlice";
 import { useDispatch } from "react-redux";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
+import useApiFetch from "../../hooks/useApiFetch";
 
 function ProductInfoPage() {
   const { userId } = useParams();
@@ -24,36 +25,25 @@ function ProductInfoPage() {
   const [fetchProductInfoData, setFetchProductData] = useState(null);
   const [fetchEmiData, setFetchEmiData] = useState(null);
   const [zoomImg, setZoomImg] = useState("");
+
   //fetch api
+  const fetchedProductData = useApiFetch(productUrl);
+  const fetchedProductEmiData = useApiFetch(productEmi);
   useEffect(() => {
-    const fetchDataFromAPI = async () => {
-      try {
-        const urls = [productUrl, productEmi];
-        const res = await Promise.all(urls.map((url) => fetch(url)));
-        const data = await Promise.all(
-          res.map((res) => {
-            if (!res.ok) {
-              throw new Error("Error Serving Data");
-            }
-            return res.json();
-          })
-        );
-        setFetchProductData(data[0]?.data?.data);
-        setFetchEmiData(data[1]?.data);
-        setZoomImg(data[0]?.data?.data?.productData?.media[0].zoomUrl);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchDataFromAPI();
-  }, []);
+    if (fetchedProductData?.data && fetchedProductEmiData?.data) {
+      setFetchProductData(fetchedProductData?.data?.data);
+      setFetchEmiData(fetchedProductEmiData?.data);
+      setZoomImg(fetchedProductData?.data?.data?.productData?.media[0].zoomUrl);
+    }
+  }, [fetchedProductData, fetchedProductEmiData]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const addProduct = (data)=>{
-    dispatch(storeCartData({productQuantity: 1, ...data}));
+  const addProduct = (data) => {
+    dispatch(storeCartData({ productQuantity: 1, ...data }));
     navigate("/cart");
-    toast.success("Product Added Successfully")
-  }
+    toast.success("Product Added Successfully");
+  };
 
   return (
     <>
@@ -121,23 +111,40 @@ function ProductInfoPage() {
                       <span className="text-[15px]">{`(${fetchProductInfoData?.productData?.code})`}</span>
                     </h1>
                     <div className="flex gap-1 lg:gap-4 flex-col lg:flex-row lg:items-center text-[#0B3B85]">
-                      {!fetchProductInfoData?.productData?.numberOfRatings? (null) : (
+                      {!fetchProductInfoData?.productData
+                        ?.numberOfRatings ? null : (
                         <>
                           <div className="flex gap-2 items-center">
-                          <div className="text-yellow-500 font-medium text-lg">
-                          <i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-line"></i>
-                          </div>
-                          <p>({fetchProductInfoData?.productData?.numberOfRatings} Ratings & {fetchProductInfoData?.productData?.numberOfReviews} Reviews)</p>
+                            <div className="text-yellow-500 font-medium text-lg">
+                              <i className="ri-star-fill"></i>
+                              <i className="ri-star-fill"></i>
+                              <i className="ri-star-fill"></i>
+                              <i className="ri-star-fill"></i>
+                              <i className="ri-star-line"></i>
+                            </div>
+                            <p>
+                              (
+                              {
+                                fetchProductInfoData?.productData
+                                  ?.numberOfRatings
+                              }{" "}
+                              Ratings &{" "}
+                              {
+                                fetchProductInfoData?.productData
+                                  ?.numberOfReviews
+                              }{" "}
+                              Reviews)
+                            </p>
                           </div>
                         </>
                       )}
                       <div className="flex gap-2 lg:gap-4">
-                      <i className="ri-share-forward-box-fill font-semibold cursor-pointer">
-                        <span className="ps-2 font-medium">Share</span>
-                      </i>
-                      <i className="ri-printer-line font-semibold cursor-pointer">
-                        <span className="ps-2 font-medium">Print</span>
-                      </i>
+                        <i className="ri-share-forward-box-fill font-semibold cursor-pointer">
+                          <span className="ps-2 font-medium">Share</span>
+                        </i>
+                        <i className="ri-printer-line font-semibold cursor-pointer">
+                          <span className="ps-2 font-medium">Print</span>
+                        </i>
                       </div>
                     </div>
                   </div>
@@ -200,13 +207,16 @@ function ProductInfoPage() {
                     <p className="text-lg text-gray-800">
                       Deal Price:{" "}
                       <span className="text-xl text-[#0B3B85] font-semibold">
-                        {fetchProductInfoData?.productData?.price?.value.toLocaleString("en-IN", {
-                        style: "currency",
-                        currency: "INR",
-                      })}
+                        {fetchProductInfoData?.productData?.price?.value.toLocaleString(
+                          "en-IN",
+                          {
+                            style: "currency",
+                            currency: "INR",
+                          }
+                        )}
                       </span>
                     </p>
-                    {!fetchProductInfoData?.productData?.price?.rrp? (null) :(
+                    {!fetchProductInfoData?.productData?.price?.rrp ? null : (
                       <>
                         <p className="text-lg text-gray-800">
                           Offer Price:{" "}
@@ -250,7 +260,10 @@ function ProductInfoPage() {
                       </>
                     ) : null}
                     <div className="flex gap-1 w-full">
-                      <button className="w-full bg-red-500 text-white p-2 text-lg font-semibold" onClick={()=>addProduct(fetchProductInfoData)}>
+                      <button
+                        className="w-full bg-red-500 text-white p-2 text-lg font-semibold"
+                        onClick={() => addProduct(fetchProductInfoData)}
+                      >
                         ADD TO CART
                       </button>
                       <button className="w-full bg-orange-500 text-white p-2 text-lg font-semibold">
@@ -287,8 +300,7 @@ function ProductInfoPage() {
                   dangerouslySetInnerHTML={{
                     __html: fetchProductInfoData?.productData?.description,
                   }}
-                >
-                </p>
+                ></p>
                 <h1
                   id="specs"
                   className="pb- pt-[132px] lg:pt-[120px] text-lg lg:text-2xl leading-5 lg:leading-none font-bold text-gray-800"
@@ -324,29 +336,47 @@ function ProductInfoPage() {
                     )
                   </span>
                 </h1>
-                {!fetchProductInfoData?.productData?.numberOfRatings? (
+                {!fetchProductInfoData?.productData?.numberOfRatings ? (
                   <>
-                  <p className="py-4 text-gray-700">There are no reviews for this product yet.</p>
+                    <p className="py-4 text-gray-700">
+                      There are no reviews for this product yet.
+                    </p>
                   </>
-                ) :(
+                ) : (
                   <>
-                  <div className="flex items-center py-4 gap-2">
-                  <div className="text-yellow-500 font-medium text-lg">
-                  <i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-line"></i>
-                  </div>
-                  <p className="text-xs text-yellow-600 font-semibold">{fetchProductInfoData?.productData?.averageRating}/5</p>
-                  <p className="text-gray-600 font-semibold text-sm">({fetchProductInfoData?.productData?.numberOfRatings} Ratings & {fetchProductInfoData?.productData?.numberOfReviews} Reviews)</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <button className="text-[#0B3B85] border border-[#0B3B85] py-1 px-4 lg:px-10 text-xs lg:text-sm font-semibold">WRITE A REVIEW</button>
-                    <p className="text-[#0B3B85] font-semibold text-sm lg:text-base">(Read-T&C)</p>
-                  </div>
-                  {fetchProductInfoData?.productData?.reviews.map((item, index)=>(
-                    <ProductReviews key={index} productReviewData={item}/>
-                  ))}
+                    <div className="flex items-center py-4 gap-2">
+                      <div className="text-yellow-500 font-medium text-lg">
+                        <i className="ri-star-fill"></i>
+                        <i className="ri-star-fill"></i>
+                        <i className="ri-star-fill"></i>
+                        <i className="ri-star-fill"></i>
+                        <i className="ri-star-line"></i>
+                      </div>
+                      <p className="text-xs text-yellow-600 font-semibold">
+                        {fetchProductInfoData?.productData?.averageRating}/5
+                      </p>
+                      <p className="text-gray-600 font-semibold text-sm">
+                        ({fetchProductInfoData?.productData?.numberOfRatings}{" "}
+                        Ratings &{" "}
+                        {fetchProductInfoData?.productData?.numberOfReviews}{" "}
+                        Reviews)
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <button className="text-[#0B3B85] border border-[#0B3B85] py-1 px-4 lg:px-10 text-xs lg:text-sm font-semibold">
+                        WRITE A REVIEW
+                      </button>
+                      <p className="text-[#0B3B85] font-semibold text-sm lg:text-base">
+                        (Read-T&C)
+                      </p>
+                    </div>
+                    {fetchProductInfoData?.productData?.reviews.map(
+                      (item, index) => (
+                        <ProductReviews key={index} productReviewData={item} />
+                      )
+                    )}
                   </>
                 )}
-                
               </div>
             </section>
           </div>
