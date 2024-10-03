@@ -1,5 +1,4 @@
 import React from 'react';
-import "./BrandSection.css";
 import { IMG_URL } from '../../utils/constant';
 
 function BrandSection({brandSelectionData}) {

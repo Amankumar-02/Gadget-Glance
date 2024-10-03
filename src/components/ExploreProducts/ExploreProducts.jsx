@@ -5,7 +5,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import 'swiper/swiper-bundle.css';
 import { Pagination, Navigation } from "swiper/modules";
-import "./ExploreProducts.css";
 import { Link } from "react-router-dom";
 
 function ExploreProducts({ exploreProductsData }) {

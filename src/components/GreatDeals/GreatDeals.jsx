@@ -1,5 +1,4 @@
 import { IMG_URL } from "../../utils/constant";
-import "./GreatDeals.css";
 import { Link } from "react-router-dom";
 
 function GreatDeals({ greatDealsData }) {
