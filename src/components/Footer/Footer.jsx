@@ -4,7 +4,7 @@ function Footer() {
   return (
     <>
       <div>
-        <div className="px-4 lg:px-14 py-4 bg-[#003380]">
+        <div className="px-4 lg:px-14 py-4 bg-[#4D148C]">
           <div className="flex flex-wrap w-full gap-2 justify-between">
             {footerItems.map((item, index) => (
               <div
@@ -33,7 +33,7 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="bg-[#0A244A] py-4 text-center text-white">
+        <div className="bg-[#3e0977] py-4 text-center text-white">
           <p className="text-xs lg:text-sm">
             © 2024 Gadget Glance. All Rights Reserved.
           </p>

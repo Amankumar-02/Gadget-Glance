@@ -25,7 +25,7 @@ function ProductSlider({ productSlideData }) {
                   .replaceAll("/", " ")
                   .replaceAll("&", "and")}`}
               >
-                <button className="bg-[#003380] text-white text-xs lg:text-sm px-2 lg:px-4 py-1 font-semibold rounded-lg w-[60px] lg:w-[100px]">
+                <button className="bg-[#4D148C] text-white text-xs lg:text-sm px-2 lg:px-4 py-1 font-semibold rounded-lg w-[60px] lg:w-[100px]">
                   View all
                 </button>
               </Link>

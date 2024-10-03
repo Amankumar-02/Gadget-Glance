@@ -27,3 +27,19 @@ strong {
 /* @media screen and (max-width:800px) {
   
 } */
+
+/* Custom scrollbar for Chrome, Safari, and Edge */
+::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #FF6600;
+  /* background-color: #4D148C; */
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-track {
+  background: #4D148C; 
+  /* background: #FF6600;  */
+}

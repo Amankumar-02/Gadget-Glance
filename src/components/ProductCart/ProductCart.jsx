@@ -162,7 +162,7 @@ function ProductCart() {
                         ) : null}
                         <p className="text-xs font-semibold text-gray-700 text-end">
                           Standard Delivery:{" "}
-                          <span className="text-[#003380]">
+                          <span className="text-[#4D148C]">
                             {new Date().getDate() + 2}{" "}
                             {new Date().toLocaleString("en-US", {
                               month: "short",
