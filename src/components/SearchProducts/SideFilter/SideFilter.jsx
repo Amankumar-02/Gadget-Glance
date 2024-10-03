@@ -73,10 +73,13 @@ function SideFilter({
         </h2>
         <div className="pt-2 lg:pt-12">
           <p className="text-xs lg:text-xl text-gray-700 pb-2">Price</p>
-          <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-2 xl:gap-4 2xl:gap-3">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-2 2xl:gap-4">
             <div className="flex flex-col items-center justify-center border border-[#1774EF] overflow-hidden rounded-lg">
-              <p className="text-[#1774EF] text-[10px] lg:text-xs">Min.</p>
-              <input
+              <p className="text-[#1774EF] text-[10px] lg:text-xs text-center">Min. <span>{sideFilterData?.productListData?.facets[0]?.minPrice.replace(
+                  ".0",
+                  ""
+                )}</span></p>
+              {/* <input
                 type="number"
                 min={sideFilterData?.productListData?.facets[0]?.minPrice.replace(
                   ".0",
@@ -85,12 +88,21 @@ function SideFilter({
                 className="w-auto lg:w-[100px] text-xs lg:text-sm xl:text-base text-center text-gray-700 outline-none"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
+              /> */}
+              <input
+                type="text"
+                className="w-auto lg:w-[100px] text-xs lg:text-sm xl:text-base text-center text-gray-700 outline-none"
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
               />
             </div>
             <p>to</p>
             <div className="flex flex-col items-center justify-center border border-[#1774EF] overflow-hidden rounded-lg">
-              <p className="text-[#1774EF] text-[10px] lg:text-xs">Max.</p>
-              <input
+              <p className="text-[#1774EF] text-[10px] lg:text-xs text-center">Max. <span>{sideFilterData?.productListData?.facets[0]?.maxPrice.replace(
+                  ".0",
+                  ""
+                )}</span></p>
+              {/* <input
                 type="number"
                 max={sideFilterData?.productListData?.facets[0]?.maxPrice.replace(
                   ".0",
@@ -99,11 +111,17 @@ function SideFilter({
                 className="w-auto lg:w-[100px] text-xs lg:text-sm xl:text-base text-center text-gray-700 outline-none"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
+              /> */}
+              <input
+                type="text"
+                className="w-auto lg:w-[100px] text-xs lg:text-sm xl:text-base text-center text-gray-700 outline-none"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
               />
             </div>
             <button
               onClick={priceFilterEvent}
-              className="bg-[#1774EF] text-white font-semibold hover:bg-white hover:border-2 hover:border-[#1774EF] hover:text-[#1774EF] text-sm lg:text-base px-2 lg:px-3 py-1 lg:py-2 mt-2 lg:mt-0 rounded-lg"
+              className="bg-[#1774EF] text-white font-semibold hover:bg-white hover:border hover:border-[#1774EF] hover:text-[#1774EF] text-sm lg:text-base px-2 lg:px-3 py-1 lg:py-2 mt-2 lg:mt-0 rounded-lg cursor-pointer active:scale-[0.9] transition-all"
             >
               Go
             </button>

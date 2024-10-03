@@ -221,19 +221,19 @@ function SearchProducts() {
                     <p>Sort By:</p>
                     <button
                       onClick={() => applyFilter("relevance")}
-                      className="text-green-600 border border-green-600 text-xs sm:text-sm px-1 lg:px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl"
+                      className="text-green-600 border border-green-600 text-xs sm:text-sm px-1 lg:px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl active:scale-[0.9] transition-all"
                     >
                       Relevance
                     </button>
                     <button
                       onClick={() => applyFilter("price-asc")}
-                      className="text-green-600 border border-green-600 text-xs sm:text-sm px-1 lg:px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl"
+                      className="text-green-600 border border-green-600 text-xs sm:text-sm px-1 lg:px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl active:scale-[0.9] transition-all"
                     >
                       Price(Low-High)
                     </button>
                     <button
                       onClick={() => applyFilter("price-desc")}
-                      className="text-green-600 border border-green-600 text-xs sm:text-sm px-1 lg:px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl"
+                      className="text-green-600 border border-green-600 text-xs sm:text-sm px-1 lg:px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl active:scale-[0.9] transition-all"
                     >
                       Price(High-Low)
                     </button>
@@ -253,7 +253,7 @@ function SearchProducts() {
                   <div className="flex w-fit justify-between items-center gap-2 lg:gap-4 float-right py-4">
                     <button
                       onClick={() => paginationItems("prev")}
-                      className="text-gray-400 border-2 border-gray-400 text-xs sm:text-sm lg:text-base px-1 lg:px-2 hover:bg-gray-400 hover:text-white rounded-md"
+                      className="text-gray-400 border-2 border-gray-400 text-xs sm:text-sm lg:text-base px-1 lg:px-2 hover:bg-gray-400 hover:text-white rounded-md active:scale-[0.9] transition-all"
                     >
                       Prev
                     </button>
@@ -263,7 +263,7 @@ function SearchProducts() {
                     </p>
                     <button
                       onClick={() => paginationItems("next")}
-                      className="text-gray-400 border-2 border-gray-400 text-xs sm:text-sm lg:text-base px-1 lg:px-2 hover:bg-gray-400 hover:text-white rounded-md"
+                      className="text-gray-400 border-2 border-gray-400 text-xs sm:text-sm lg:text-base px-1 lg:px-2 hover:bg-gray-400 hover:text-white rounded-md active:scale-[0.9] transition-all"
                     >
                       Next
                     </button>
