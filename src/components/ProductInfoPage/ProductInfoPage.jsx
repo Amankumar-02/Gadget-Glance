@@ -1,4 +1,3 @@
-import "./ProductInfoPage.css";
 import {
   IMG_URL,
   PRODUCT_INFO_URL,
@@ -27,8 +26,8 @@ function ProductInfoPage() {
   const [zoomImg, setZoomImg] = useState("");
 
   //fetch api
-  const {data: fetchedProductData} = useApiFetch(productUrl);
-  const {data: fetchedProductEmiData} = useApiFetch(productEmi);
+  const { data: fetchedProductData } = useApiFetch(productUrl);
+  const { data: fetchedProductEmiData } = useApiFetch(productEmi);
   useEffect(() => {
     if (fetchedProductData?.data && fetchedProductEmiData?.data) {
       setFetchProductData(fetchedProductData?.data?.data);
@@ -277,7 +276,7 @@ function ProductInfoPage() {
             <hr />
             <section>
               <div className="relative px-4 lg:px-6 py-3">
-                <div className="flex gap-2 lg:gap-6 sticky top-[105px] lg:top-[84px] left-0 bg-white">
+                <div className="flex gap-2 lg:gap-6 sticky top-[129px] lg:top-[108px] left-0 bg-white">
                   <a href="#desc">
                     <h3 className="font-bold text-gray-800 hover:underline transition">
                       Description
