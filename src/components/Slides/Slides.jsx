@@ -1,21 +1,20 @@
-import { IMG_URL } from '../../utils/constant';
-import { Swiper, SwiperSlide } from 'swiper/react';
-// import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import './Slides.css';
-import { Link } from 'react-router-dom';
+import { IMG_URL } from "../../utils/constant";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "./Slides.css";
+import { Link } from "react-router-dom";
 
-function Slides({liveCarousalData}) {
-    const liveCarousel = liveCarousalData;
+function Slides({ liveCarousalData }) {
+  const liveCarousel = liveCarousalData;
   return (
     <>
       {!liveCarousel ? null : (
         <>
           {liveCarousel.length > 1 ? (
             <>
-              <div>
+              <div className="w-full">
                 <Swiper
                   spaceBetween={30}
                   loop={true}
@@ -24,9 +23,7 @@ function Slides({liveCarousalData}) {
                     delay: 2500,
                     disableOnInteraction: false,
                   }}
-                  pagination={{
-                    clickable: true,
-                  }}
+                  // pagination={{ clickable: true }}
                   navigation={true}
                   modules={[Autoplay, Pagination, Navigation]}
                   className="mySwiper"
@@ -41,7 +38,11 @@ function Slides({liveCarousalData}) {
                           .replaceAll("/", " ")
                           .replaceAll("&", "and")}`}
                       >
-                        <img src={IMG_URL + imageUrl} alt="" />
+                        <img
+                          src={IMG_URL + imageUrl}
+                          alt=""
+                          className="w-full"
+                        />
                       </Link>
                     </SwiperSlide>
                   ))}
@@ -50,7 +51,7 @@ function Slides({liveCarousalData}) {
             </>
           ) : (
             <>
-              <div>
+              <div className="w-full">
                 <Swiper
                   spaceBetween={30}
                   loop={false}
@@ -59,9 +60,9 @@ function Slides({liveCarousalData}) {
                     delay: 2500,
                     disableOnInteraction: false,
                   }}
-                  pagination={{
-                    clickable: false,
-                  }}
+                  // pagination={{
+                  //   clickable: false,
+                  // }}
                   navigation={false}
                   modules={[Autoplay, Pagination, Navigation]}
                   className="mySwiper"
@@ -76,7 +77,11 @@ function Slides({liveCarousalData}) {
                           .replaceAll("/", " ")
                           .replaceAll("&", "and")}`}
                       >
-                        <img src={IMG_URL + imageUrl} alt="" />
+                        <img
+                          src={IMG_URL + imageUrl}
+                          alt=""
+                          className="w-full"
+                        />
                       </Link>
                     </SwiperSlide>
                   ))}
@@ -90,4 +95,4 @@ function Slides({liveCarousalData}) {
   );
 }
 
-export default Slides
+export default Slides;

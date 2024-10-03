@@ -29,7 +29,7 @@ function Home() {
             <Slides liveCarousalData={fetchHomeData?.Section4[0]?.data} />
             <Slides liveCarousalData={fetchHomeData?.Section11[0]?.data} />
           </section>
-          <section>
+          <section className="py-4 lg:py-6">
             {fetchHomeData?.Section5.map((item, index) => (
               <ProductSlider key={index} productSlideData={item} />
             ))}
@@ -37,7 +37,7 @@ function Home() {
           <section>
             <GreatDeals greatDealsData={fetchHomeData?.Section2[0]} />
           </section>
-          <section>
+          <section className="py-4 lg:py-6">
             {fetchHomeData?.Section12.map((item, index) => (
               <ProductSlider key={index} productSlideData={item} />
             ))}
@@ -45,7 +45,7 @@ function Home() {
           <section>
             <Slides liveCarousalData={fetchHomeData?.Section4[1]?.data} />
           </section>
-          <section>
+          <section className="py-4 lg:py-6">
             {fetchHomeData?.Section8.map((item, index) => (
               <ProductSlider key={index} productSlideData={item} />
             ))}

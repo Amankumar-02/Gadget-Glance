@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import 'swiper/swiper-bundle.css';
+import "swiper/swiper-bundle.css";
 import { Pagination, Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
 
@@ -14,34 +14,26 @@ function ExploreProducts({ exploreProductsData }) {
       {!exploreProductsData ? null : (
         <>
           <div className="py-4 lg:py-8 px-2 lg:px-10">
-            <div>
-              <h1 className="text-center text-lg lg:text-2xl font-bold">{name}</h1>
-            </div>
+            <h1 className="text-center text-lg lg:text-2xl font-bold">
+              {name}
+            </h1>
             <div className="pt-4 lg:pt-10">
               <Swiper
                 slidesPerView={2}
                 spaceBetween={30}
                 loop={true}
-                // pagination={{
-                //   clickable: true,
-                // }}
                 navigation={true}
                 modules={[Pagination, Navigation]}
                 breakpoints={{
-                  // when window width is >= 350px
-                  350: {
-                    slidesPerView: 2
-                  },
-                  // when window width is >= 1024px
-                  1024: {
-                    slidesPerView: 5
-                  }
+                  350: { slidesPerView: 2 },
+                  768: { slidesPerView: 3 },
+                  1024: { slidesPerView: 5 },
                 }}
-                className="mySwiper px-[30px]"
+                className="mySwiper"
               >
                 {data.map(({ name, imageUrl }, index) => (
                   <SwiperSlide key={index}>
-                    <div className="">
+                    <div className="px-4">
                       <Link
                         to={`/search/${name
                           .toLowerCase()
@@ -50,15 +42,13 @@ function ExploreProducts({ exploreProductsData }) {
                           .replaceAll("/", " ")
                           .replaceAll("&", "and")}`}
                       >
-                        <div>
-                          <img
-                            src={IMG_URL + imageUrl}
-                            alt=""
-                            className="scale-[0.95] hover:scale-[1.02] transition"
-                          />
-                        </div>
+                        <img
+                          src={IMG_URL + imageUrl}
+                          alt=""
+                          className="scale-[0.95] hover:scale-[1.02] transition w-full"
+                        />
                       </Link>
-                      <p>{name}</p>
+                      <p className="text-center">{name}</p>
                     </div>
                   </SwiperSlide>
                 ))}

@@ -1,4 +1,3 @@
-import "./Header.css";
 import "remixicon/fonts/remixicon.css";
 import { navItems } from "../../utils/constant";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,10 +31,10 @@ function Header() {
     <>
       <div className="sticky top-0 z-50">
         <div className="py-2 px-4 sm:px-6 lg:px-8 bg-[#E42529]">
-          <div className="py-2 flex flex-col lg:flex-row gap-2 lg:gap-1 justify-between items-center text-white">
+          <div className="py-1 lg:py-2 flex flex-col lg:flex-row gap-1 justify-between items-center text-white">
             <div>
               <Link to={"/"}>
-                <h1 className="text-lg sm:text-xl lg:text-3xl font-bold">
+                <h1 className="text-2xl sm:text-xl lg:text-3xl font-bold">
                   Gadget<span className="text-blue-400">Glance</span>
                 </h1>
               </Link>
