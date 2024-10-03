@@ -15,10 +15,10 @@ function ItemCard({ items }) {
             <img
               src={IMG_URL + media[0]?.productImageUrl}
               alt=""
-              className=""
+              className="w-full"
             />
           </div>
-          <h2 className="productTitle text-[#003380] text-sm font-semibold py-6 text-left h-[68px] overflow-hidden w-[100%]">
+          <h2 className="productTitle text-[#003380] text-sm lg:text-base font-semibold py-6 text-left h-[68px] overflow-hidden">
             {name.length > 50 ? name.slice(0, 50) + "..." : name}
           </h2>
           <div className="flex flex-col gap-1 items-start">
@@ -32,13 +32,11 @@ function ItemCard({ items }) {
               M.R.P: <span className="line-through">₹{price?.mrp}.00</span>
             </p>
             <p className="text-sm text-gray-500">You Save: {price?.discount}</p>
-            {hasPP ? (
-              <>
-                <div className="text-green-600 text-[10px] lg:text-xs rounded-3xl border border-green-600 px-1">
-                  OFFERS AVAILABLE
-                </div>
-              </>
-            ) : null}
+            {hasPP && (
+              <div className="text-green-600 text-xs lg:text-base rounded-3xl border border-green-600 px-1">
+                OFFERS AVAILABLE
+              </div>
+            )}
             <button className="text-red-500 border border-red-500 text-sm px-4 rounded-lg hover:bg-red-500 hover:text-white">
               Add WishList
             </button>

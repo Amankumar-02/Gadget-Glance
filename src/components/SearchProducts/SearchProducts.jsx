@@ -35,7 +35,7 @@ function SearchProducts() {
 
       setOrderType("relevance");
       setPageNumb(0);
-      setRange("")
+      setRange("");
       setStock("");
       setExcludeOutOfStock(false);
       setChangeUrl(url);
@@ -43,13 +43,31 @@ function SearchProducts() {
   }, [userId]);
 
   // fetch the api depending on params
-  const {data: fetchedSearchedData, loading} = useApiFetch(changeUrl);
-  useEffect(()=>{
-    if(fetchedSearchedData?.data){
+  const { data: fetchedSearchedData, loading } = useApiFetch(changeUrl);
+  useEffect(() => {
+    if (fetchedSearchedData?.data) {
       setFetchSearchList(fetchedSearchedData?.data?.data);
-      setMinPrice(parseInt(fetchedSearchedData?.data?.data?.productListData?.facets[0]?.selectedMinPrice) || fetchedSearchedData?.data?.data?.productListData?.facets[0]?.minPrice.replace(".0", ""));
-      setMaxPrice(parseInt(fetchedSearchedData?.data?.data?.productListData?.facets[0]?.selectedMaxPrice) || fetchedSearchedData?.data?.data?.productListData?.facets[0]?.maxPrice.replace(".0", ""));
-}
+      setMinPrice(
+        parseInt(
+          fetchedSearchedData?.data?.data?.productListData?.facets[0]
+            ?.selectedMinPrice
+        ) ||
+          fetchedSearchedData?.data?.data?.productListData?.facets[0]?.minPrice.replace(
+            ".0",
+            ""
+          )
+      );
+      setMaxPrice(
+        parseInt(
+          fetchedSearchedData?.data?.data?.productListData?.facets[0]
+            ?.selectedMaxPrice
+        ) ||
+          fetchedSearchedData?.data?.data?.productListData?.facets[0]?.maxPrice.replace(
+            ".0",
+            ""
+          )
+      );
+    }
   }, [fetchedSearchedData, changeUrl]);
 
   // const paginationItems = (direction)=>{
@@ -137,9 +155,11 @@ function SearchProducts() {
       ) : (
         <>
           <section className="relative">
-            {loading ? (<><div className="fixed top-auto h-1 bg-green-500 w-full animate-pulse transition-all"></div></>):null}
-            <div>
-              <div className="flex items-center justify-start py-1 px-4 text-gray-700">
+            {loading && (
+              <div className="fixed top-auto h-[6px] lg:h-1 bg-green-500 w-full animate-pulse transition-all"></div>
+            )}
+            <div className="py-2 lg:py-4 px-3 lg:px-6">
+              <div className="flex items-center justify-start text-gray-700">
                 <i className="ri-home-4-fill text-base"></i>
                 <div className="ms-2 text-xs capitalize">
                   {`> ${fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value
@@ -151,9 +171,9 @@ function SearchProducts() {
             </div>
           </section>
           <hr />
-          <section>
-            <div className="flex gap-6 py-2 lg:py-4 px-4 lg:px-6">
-              <div className="relative w-[20%]">
+          <section className="py-2 lg:py-4 px-3 lg:px-6">
+            <div className="flex flex-row lg:flex-row gap-4 lg:gap-6">
+              <div className="relative w-[20%] lg:w-1/5">
                 <SideFilter
                   sideFilterData={fetchSearchList}
                   excludeOutOfStock={excludeOutOfStock}
@@ -173,8 +193,8 @@ function SearchProducts() {
                   setChangeUrl={setChangeUrl}
                 />
               </div>
-              <div className="w-[80%]">
-                <div className="flex justify-between pb-4 flex-col lg:flex-row">
+              <div className="w-[80%] lg:w-4/5">
+                <div className="flex flex-col lg:flex-row justify-between pb-4">
                   <div>
                     <h1 className="uppercase text-sm lg:text-lg font-bold text-gray-700">
                       {fetchSearchList?.productListData?.facets[1]?.values[0]?.query?.query?.value
@@ -200,26 +220,20 @@ function SearchProducts() {
                   <div className="flex items-center gap-2 lg:gap-4 flex-wrap lg:flex-nowrap">
                     <p>Sort By:</p>
                     <button
-                      onClick={() => {
-                        applyFilter("relevance");
-                      }}
-                      className="text-green-600 border border-green-600 text-sm px-1 lg:px-3 lg:py-1 hover:bg-green-600 hover:text-white rounded-xl"
+                      onClick={() => applyFilter("relevance")}
+                      className="text-green-600 border border-green-600 text-xs sm:text-sm px-1 lg:px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl"
                     >
                       Relevance
                     </button>
                     <button
-                      onClick={() => {
-                        applyFilter("price-asc");
-                      }}
-                      className="text-green-600 border border-green-600 text-sm px-1 lg:px-3 lg:py-1 hover:bg-green-600 hover:text-white rounded-xl"
+                      onClick={() => applyFilter("price-asc")}
+                      className="text-green-600 border border-green-600 text-xs sm:text-sm px-1 lg:px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl"
                     >
                       Price(Low-High)
                     </button>
                     <button
-                      onClick={() => {
-                        applyFilter("price-desc");
-                      }}
-                      className="text-green-600 border border-green-600 text-sm px-1 lg:px-3 lg:py-1 hover:bg-green-600 hover:text-white rounded-xl"
+                      onClick={() => applyFilter("price-desc")}
+                      className="text-green-600 border border-green-600 text-xs sm:text-sm px-1 lg:px-3 py-1 hover:bg-green-600 hover:text-white rounded-xl"
                     >
                       Price(High-Low)
                     </button>
@@ -235,44 +249,36 @@ function SearchProducts() {
                 </div>
 
                 {fetchSearchList?.productListData?.pagination?.numberOfPages >
-                1 ? (
-                  <>
-                    <div className="flex w-fit justify-between items-center gap-2 lg:gap-4 float-right py-4">
-                      <button
-                        onClick={() => {
-                          paginationItems("prev");
-                        }}
-                        className="text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white "
-                      >
-                        Prev
-                      </button>
-                      <p className="text-gray-600 text-lg font-semibold">
-                        {fetchSearchList?.productListData?.pagination
-                          ?.currentPage + 1}
-                      </p>
-                      <button
-                        onClick={() => {
-                          paginationItems("next");
-                        }}
-                        className="text-gray-400 border-2 border-gray-400 px-2 hover:bg-gray-400 hover:text-white "
-                      >
-                        Next
-                      </button>
-                      <p className="text-gray-600 text-sm lg:text-lg font-semibold">
-                        Total Pages:{" "}
-                        {
-                          fetchSearchList?.productListData?.pagination
-                            ?.numberOfPages
-                        }
-                      </p>
-                    </div>
-                  </>
-                ) : null}
+                  1 && (
+                  <div className="flex w-fit justify-between items-center gap-2 lg:gap-4 float-right py-4">
+                    <button
+                      onClick={() => paginationItems("prev")}
+                      className="text-gray-400 border-2 border-gray-400 text-xs sm:text-sm lg:text-base px-1 lg:px-2 hover:bg-gray-400 hover:text-white rounded-md"
+                    >
+                      Prev
+                    </button>
+                    <p className="text-gray-600 text-xs sm:text-sm lg:text-lg font-semibold">
+                      {fetchSearchList?.productListData?.pagination
+                        ?.currentPage + 1}
+                    </p>
+                    <button
+                      onClick={() => paginationItems("next")}
+                      className="text-gray-400 border-2 border-gray-400 text-xs sm:text-sm lg:text-base px-1 lg:px-2 hover:bg-gray-400 hover:text-white rounded-md"
+                    >
+                      Next
+                    </button>
+                    <p className="text-gray-600 text-xs sm:text-sm lg:text-lg font-semibold">
+                      Total Pages:{" "}
+                      {
+                        fetchSearchList?.productListData?.pagination
+                          ?.numberOfPages
+                      }
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </section>
-          <hr />
-          <section></section>
         </>
       )}
     </>
