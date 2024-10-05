@@ -44,6 +44,28 @@ function ProductInfoPage() {
     toast.success("Product Added Successfully");
   };
 
+  const [isZoomVisible, setZoomVisible] = useState(false);
+  const [zoomStyle, setZoomStyle] = useState({});
+  const handleMouseMove = (e) => {
+    if (window.innerWidth > 1024) {
+      setZoomVisible(true);
+      const rect = e.target.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      setZoomStyle({
+        transformOrigin: `${x}% ${y}%`,
+        transform: "scale(3)",
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (window.innerWidth > 1024) {
+      setZoomVisible(false);
+      setZoomStyle({ transform: "scale(1)" });
+    }
+  };
+
   return (
     <>
       {!fetchProductInfoData ? (
@@ -57,7 +79,9 @@ function ProductInfoPage() {
                 {fetchProductInfoData?.productData?.breadcrumbs.map(
                   ({ name }, index) => (
                     <div key={index} className="ms-2 text-xs">
-                      {`> ${name.length > 80 ? name.slice(0,80)+"..." : name}`}
+                      {`> ${
+                        name.length > 80 ? name.slice(0, 80) + "..." : name
+                      }`}
                     </div>
                   )
                 )}
@@ -74,7 +98,9 @@ function ProductInfoPage() {
                     <img
                       src={IMG_URL + zoomImg}
                       alt=""
-                      className="max-w-[60%] w-auto h-auto object-contain"
+                      className="max-w-[60%] w-auto h-auto object-contain p-4"
+                      onMouseMove={handleMouseMove}
+                      onMouseLeave={handleMouseLeave}
                     />
                   </div>
                   <Swiper
@@ -106,7 +132,20 @@ function ProductInfoPage() {
                     )}
                   </Swiper>
                 </div>
-                <div className="w-full lg:w-3/5 flex flex-wrap">
+
+                <div className="relative w-full lg:w-3/5 flex flex-wrap">
+                  {/* Zoomed Image (popup) */}
+                  {isZoomVisible && (
+                    <div className="absolute top-[2%] left-[10%] h-[70vh] p-2 bg-white border border-gray-300 overflow-hidden">
+                      <img
+                        src={IMG_URL + zoomImg}
+                        alt="Zoomed"
+                        className="w-full h-full object-cover transition-transform duration-200 ease-in-out p-4"
+                        style={zoomStyle}
+                      />
+                    </div>
+                  )}
+
                   <div className="w-full flex flex-col gap-2 py-4">
                     <h1 className="w-[86%] leading-5 text-lg font-extrabold text-gray-800">
                       {fetchProductInfoData?.productData?.name}{" "}
@@ -357,11 +396,14 @@ function ProductInfoPage() {
                       </p>
                     </div>
                     <div className="flex flex-col lg:flex-row lg:flex-wrap lg:justify-between gap-4">
-                    {fetchProductInfoData?.productData?.reviews.map(
-                      (item, index) => (
-                        <ProductReviews key={index} productReviewData={item} />
-                      )
-                    )}
+                      {fetchProductInfoData?.productData?.reviews.map(
+                        (item, index) => (
+                          <ProductReviews
+                            key={index}
+                            productReviewData={item}
+                          />
+                        )
+                      )}
                     </div>
                   </>
                 )}
