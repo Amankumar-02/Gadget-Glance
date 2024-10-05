@@ -43,3 +43,29 @@ strong {
   background: #4D148C; 
   /* background: #FF6600;  */
 }
+
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  /* background: #FF6600;  */
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: gray;
+  /* background-color: #4D148C; */
+  border-radius: 50px;
+}
