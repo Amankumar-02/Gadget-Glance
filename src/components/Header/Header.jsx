@@ -46,7 +46,7 @@ function Header() {
               <div className="flex items-center bg-white px-3 rounded-3xl">
                 <input
                   type="text"
-                  className="w-full sm:w-[200px] lg:w-[400px] py-1 px-4 rounded-3xl text-gray-800 outline-none"
+                  className="w-full lg:w-[30vw] py-1 px-4 rounded-3xl text-gray-800 outline-none"
                   placeholder="Find your favourite products"
                   value={searchInput}
                   onChange={(e) => {
