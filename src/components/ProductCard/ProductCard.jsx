@@ -43,9 +43,9 @@ function ProductCard({ items }) {
               You Save: {discount}
             </p>
             {hasPP ? (
-              <button className="text-green-600 text-[10px] lg:text-xs rounded-xl border border-green-600 px-2 lg:px-3 py-1">
+                <p className="text-green-600 text-[10px] lg:text-xs font-semibold">
                 OFFERS AVAILABLE
-              </button>
+                </p>
             ) : null}
           </div>
         </div>

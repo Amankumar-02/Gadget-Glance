@@ -15,39 +15,80 @@ function ProductCart() {
   const [newStoreData, setNewStoreData] = useState(storeData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [orderPlaced, setOrderPlaced] = useState(false);
+
   const editQuantityEvent = (code, task) => {
+    const test = storeData.filter((item) => item.productData.code === code)[0];
     if (task === "decrease") {
-      dispatch(editCartQuantityData({ code: code, task: task }));
-      toast.success("Item quantity is decreased.");
+      if (test?.productQuantity > 1) {
+        dispatch(editCartQuantityData({ code: code, task: task }));
+        toast.success("Item quantity is decreased.");
+      }
     } else {
-      dispatch(editCartQuantityData({ code: code, task: task }));
-      toast.success("Item quantity is increased.");
+      if (test?.productQuantity < 10) {
+        dispatch(editCartQuantityData({ code: code, task: task }));
+        toast.success("Item quantity is increased.");
+      }
     }
   };
+
   const removeProduct = (e) => {
     dispatch(removeCartData(e));
     toast.success("Item removed Successfully");
   };
+
   useEffect(() => {
     setNewStoreData(storeData);
   }, [editQuantityEvent, removeProduct]);
+
   const checkOutEvent = () => {
+    setOrderPlaced(true);
     // navigate("/checkout")
     dispatch(clearCartItems());
     toast.success("Your Order is Placed Successfully");
   };
+
   return (
     <>
       {newStoreData.length === 0 ? (
         <>
-          <div className="w-full h-[80vh] flex flex-col sm:flex-row justify-center items-center p-4">
-            <h1 className="text-red-500 text-xl sm:text-2xl lg:text-3xl font-bold text-center sm:text-left">
-              Cart is Empty
-            </h1>
-            <p className="text-2xl sm:text-3xl lg:text-4xl ms-0 sm:ms-2 mt-2 sm:mt-0 text-center">
-              🛒
-            </p>
-          </div>
+          {orderPlaced ? (
+            <>
+              <div className="my-6 lg:my-10 m-auto w-[94%] lg:w-[80%] min-h-[80vh] flex flex-col gap-4 items-center justify-center">
+                <img
+                  src="https://clipart-library.com/images/Lcd5doyqi.png"
+                  alt=""
+                  className="w-[80px] lg:w-[100px]"
+                />
+                <h1 className="mt-4 text-2xl font-semibold text-gray-600">
+                  Order Placed!
+                </h1>
+                <p className="text-lg text-gray-500">
+                  Thank you for your order
+                </p>
+                <p className="text-lg text-gray-500 font-semibold">
+                  Order Id - {Math.floor(Math.random() * 999999)}
+                </p>
+                <button
+                  className="p-2 bg-orange-400 rounded-lg text-white font-semibold text-lg lg:text-xl"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Go to home
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="w-full h-[80vh] flex flex-col sm:flex-row justify-center items-center p-4">
+              <h1 className="text-red-500 text-xl sm:text-2xl lg:text-3xl font-bold text-center sm:text-left">
+                Cart is Empty
+              </h1>
+              <p className="text-2xl sm:text-3xl lg:text-4xl ms-0 sm:ms-2 mt-2 sm:mt-0 text-center">
+                🛒
+              </p>
+            </div>
+          )}
         </>
       ) : (
         <>

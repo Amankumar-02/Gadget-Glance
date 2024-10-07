@@ -12,8 +12,8 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
 import { ProductSpecifications, ProductReviews, Shimmer } from "../index";
-import { storeCartData } from "../../features/cart/cartSlice";
-import { useDispatch } from "react-redux";
+import { editCartQuantityData, storeCartData } from "../../features/cart/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 import useApiFetch from "../../hooks/useApiFetch";
 
@@ -36,10 +36,16 @@ function ProductInfoPage() {
     }
   }, [fetchedProductData, fetchedProductEmiData]);
 
+  const storeData = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const addProduct = (data) => {
-    dispatch(storeCartData({ productQuantity: 1, ...data }));
+    const test2 = storeData.filter(item=>item?.productData?.code === data?.productData?.code)[0];
+    if(test2?.productData?.code === data?.productData?.code){
+      dispatch(editCartQuantityData({ code: data?.productData?.code, task: "increase" }));
+    }else{
+      dispatch(storeCartData({ productQuantity: 1, ...data }));
+    };
     navigate("/cart");
     toast.success("Product Added Successfully");
   };
@@ -65,7 +71,6 @@ function ProductInfoPage() {
       setZoomStyle({ transform: "scale(1)" });
     }
   };
-
   return (
     <>
       {!fetchProductInfoData ? (
@@ -152,7 +157,7 @@ function ProductInfoPage() {
                       <span className="text-[15px]">{`(${fetchProductInfoData?.productData?.code})`}</span>
                     </h1>
                     <div className="flex flex-col lg:flex-row lg:items-center gap-1 lg:gap-4 text-[#0B3B85]">
-                      {fetchProductInfoData?.productData?.numberOfRatings && (
+                      {fetchProductInfoData?.productData?.numberOfRatings? (
                         <div className="flex gap-2 items-center">
                           <div className="text-yellow-500 font-medium text-lg">
                             <i className="ri-star-fill"></i>
@@ -169,7 +174,7 @@ function ProductInfoPage() {
                             Reviews)
                           </p>
                         </div>
-                      )}
+                      ): null}
                       <div className="flex gap-2 lg:gap-4">
                         <i className="ri-share-forward-box-fill font-semibold cursor-pointer">
                           <span className="ps-2 font-medium">Share</span>
