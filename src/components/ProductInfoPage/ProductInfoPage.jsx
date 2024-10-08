@@ -307,7 +307,7 @@ function ProductInfoPage() {
             <hr />
             <section>
               <div className="relative px-4 lg:px-6 py-3">
-                <div className="flex gap-2 lg:gap-6 sticky top-[134px] lg:top-[108px] left-0 bg-white py-1">
+                <div className="flex gap-2 lg:gap-6 sticky top-[140px] lg:top-[108px] left-0 bg-white py-1">
                   <a href="#desc">
                     <h3 className="text-sm lg:text-base font-bold text-gray-800 hover:underline transition-all">
                       Description

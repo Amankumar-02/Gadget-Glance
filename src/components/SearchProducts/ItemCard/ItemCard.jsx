@@ -33,13 +33,13 @@ function ItemCard({ items }) {
             </p>
             <p className="text-sm text-gray-500">You Save: {price?.discount}</p>
             {hasPP && (
-              <div className="text-green-600 text-xs lg:text-base rounded-3xl border border-green-600 px-1">
-                OFFERS AVAILABLE
-              </div>
+              <p className="text-green-600 text-[10px] lg:text-xs font-semibold">
+              OFFERS AVAILABLE
+              </p>
             )}
-            <button className="text-red-500 border border-red-500 text-sm px-4 rounded-lg hover:bg-red-500 hover:text-white">
+            {/* <button className="text-red-500 border border-red-500 text-sm px-4 rounded-lg hover:bg-red-500 hover:text-white">
               Add WishList
-            </button>
+            </button> */}
           </div>
         </div>
       </Link>
