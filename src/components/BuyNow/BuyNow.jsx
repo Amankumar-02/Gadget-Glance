@@ -229,7 +229,7 @@ function BuyNow() {
                           ) : null}
                           <p className="text-xs font-semibold text-gray-700 ">
                             Standard Delivery:{" "}
-                            <span className="text-[#4D148C]">
+                            <span className="text-[#003088]">
                               {new Date().getDate() + 2}{" "}
                               {new Date().toLocaleString("en-US", {
                                 month: "short",
