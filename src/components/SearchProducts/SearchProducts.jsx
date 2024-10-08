@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { SEARCH_URL_CUSTOM } from "../../utils/constant";
 import { Shimmer } from "../index";
 import { ItemCard, SideFilter } from "./index";
@@ -9,6 +10,7 @@ import useApiFetch from "../../hooks/useApiFetch";
 function SearchProducts() {
   const { userId } = useParams();
   // const searchStoreData = useSelector(state=>state.searchResult.searchResult);
+  const pincode = useSelector((state) => state.cart.pincode);
   const [changeUrl, setChangeUrl] = useState(null);
   const [fetchSearchList, setFetchSearchList] = useState(null);
   const [orderType, setOrderType] = useState("relevance");
@@ -31,7 +33,7 @@ function SearchProducts() {
 
     if (userId) {
       // const url = `${SEARCH_URL_CUSTOM.slice(0, 100)}${searchQuery}${SEARCH_URL_CUSTOM.slice(-37)}`;
-      const url = `${SEARCH_URL_CUSTOM}/${searchQuery}?orderType=relevance&paginate=0&range=&stock=`;
+      const url = `${SEARCH_URL_CUSTOM}/${searchQuery}?orderType=relevance&paginate=0&range=&stock=&location=${pincode}`;
 
       setOrderType("relevance");
       setPageNumb(0);
@@ -40,7 +42,7 @@ function SearchProducts() {
       setExcludeOutOfStock(false);
       setChangeUrl(url);
     }
-  }, [userId]);
+  }, [userId, pincode]);
 
   // fetch the api depending on params
   const { data: fetchedSearchedData, loading } = useApiFetch(changeUrl);
@@ -124,7 +126,7 @@ function SearchProducts() {
       .replaceAll("/", " ")
       .replaceAll("&", "and")
       .replaceAll(" ", "%20");
-    const url = `${SEARCH_URL_CUSTOM}/${searchQuery}?orderType=${orderType}&paginate=${newPage}&range=${range}&stock=${stock}`;
+    const url = `${SEARCH_URL_CUSTOM}/${searchQuery}?orderType=${orderType}&paginate=${newPage}&range=${range}&stock=${stock}&location=${pincode}`;
     setChangeUrl(url);
   };
 
@@ -138,7 +140,7 @@ function SearchProducts() {
         .replaceAll("/", " ")
         .replaceAll("&", "and")
         .replaceAll(" ", "%20");
-      const url = `${SEARCH_URL_CUSTOM}/${searchQuery}?orderType=${filter}&paginate=${pageNumb}&range=${range}&stock=${stock}`;
+      const url = `${SEARCH_URL_CUSTOM}/${searchQuery}?orderType=${filter}&paginate=${pageNumb}&range=${range}&stock=${stock}&location=${pincode}`;
       setChangeUrl(url);
     }
     // setChangeUrl(prev=>{
@@ -176,6 +178,7 @@ function SearchProducts() {
               <div className="relative w-[20%] lg:w-1/5">
                 <SideFilter
                   sideFilterData={fetchSearchList}
+                  pincode={pincode}
                   excludeOutOfStock={excludeOutOfStock}
                   setExcludeOutOfStock={setExcludeOutOfStock}
                   mainUrl={SEARCH_URL_CUSTOM}

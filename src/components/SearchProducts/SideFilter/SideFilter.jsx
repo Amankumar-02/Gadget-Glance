@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 function SideFilter({
   sideFilterData,
+  pincode,
   excludeOutOfStock,
   setExcludeOutOfStock,
   mainUrl,
@@ -29,7 +30,7 @@ function SideFilter({
       .replaceAll("&", "and")
       .replaceAll(" ", "%20");
 
-    const url = `${mainUrl}/${searchQuery}?orderType=relevance&paginate=0&range=${newRange}&stock=`;
+    const url = `${mainUrl}/${searchQuery}?orderType=relevance&paginate=0&range=${newRange}&stock=&location=${pincode}`;
     setOrderType("relevance");
     setPageNumb(0);
     setStock("");
@@ -55,7 +56,7 @@ function SideFilter({
       .replaceAll("&", "and")
       .replaceAll(" ", "%20");
 
-    const url = `${mainUrl}/${searchQuery}?orderType=relevance&paginate=0&range=${range}&stock=${newUrl}`;
+    const url = `${mainUrl}/${searchQuery}?orderType=relevance&paginate=0&range=${range}&stock=${newUrl}&location=${pincode}`;
     setOrderType("relevance");
     setPageNumb(0);
     setChangeUrl(url);

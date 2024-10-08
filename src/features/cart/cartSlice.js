@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const initialState = {
     cart: localStorage.getItem('cart')? JSON.parse(localStorage.getItem('cart')) : [],
     // cart: [],
     buyNowCart: [],
+    pincode: localStorage.getItem('pincode')? JSON.parse(localStorage.getItem('pincode')) : "",
+    // pincode: "",
+    stateLocation: localStorage.getItem('stateLocation')? JSON.parse(localStorage.getItem('stateLocation')) : "",
+    // stateLocation: "",
 }
 
 export const cartSlice = createSlice({
@@ -66,10 +71,22 @@ export const cartSlice = createSlice({
         clearBuyNowItems: (state, action)=>{
             state.buyNowCart = [];
         },
+        setPincode: (state, action)=>{
+            // state.pincode = action.payload;
+            localStorage.setItem('pincode', JSON.stringify(action.payload));
+            const getDataFromLocalStorage = JSON.parse(localStorage.getItem('pincode'));
+            state.pincode = getDataFromLocalStorage;
+        },
+        setStateLocation: (state, action)=>{
+            // state.stateLocation = action.payload;
+            localStorage.setItem('stateLocation', JSON.stringify(action.payload));
+            const getDataFromLocalStorage = JSON.parse(localStorage.getItem('stateLocation'));
+            state.stateLocation = getDataFromLocalStorage;
+        },
     }
 })
 
-export const {storeCartData, storeBuyNowData, removeCartData, removeBuyNowData, editCartQuantityData, editBuyNowQuantityData, clearCartItems, clearBuyNowItems} = cartSlice.actions
+export const {storeCartData, storeBuyNowData, removeCartData, removeBuyNowData, editCartQuantityData, editBuyNowQuantityData, clearCartItems, clearBuyNowItems, setPincode, setStateLocation} = cartSlice.actions
 // export const {storeCartData} = cartSlice.actions
 
 export default cartSlice.reducer

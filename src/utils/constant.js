@@ -81,11 +81,4 @@ const PRODUCT_EMI_INFO_URL = "https://food-explorer-server-prime.vercel.app/api/
 
 const SERVER_APIKEY = '12233344445678';
 
-
-//Cors solve using corsproxy.io  ==> netlify & vercel supported
-// const HOME_URL = "https://corsproxy.org/?https%3A%2F%2Fwww.reliancedigital.in%2Frildigitalws%2Fv2%2Frrldigital%2Fcms%2Fpagedata%3FpageId%3Dhomepage%26pageType%3DcontentPage";
-// const SEARCH_URL_CUSTOM = "https://corsproxy.org/?https%3A%2F%2Fwww.reliancedigital.in%2Frildigitalws%2Fv2%2Frrldigital%2Fcms%2Fpagedata%3FpageType%3DproductSearchPage%26q%3Dhp%2520gaming%2520laptop%253Arelevance%26page%3D0%26size%3D24%26pc%3D110059"
-// const PRODUCT_INFO_URL = "https://corsproxy.org/?https%3A%2F%2Fwww.reliancedigital.in%2Frildigitalws%2Fv2%2Frrldigital%2Fcms%2Fpagedata%3FpageType%3DproductPage%26pageId%3DproductPage%26productCode%3D"
-// const PRODUCT_EMI_INFO_URL = "https://corsproxy.org/?https%3A%2F%2Fwww.reliancedigital.in%2Frildigitalws%2Fv2%2Frrldigital%2Femi%2FgetAllEmiDetails%3FproductPrice%3D1049%26productCode%3D"
-
 export {navItems, footerItems, IMG_URL, HOME_URL, SEARCH_URL_CUSTOM, PRODUCT_INFO_URL, PRODUCT_EMI_INFO_URL, SERVER_APIKEY};

@@ -3,14 +3,16 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IMG_URL } from "../../utils/constant";
 import {
-    removeBuyNowData,
-    editBuyNowQuantityData,
-    clearBuyNowItems,
+  removeBuyNowData,
+  editBuyNowQuantityData,
+  clearBuyNowItems,
 } from "../../features/cart/cartSlice";
 import { useNavigate, Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 function BuyNow() {
+  const pincode = useSelector((state) => state.cart.pincode);
+  const stateLocation = useSelector((state) => state.cart.stateLocation);
   const storeData = useSelector((state) => state.cart.buyNowCart);
   const [newStoreData, setNewStoreData] = useState(storeData);
   const dispatch = useDispatch();
@@ -18,7 +20,9 @@ function BuyNow() {
   const [orderPlaced, setOrderPlaced] = useState(false);
 
   const editQuantityEvent = (code, task) => {
-    const filterProduct = storeData.filter((item) => item.productData.code === code)[0];
+    const filterProduct = storeData.filter(
+      (item) => item.productData.code === code
+    )[0];
     if (task === "decrease") {
       if (filterProduct?.productQuantity > 1) {
         dispatch(editBuyNowQuantityData({ code: code, task: task }));
@@ -105,7 +109,8 @@ function BuyNow() {
                 </div>
                 <div>
                   <p className="text-xs sm:text-sm">
-                    Shipping to: 110059 <i className="ri-map-pin-2-fill"></i>
+                    Shipping to: {`${stateLocation} ${pincode}`}{" "}
+                    <i className="ri-map-pin-2-fill"></i>
                   </p>
                 </div>
               </div>
@@ -383,7 +388,7 @@ function BuyNow() {
                 </div>
                 <div className="flex justify-center items-center my-4">
                   <button
-                    className="bg-red-600 text-white rounded py-2 px-4 text-sm font-semibold w-fit lg:w-full"
+                    className="bg-red-600 text-white rounded py-2 px-4 text-sm font-semibold w-fit lg:w-full active:scale-[0.9]"
                     onClick={checkOutEvent}
                   >
                     Buy Now

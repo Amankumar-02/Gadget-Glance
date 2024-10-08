@@ -1,16 +1,19 @@
 import "remixicon/fonts/remixicon.css";
 import { navItems } from "../../utils/constant";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setPincode, setStateLocation } from "../../features/cart/cartSlice";
+import indiaPincodeLookup from "india-pincode-lookup";
 // import { storeSearchResult } from "../../features/searchResult/searchResult";
 
 function Header() {
   const storeData = useSelector((state) => state.cart.cart);
+  const pincode = useSelector((state) => state.cart.pincode);
+  const stateLocation = useSelector((state) => state.cart.stateLocation);
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const searchSubmitEvent = (e) => {
     e.preventDefault();
     if (searchInput.length > 0) {
@@ -27,6 +30,30 @@ function Header() {
     }
     // window.location.reload();
   };
+
+  const pinCodeEventHandler = () => {
+    const pin = prompt("Enter your pin code");
+    if (pin && /^\d{6}$/.test(pin)) {
+      dispatch(setPincode(pin));
+    } else {
+      alert("Please enter a valid 6-digit pin code.");
+    }
+  };
+
+  useEffect(() => {
+    if (pincode) {
+      const locationInfo = indiaPincodeLookup.lookup(pincode)[0];
+      if (locationInfo) {
+        // console.log("Pincode is valid!");
+        dispatch(setStateLocation(locationInfo.districtName));
+      } else {
+        // console.log("Invalid pincode!");
+        alert("Invalid pincode! Please try again.");
+        pinCodeEventHandler();
+      }
+    }
+  }, [pincode]);
+
   return (
     <>
       <div className="sticky top-0 z-50">
@@ -60,10 +87,18 @@ function Header() {
               </div>
             </form>
             <div className="flex gap-4 sm:gap-4 mt-2 lg:mt-0 items-center text-sm sm:text-base font-semibold">
-              <span className="inline-block">
-                <i className="ri-map-pin-2-fill"></i> Deliver to New Delhi
+              <span
+                className="inline-block cursor-pointer text-xs sm:text-sm"
+                onClick={pinCodeEventHandler}
+              >
+                <i className="ri-map-pin-2-fill"></i>{" "}
+                {pincode.length <= 0 ? (
+                  <>Enter your pin code</>
+                ) : (
+                  <>Deliver to {stateLocation} {pincode}</>
+                )}
               </span>
-              <span className="hidden sm:inline">|</span>
+              <span className="hidden sm:inline font-extralight">|</span>
               <Link
                 to={"/cart"}
                 className="hover:border hover:border-x-0 hover:border-t-0 hover:border-b-2"
@@ -71,7 +106,7 @@ function Header() {
                 <i className="ri-shopping-cart-2-fill"></i> Cart
                 {storeData.length > 0 ? <>: {storeData.length}</> : null}
               </Link>
-              <span className="hidden sm:inline">|</span>
+              <span className="hidden sm:inline font-extralight">|</span>
               <Link
                 to={"/"}
                 className="hover:border hover:border-x-0 hover:border-t-0 hover:border-b-2"

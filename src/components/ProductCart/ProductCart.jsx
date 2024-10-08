@@ -13,6 +13,9 @@ import toast, { Toaster } from "react-hot-toast";
 function ProductCart() {
   // const storeData = useSelector((state) => state.cart.cart);
   // const storeData = JSON.parse(localStorage.getItem('cart'));
+  const pincode = useSelector((state) => state.cart.pincode);
+  const stateLocation = useSelector((state) => state.cart.stateLocation);
+  
   const storeData =
     useSelector((state) => state.cart.cart) ||
     JSON.parse(localStorage.getItem("cart"));
@@ -129,7 +132,7 @@ function ProductCart() {
                 </div>
                 <div>
                   <p className="text-xs sm:text-sm">
-                    Shipping to: 110059 <i className="ri-map-pin-2-fill"></i>
+                    Shipping to: {`${stateLocation} ${pincode}`} <i className="ri-map-pin-2-fill"></i>
                   </p>
                 </div>
               </div>
@@ -407,7 +410,7 @@ function ProductCart() {
                 </div>
                 <div className="flex justify-center items-center my-4">
                   <button
-                    className="bg-red-600 text-white rounded py-2 px-4 text-sm font-semibold w-fit lg:w-full"
+                    className="bg-red-600 text-white rounded py-2 px-4 text-sm font-semibold w-fit lg:w-full active:scale-[0.9]"
                     onClick={checkOutEvent}
                   >
                     CHECKOUT
