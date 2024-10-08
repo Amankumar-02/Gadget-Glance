@@ -8,12 +8,12 @@ function Footer() {
         <div className="px-4 lg:px-14 py-4 bg-[#003088]">
           <Link to={"/"}>
             <h1 className="text-2xl sm:text-xl lg:text-3xl font-bold text-white my-4 lg:my-8">
-              <span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-[-1px]">
+              <span className="text-[#FF6600] text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-[-1px]">
                 𝓖
               </span>
               adget
-              <span className="text-[#FF6600] ms-2">
-                <span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-[-1px]">
+              <span className="">
+                <span className="text-[#FF6600] text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-[-1px]">
                   𝓖
                 </span>
                 lance

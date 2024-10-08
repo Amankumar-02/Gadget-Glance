@@ -57,12 +57,21 @@ function Header() {
   return (
     <>
       <div className="sticky top-0 z-50">
-        <div className="py-2 px-4 sm:px-6 lg:px-8 bg-[#FF6600] lg:bg-gradient-to-b from-[#FF6600] from-90% to-[#003088] to-100%">
+        <div className="py-2 px-4 sm:px-6 lg:px-8 bg-[#003088]">
           <div className="py-1 lg:py-2 flex flex-col lg:flex-row gap-1 justify-between items-center text-white">
             <div>
               <Link to={"/"}>
                 <h1 className="text-2xl sm:text-xl lg:text-3xl font-bold">
-                <span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-[-1px]">𝓖</span>adget<span className="text-[#003088] ms-2"><span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-[-1px]">𝓖</span>lance</span>
+                  <span className="text-[#FF6600] text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-[-1px]">
+                    𝓖
+                  </span>
+                  adget
+                  <span className="">
+                    <span className="text-[#FF6600] text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-[-1px]">
+                      𝓖
+                    </span>
+                    lance
+                  </span>
                 </h1>
               </Link>
             </div>
@@ -88,28 +97,32 @@ function Header() {
             </form>
             <div className="flex gap-4 sm:gap-4 mt-2 lg:mt-0 items-center text-sm sm:text-base font-semibold">
               <span
-                className="inline-block cursor-pointer text-xs sm:text-sm"
+                className="inline-block cursor-pointer text-xs sm:text-sm hover:scale-[1.06] transition-all"
                 onClick={pinCodeEventHandler}
               >
                 <i className="ri-map-pin-2-fill"></i>{" "}
                 {pincode.length <= 0 ? (
                   <>Enter your pin code</>
                 ) : (
-                  <>Deliver to {stateLocation} {pincode}</>
+                  <>
+                    Deliver to {stateLocation} {pincode}
+                  </>
                 )}
               </span>
               <span className="hidden sm:inline font-extralight">|</span>
               <Link
                 to={"/cart"}
-                className="hover:border hover:border-x-0 hover:border-t-0 hover:border-b-2"
+                className="hover:scale-[1.06]"
               >
                 <i className="ri-shopping-cart-2-fill"></i> Cart
+                <span>
                 {storeData.length > 0 ? <>: {storeData.length}</> : null}
+                </span>
               </Link>
               <span className="hidden sm:inline font-extralight">|</span>
               <Link
                 to={"/login"}
-                className="hover:border hover:border-x-0 hover:border-t-0 hover:border-b-2"
+                className="hover:scale-[1.06]"
               >
                 <i className="ri-user-fill"></i> <span>Login</span>
               </Link>
@@ -117,7 +130,7 @@ function Header() {
           </div>
         </div>
         {/* Navigation Menu */}
-        <div className="bg-[#003088] text-white hidden lg:flex items-center justify-between px-6 lg:px-10 py-2 flex-wrap lg:flex-nowrap">
+        <div className="bg-[#FF6600] text-white hidden lg:flex items-center justify-between px-6 lg:px-10 py-2 flex-wrap lg:flex-nowrap">
           {navItems.map((item, index) => (
             <Link
               to={`search/${item.title.toLowerCase()}`}
@@ -132,7 +145,7 @@ function Header() {
           ))}
         </div>
         {/* Mobile Nav Indicator */}
-        <div className="h-[4px] bg-[#003088] w-full block lg:hidden"></div>
+        <div className="h-[4px] bg-[#FF6600] w-full block lg:hidden"></div>
       </div>
     </>
   );
