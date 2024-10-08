@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import { Home, ProductInfoPage, SearchProducts, ProductCart, CheckOut, BuyNow } from './components/index.js';
+import { Home, ProductInfoPage, SearchProducts, ProductCart, CheckOut, BuyNow, Login } from './components/index.js';
 import {RouterProvider, createBrowserRouter, createRoutesFromElements, Route} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store.js';
@@ -15,6 +15,7 @@ const router = createBrowserRouter(
       <Route path='/search/:userId' element={<SearchProducts/>}/>
       <Route path='/cart' element={<ProductCart/>}/>
       <Route path='/buynow' element={<BuyNow/>}/>
+      <Route path='/login' element={<Login/>}/>
       <Route path='/checkout' element={<CheckOut/>}/>
     </Route>
   )

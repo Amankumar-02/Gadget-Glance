@@ -62,7 +62,7 @@ function Header() {
             <div>
               <Link to={"/"}>
                 <h1 className="text-2xl sm:text-xl lg:text-3xl font-bold">
-                <span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-normal">𝓖</span>adget<span className="text-[#003088]"><span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-normal">𝓖</span>lance</span>
+                <span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-[-1px]">𝓖</span>adget<span className="text-[#003088] ms-2"><span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-[-1px]">𝓖</span>lance</span>
                 </h1>
               </Link>
             </div>
@@ -108,7 +108,7 @@ function Header() {
               </Link>
               <span className="hidden sm:inline font-extralight">|</span>
               <Link
-                to={"/"}
+                to={"/login"}
                 className="hover:border hover:border-x-0 hover:border-t-0 hover:border-b-2"
               >
                 <i className="ri-user-fill"></i> <span>Login</span>

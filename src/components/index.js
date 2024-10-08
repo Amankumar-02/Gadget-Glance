@@ -15,5 +15,6 @@ import SearchProducts from "./SearchProducts/SearchProducts";
 import ProductCart from "./ProductCart/ProductCart";
 import CheckOut from "./CheckOut/CheckOut";
 import BuyNow from "./BuyNow/BuyNow";
+import Login from './Login/Login';
 
-export {Header, Footer, Home, Slides, ProductSlider, GreatDeals, BrandSection, ExploreProducts, Shimmer, ProductCard, ProductInfoPage, ProductSpecifications, ProductReviews, SearchProducts, ProductCart, CheckOut, BuyNow};
+export {Header, Footer, Home, Slides, ProductSlider, GreatDeals, BrandSection, ExploreProducts, Shimmer, ProductCard, ProductInfoPage, ProductSpecifications, ProductReviews, SearchProducts, ProductCart, CheckOut, BuyNow, Login};
