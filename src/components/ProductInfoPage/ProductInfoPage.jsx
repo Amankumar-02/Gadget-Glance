@@ -12,7 +12,7 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
 import { ProductSpecifications, ProductReviews, Shimmer } from "../index";
-import { editCartQuantityData, storeCartData } from "../../features/cart/cartSlice";
+import { editCartQuantityData, storeCartData, storeBuyNowData } from "../../features/cart/cartSlice";
 import { useSelector, useDispatch } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 import useApiFetch from "../../hooks/useApiFetch";
@@ -40,15 +40,19 @@ function ProductInfoPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const addProduct = (data) => {
-    const test2 = storeData.filter(item=>item?.productData?.code === data?.productData?.code)[0];
-    if(test2?.productData?.code === data?.productData?.code){
+    const filterProduct = storeData.filter(item=>item?.productData?.code === data?.productData?.code)[0];
+    if(filterProduct?.productData?.code === data?.productData?.code){
       dispatch(editCartQuantityData({ code: data?.productData?.code, task: "increase" }));
     }else{
       dispatch(storeCartData({ productQuantity: 1, ...data }));
     };
-    navigate("/cart");
+    // navigate("/cart");
     toast.success("Product Added Successfully");
   };
+  const buyNow = (data)=>{
+    dispatch(storeBuyNowData({ productQuantity: 1, ...data }));
+    navigate("/buynow");
+  }
 
   const [isZoomVisible, setZoomVisible] = useState(false);
   const [zoomStyle, setZoomStyle] = useState({});
@@ -287,12 +291,12 @@ function ProductInfoPage() {
                     )}
                     <div className="flex gap-2 w-full">
                       <button
-                        className="bg-red-500 text-white p-2 text-lg font-semibold rounded-lg"
+                        className="bg-red-500 text-white p-2 text-lg font-semibold rounded-lg active:scale-[0.9]"
                         onClick={() => addProduct(fetchProductInfoData)}
                       >
                         ADD TO CART
                       </button>
-                      <button className="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg">
+                      <button className="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg active:scale-[0.9]" onClick={()=> buyNow(fetchProductInfoData)}>
                         BUY NOW
                       </button>
                     </div>

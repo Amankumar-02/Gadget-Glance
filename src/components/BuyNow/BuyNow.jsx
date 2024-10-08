@@ -3,18 +3,15 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IMG_URL } from "../../utils/constant";
 import {
-  removeCartData,
-  editCartQuantityData,
-  clearCartItems,
+    removeBuyNowData,
+    editBuyNowQuantityData,
+    clearBuyNowItems,
 } from "../../features/cart/cartSlice";
 import { useNavigate, Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
-function ProductCart() {
-  // const storeData = useSelector((state) => state.cart.cart);
-  // const storeData = JSON.parse(localStorage.getItem('cart'));
-  const storeData = useSelector((state) => state.cart.cart) || JSON.parse(localStorage.getItem('cart'));
-
+function BuyNow() {
+  const storeData = useSelector((state) => state.cart.buyNowCart);
   const [newStoreData, setNewStoreData] = useState(storeData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,19 +21,19 @@ function ProductCart() {
     const filterProduct = storeData.filter((item) => item.productData.code === code)[0];
     if (task === "decrease") {
       if (filterProduct?.productQuantity > 1) {
-        dispatch(editCartQuantityData({ code: code, task: task }));
+        dispatch(editBuyNowQuantityData({ code: code, task: task }));
         toast.success("Item quantity is decreased.");
       }
     } else {
       if (filterProduct?.productQuantity < 10) {
-        dispatch(editCartQuantityData({ code: code, task: task }));
+        dispatch(editBuyNowQuantityData({ code: code, task: task }));
         toast.success("Item quantity is increased.");
       }
     }
   };
 
   const removeProduct = (e) => {
-    dispatch(removeCartData(e));
+    dispatch(removeBuyNowData(e));
     toast.success("Item removed Successfully");
   };
 
@@ -47,7 +44,7 @@ function ProductCart() {
   const checkOutEvent = () => {
     setOrderPlaced(true);
     // navigate("/checkout")
-    dispatch(clearCartItems());
+    dispatch(clearBuyNowItems());
     toast.success("Your Order is Placed Successfully");
   };
 
@@ -85,7 +82,7 @@ function ProductCart() {
           ) : (
             <div className="w-full h-[80vh] flex flex-col sm:flex-row justify-center items-center p-4">
               <h1 className="text-red-500 text-xl sm:text-2xl lg:text-3xl font-bold text-center sm:text-left">
-                Cart is Empty
+                Buy Now is Empty
               </h1>
               <p className="text-2xl sm:text-3xl lg:text-4xl ms-0 sm:ms-2 mt-2 sm:mt-0 text-center">
                 🛒
@@ -103,7 +100,7 @@ function ProductCart() {
               >
                 <div>
                   <h2 className="font-bold text-sm sm:text-base lg:text-lg">
-                    My Cart{" "}
+                    My Items{" "}
                     <span className="text-gray-500 font-normal">
                       ({newStoreData.length} Items)
                     </span>
@@ -392,7 +389,7 @@ function ProductCart() {
                     className="bg-red-600 text-white rounded py-2 px-4 text-sm font-semibold w-fit lg:w-full"
                     onClick={checkOutEvent}
                   >
-                    CHECKOUT
+                    Buy Now
                   </button>
                 </div>
               </div>
@@ -404,4 +401,4 @@ function ProductCart() {
   );
 }
 
-export default ProductCart;
+export default BuyNow;
