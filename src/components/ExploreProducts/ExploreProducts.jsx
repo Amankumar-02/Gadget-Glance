@@ -63,7 +63,7 @@ function ExploreProducts({ exploreProductsData }) {
                   .replaceAll("/", " ")
                   .replaceAll("&", "and")}`}
               >
-                <button className="bg-[#4D148C] text-white text-sm px-4 py-2 rounded-3xl font-semibold">
+                <button className="bg-[#003088] text-white text-sm px-4 py-2 rounded-3xl font-semibold">
                   View All
                 </button>
               </Link>

@@ -57,12 +57,12 @@ function Header() {
   return (
     <>
       <div className="sticky top-0 z-50">
-        <div className="py-2 px-4 sm:px-6 lg:px-8 bg-[#FF6600]">
+        <div className="py-2 px-4 sm:px-6 lg:px-8 bg-[#FF6600] lg:bg-gradient-to-b from-[#FF6600] from-90% to-[#003088] to-100%">
           <div className="py-1 lg:py-2 flex flex-col lg:flex-row gap-1 justify-between items-center text-white">
             <div>
               <Link to={"/"}>
                 <h1 className="text-2xl sm:text-xl lg:text-3xl font-bold">
-                <span className="text-3xl sm:text-[26px] lg:text-[36px]">𝓖</span>adget<span className="text-[#4D148C]"><span className="text-3xl sm:text-[26px] lg:text-[36px]">𝓖</span>lance</span>
+                <span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-tighter">𝓖</span>adget<span className="text-[#003088]"><span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-tighter">𝓖</span>lance</span>
                 </h1>
               </Link>
             </div>
@@ -117,7 +117,7 @@ function Header() {
           </div>
         </div>
         {/* Navigation Menu */}
-        <div className="bg-[#4D148C] text-white hidden lg:flex items-center justify-between px-6 lg:px-10 py-2 flex-wrap lg:flex-nowrap">
+        <div className="bg-[#003088] text-white hidden lg:flex items-center justify-between px-6 lg:px-10 py-2 flex-wrap lg:flex-nowrap">
           {navItems.map((item, index) => (
             <Link
               to={`search/${item.title.toLowerCase()}`}
@@ -132,7 +132,7 @@ function Header() {
           ))}
         </div>
         {/* Mobile Nav Indicator */}
-        <div className="h-[4px] bg-[#4D148C] w-full block lg:hidden"></div>
+        <div className="h-[4px] bg-[#003088] w-full block lg:hidden"></div>
       </div>
     </>
   );

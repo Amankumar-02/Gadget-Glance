@@ -35,12 +35,12 @@ strong {
 
 ::-webkit-scrollbar-thumb {
   background-color: #FF6600;
-  /* background-color: #4D148C; */
+  /* background-color: #003088; */
   border-radius: 50px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #4D148C; 
+  background: #003088; 
   /* background: #FF6600;  */
 }
 
@@ -66,6 +66,6 @@ strong {
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: gray;
-  /* background-color: #4D148C; */
+  /* background-color: #003088; */
   border-radius: 50px;
 }
