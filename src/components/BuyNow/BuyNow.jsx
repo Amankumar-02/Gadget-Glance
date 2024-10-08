@@ -41,6 +41,12 @@ function BuyNow() {
     setNewStoreData(storeData);
   }, [editQuantityEvent, removeProduct]);
 
+  useEffect(() => {
+    if (!orderPlaced && newStoreData.length === 0) {
+      navigate("/");
+    }
+  }, [orderPlaced, navigate]);
+
   const checkOutEvent = () => {
     setOrderPlaced(true);
     // navigate("/checkout")
@@ -79,16 +85,7 @@ function BuyNow() {
                 </button>
               </div>
             </>
-          ) : (
-            <div className="w-full h-[80vh] flex flex-col sm:flex-row justify-center items-center p-4">
-              <h1 className="text-red-500 text-xl sm:text-2xl lg:text-3xl font-bold text-center sm:text-left">
-                Buy Now is Empty
-              </h1>
-              <p className="text-2xl sm:text-3xl lg:text-4xl ms-0 sm:ms-2 mt-2 sm:mt-0 text-center">
-                🛒
-              </p>
-            </div>
-          )}
+          ) : null}
         </>
       ) : (
         <>
