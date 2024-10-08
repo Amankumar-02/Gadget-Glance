@@ -62,7 +62,7 @@ function Header() {
             <div>
               <Link to={"/"}>
                 <h1 className="text-2xl sm:text-xl lg:text-3xl font-bold">
-                <span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-tighter">𝓖</span>adget<span className="text-[#003088]"><span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-tighter">𝓖</span>lance</span>
+                <span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-normal">𝓖</span>adget<span className="text-[#003088]"><span className="text-3xl sm:text-[26px] lg:text-[36px] -tracking-[-2px] lg:-tracking-normal">𝓖</span>lance</span>
                 </h1>
               </Link>
             </div>
