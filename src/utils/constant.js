@@ -150,4 +150,4 @@ const PRODUCT_INFO_URL = "https://gadget-glance.vercel.app/api/gadget-glance/pro
 const SERVER_APIKEY = '12233344445678';
 
 // export {navItems, banner1, banner1_2, banner2, greatDeals, banner3, brandPromises, exploreProductsRange, footerItems, IMG_URL, HOMEITEMS_URL, HOMEBANNER_URL, SEARCH_URL_CUSTOM, PRODUCT_INFO_URL, PRODUCT_EMI_INFO_URL, SERVER_APIKEY};
-export {navItems, footerItems, IMG_URL, HOMEITEMS_URL, HOMEBANNER_URL, SEARCH_URL_CUSTOM, PRODUCT_INFO_URL, PRODUCT_EMI_INFO_URL, SERVER_APIKEY};
+export {navItems, footerItems, IMG_URL, HOMEITEMS_URL, HOMEBANNER_URL, SEARCH_URL_CUSTOM, PRODUCT_INFO_URL, SERVER_APIKEY};

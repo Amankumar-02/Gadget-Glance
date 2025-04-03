@@ -26,23 +26,23 @@ export const cartSlice = createSlice({
             state.buyNowCart = newCart;
         },
         removeCartData : (state, action) => {
-            const newCart = state.cart.filter(prev => prev?.productData?.code !== action.payload);
+            const newCart = state.cart.filter(prev => prev?.item_code !== action.payload);
             localStorage.setItem('cart', JSON.stringify(newCart));
             const getDataFromLocalStorage = JSON.parse(localStorage.getItem('cart'));
             state.cart = getDataFromLocalStorage;
         },
         removeBuyNowData : (state, action) => {
-            const newCart = state.buyNowCart.filter(prev => prev?.productData?.code !== action.payload);
+            const newCart = state.buyNowCart.filter(prev => prev?.item_code !== action.payload);
             state.buyNowCart = newCart;
         },
         editCartQuantityData: (state, action) => {
             if (action.payload.task === "increase") {
-                const newCart = state.cart.map((prev) => prev?.productData?.code === action.payload.code ? { ...prev, productQuantity: (prev.productQuantity || 0) + 1 } : prev);
+                const newCart = state.cart.map((prev) => prev?.item_code === action.payload.item_code ? { ...prev, productQuantity: (prev.productQuantity || 0) + 1 } : prev);
                 localStorage.setItem('cart', JSON.stringify(newCart));
                 const getDataFromLocalStorage = JSON.parse(localStorage.getItem('cart'));
                 state.cart = getDataFromLocalStorage;
             } else if (action.payload.task === "decrease") {
-                const newCart = state.cart.map((prev) => prev?.productData?.code === action.payload.code ? {
+                const newCart = state.cart.map((prev) => prev?.item_code === action.payload.item_code ? {
                     ...prev,
                     productQuantity: Math.max((prev.productQuantity || 1) - 1, 1),
                 } : prev);
@@ -53,10 +53,10 @@ export const cartSlice = createSlice({
         },
         editBuyNowQuantityData: (state, action) => {
             if (action.payload.task === "increase") {
-                const newCart = state.buyNowCart.map((prev) => prev?.productData?.code === action.payload.code ? { ...prev, productQuantity: (prev.productQuantity || 0) + 1 } : prev);
+                const newCart = state.buyNowCart.map((prev) => prev?.item_code === action.payload.item_code ? { ...prev, productQuantity: (prev.productQuantity || 0) + 1 } : prev);
                 state.buyNowCart = newCart;
             } else if (action.payload.task === "decrease") {
-                const newCart = state.buyNowCart.map((prev) => prev?.productData?.code === action.payload.code ? {
+                const newCart = state.buyNowCart.map((prev) => prev?.item_code === action.payload.item_code ? {
                     ...prev,
                     productQuantity: Math.max((prev.productQuantity || 1) - 1, 1),
                 } : prev);

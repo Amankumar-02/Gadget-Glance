@@ -34,10 +34,16 @@ function ProductCard({ items }) {
           <div className="flex flex-col gap-1 items-start">
             <p className="text-xs lg:text-sm text-gray-500">
               Deal Price:{" "}
-              <span className="text-black font-bold">₹{price?.effective?.min}.00</span>
+              <span className="text-black font-bold">{price?.effective?.min.toLocaleString(
+                          "en-IN",
+                          { style: "currency", currency: "INR" }
+                        )}</span>
             </p>
             <p className="text-xs lg:text-sm text-gray-500">
-              M.R.P: <span className="line-through">₹{price?.marked?.max}.00</span>
+              M.R.P: <span className="line-through">{price?.marked?.max.toLocaleString(
+                          "en-IN",
+                          { style: "currency", currency: "INR" }
+                        )}</span>
             </p>
             {discount ? (
               <p className="text-[10px] lg:text-xs text-orange-500">

@@ -19,18 +19,18 @@ function BuyNow() {
   const navigate = useNavigate();
   const [orderPlaced, setOrderPlaced] = useState(false);
 
-  const editQuantityEvent = (code, task) => {
+  const editQuantityEvent = (item_code, task) => {
     const filterProduct = storeData.filter(
-      (item) => item.productData.code === code
+      (item) => item.item_code === item_code
     )[0];
     if (task === "decrease") {
       if (filterProduct?.productQuantity > 1) {
-        dispatch(editBuyNowQuantityData({ code: code, task: task }));
+        dispatch(editBuyNowQuantityData({ item_code: item_code, task: task }));
         toast.success("Item quantity is decreased.");
       }
     } else {
       if (filterProduct?.productQuantity < 10) {
-        dispatch(editBuyNowQuantityData({ code: code, task: task }));
+        dispatch(editBuyNowQuantityData({ item_code: item_code, task: task }));
         toast.success("Item quantity is increased.");
       }
     }
@@ -91,28 +91,28 @@ function BuyNow() {
             </>
           ) : (
             <>
-            <div className="my-6 lg:my-8 m-auto w-[94%] lg:w-[80%] min-h-[80vh] flex flex-col items-center justify-center gap-4">
-              <img
-                src="https://static.vecteezy.com/system/resources/previews/016/462/240/non_2x/empty-shopping-cart-illustration-concept-on-white-background-vector.jpg"
-                alt=""
-                className="w-[250px] lg:w-[360px]"
-              />
-              <h1 className="mt-4 text-2xl font-semibold text-gray-600">
-                Your cart is empty
-              </h1>
-              <p className="text-lg text-gray-500 text-center">
-                Looks like you have not added anything to you cart. Go ahead &
-                explore top products.
-              </p>
-              <button
-                className="p-2 bg-orange-400 rounded-lg text-white font-semibold text-lg lg:text-xl"
-                onClick={() => {
-                  navigate("/");
-                }}
-              >
-                Go to home
-              </button>
-            </div>
+              <div className="my-6 lg:my-8 m-auto w-[94%] lg:w-[80%] min-h-[80vh] flex flex-col items-center justify-center gap-4">
+                <img
+                  src="https://static.vecteezy.com/system/resources/previews/016/462/240/non_2x/empty-shopping-cart-illustration-concept-on-white-background-vector.jpg"
+                  alt=""
+                  className="w-[250px] lg:w-[360px]"
+                />
+                <h1 className="mt-4 text-2xl font-semibold text-gray-600">
+                  Your cart is empty
+                </h1>
+                <p className="text-lg text-gray-500 text-center">
+                  Looks like you have not added anything to you cart. Go ahead &
+                  explore top products.
+                </p>
+                <button
+                  className="p-2 bg-orange-400 rounded-lg text-white font-semibold text-lg lg:text-xl"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Go to home
+                </button>
+              </div>
             </>
           )}
         </>
@@ -153,13 +153,18 @@ function BuyNow() {
                         className="flex w-[40%] sm:w-[30%] xl:w-[20%]"
                       >
                         <div className="w-full flex flex-col items-center justify-center">
-                          <Link to={"/productInfo/" + item?.productData?.code}>
+                          <Link
+                            to={
+                              "/productInfo/" +
+                              item.slug +
+                              "?item_code=" +
+                              item.item_code
+                            }
+                          >
                             <div className="w-full h-full py-4 pe-4">
                               <img
-                                src={
-                                  IMG_URL + item?.productData?.media[0]?.zoomUrl
-                                }
-                                alt=""
+                                src={item?.medias[0]?.url}
+                                alt={item?.medias[0]?.alt}
                               />
                             </div>
                           </Link>
@@ -168,7 +173,7 @@ function BuyNow() {
                               className="px-3 sm:px-4 hover:font-semibold"
                               onClick={() => {
                                 editQuantityEvent(
-                                  item?.productData?.code,
+                                  item?.item_code,
                                   "decrease"
                                 );
                               }}
@@ -180,7 +185,7 @@ function BuyNow() {
                               className="px-3 sm:px-4 hover:font-semibold"
                               onClick={() => {
                                 editQuantityEvent(
-                                  item?.productData?.code,
+                                  item?.item_code,
                                   "increase"
                                 );
                               }}
@@ -196,17 +201,20 @@ function BuyNow() {
                         className="flex flex-col xl:flex-row gap-4 xl:gap-2 w-[78%] mt-2 lg:mt-0"
                       >
                         <Link
-                          to={"/productInfo/" + item?.productData?.code}
+                          to={"/productInfo/" +
+                            item.slug +
+                            "?item_code=" +
+                            item.item_code}
                           className="w-full xl:w-[58%]"
                         >
                           <div className="">
                             <p className="text-[#003088] font-semibold text-sm lg:text-base">
-                              {item?.productData?.name.length > 90
-                                ? item?.productData?.name.slice(0, 90) + "..."
-                                : item?.productData?.name}
+                              {item?.name.length > 90
+                                ? item?.name.slice(0, 90) + "..."
+                                : item?.name}
                             </p>
                             <p className="text-gray-500 font-semibold text-xs sm:text-sm">
-                              {item?.productData?.code}
+                              {item?.item_code}
                             </p>
                             <div className="flex lg:items-center flex-col lg:flex-row">
                               <div className="text-yellow-500 font-medium text-sm sm:text-base lg:text-lg">
@@ -216,9 +224,12 @@ function BuyNow() {
                                 <i className="ri-star-fill"></i>
                                 <i className="ri-star-line"></i>
                               </div>
+                              <p className="lg:ms-2 text-sm text-black font-semibold">
+                                {item?._custom_json?._app?.averageRating}
+                              </p>
                               <p className="lg:ms-2 text-xs sm:text-sm text-[#003088]">
-                                ({item?.productData?.numberOfRatings} Ratings &{" "}
-                                {item?.productData?.numberOfReviews} Reviews)
+                                ({item?._custom_json?._app?.ratingsCount} Ratings &{" "}
+                                {item?._custom_json?._app?.reviewsCount} Reviews)
                               </p>
                             </div>
                           </div>
@@ -226,7 +237,7 @@ function BuyNow() {
 
                         <div className="lg:text-end w-full xl:w-[40%]">
                           <h2 className=" text-lg font-extrabold">
-                            {item?.productData?.price?.value.toLocaleString(
+                            {item?.price?.effective?.max.toLocaleString(
                               "en-IN",
                               {
                                 style: "currency",
@@ -237,7 +248,10 @@ function BuyNow() {
                           <p className="text-sm text-gray-700 ">
                             M.R.P.:{" "}
                             <span className="line-through text-sm">
-                              ₹{item?.productData?.price?.mrp}
+                              {item?.price?.marked?.max.toLocaleString(
+                          "en-IN",
+                          { style: "currency", currency: "INR" }
+                        )}
                             </span>{" "}
                             <span className="text-xs">
                               Inclusive of all taxes
@@ -245,9 +259,9 @@ function BuyNow() {
                           </p>
                           <p className="text-sm text-gray-700 ">
                             You Save:{" "}
-                            <span>₹{item?.productData?.price?.discount}</span>
+                            <span>₹{item?.discount}</span>
                           </p>
-                          {!item?.productData?.freeshipping ? (
+                          {item?._custom_json?.free_shippable ? (
                             <h1 className=" text-green-600 text-xs font-semibold">
                               FREE Shipping!
                             </h1>
@@ -285,7 +299,7 @@ function BuyNow() {
                     <div className="border border-gray-300 border-x-0 border-b-0 flex justify-evenly items-center py-2">
                       <button
                         className="text-[#003088] hover:font-semibold"
-                        value={item?.productData?.code}
+                        value={item?.item_code}
                         onClick={(e) => {
                           removeProduct(e.target.value);
                         }}
@@ -324,7 +338,7 @@ function BuyNow() {
                           newStoreData.reduce(
                             (a, b) =>
                               a +
-                              (b?.productData?.price?.value || 0) *
+                              (b?.price?.effective?.max || 0) *
                                 (b?.productQuantity || 0),
                             0
                           )
@@ -336,7 +350,7 @@ function BuyNow() {
                     </div>
                     <div className="flex justify-between">
                       <p className="text-gray-600 text-sm">
-                        Discount <span className="text-sm">(10%)</span>
+                        Extra Discount <span className="text-sm">(10%)</span>
                       </p>
                       <p className="text-gray-600 text-sm font-semibold">
                         -{" "}
@@ -345,7 +359,7 @@ function BuyNow() {
                             (newStoreData.reduce(
                               (a, b) =>
                                 a +
-                                (b?.productData?.price?.value || 0) *
+                                (b?.price?.effective?.max || 0) *
                                   (b?.productQuantity || 0),
                               0
                             ) *
@@ -360,13 +374,13 @@ function BuyNow() {
                     </div>
                     <div className="flex justify-between">
                       <p className="text-sm text-gray-600">Delivery Charges</p>
-                      {!newStoreData?.productData?.freeshipping ? (
+                      {newStoreData?._custom_json?.free_shippable ? (
                         <p className="text-sm text-green-600 font-semibold">
                           Free
                         </p>
                       ) : (
                         <p className="text-sm text-red-600 font-semibold">
-                          Paid
+                          ₹100.00
                         </p>
                       )}
                     </div>
@@ -382,7 +396,7 @@ function BuyNow() {
                             newStoreData.reduce(
                               (a, b) =>
                                 a +
-                                (b?.productData?.price?.value || 0) *
+                                (b?.price?.effective?.max || 0) *
                                   (b?.productQuantity || 0),
                               0
                             )
@@ -391,13 +405,13 @@ function BuyNow() {
                               (newStoreData.reduce(
                                 (a, b) =>
                                   a +
-                                  (b?.productData?.price?.value || 0) *
+                                  (b?.price?.effective?.max || 0) *
                                     (b?.productQuantity || 0),
                                 0
                               ) *
                                 10) /
                                 100
-                            )
+                            ) + 100
                         ).toLocaleString("en-IN", {
                           style: "currency",
                           currency: "INR",

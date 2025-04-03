@@ -35,7 +35,10 @@ function Header() {
     const pin = prompt("Enter your pin code");
     if (pin && /^\d{6}$/.test(pin)) {
       dispatch(setPincode(pin));
-    } else {
+    } else if(pin === "") {
+      null
+    } 
+    else {
       alert("Please enter a valid 6-digit pin code.");
     }
   };

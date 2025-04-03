@@ -1,7 +1,6 @@
 import {
   IMG_URL,
   PRODUCT_INFO_URL,
-  PRODUCT_EMI_INFO_URL,
 } from "../../utils/constant";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -61,26 +60,26 @@ function ProductInfoPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  const addProduct = (data) => {
+  const addProduct = (data, data2) => {
     const filterProduct = storeData.filter(
       (item) => item?.item_code === data?.item_code
     )[0];
     if (filterProduct?.item_code === data?.item_code) {
       dispatch(
         editCartQuantityData({
-          code: data?.item_code,
+          item_code: data?.item_code,
           task: "increase",
         })
       );
     } else {
-      dispatch(storeCartData({ productQuantity: 1, ...data }));
+      dispatch(storeCartData({ productQuantity: 1, ...data, ...data2 }));
     }
     // navigate("/cart");
     toast.success("Product Added Successfully");
   };
 
-  const buyNow = (data) => {
-    dispatch(storeBuyNowData({ productQuantity: 1, ...data }));
+  const buyNow = (data, data2) => {
+    dispatch(storeBuyNowData({ productQuantity: 1, ...data, ...data2 }));
     navigate("/buynow");
   };
 
@@ -105,6 +104,8 @@ function ProductInfoPage() {
       setZoomStyle({ transform: "scale(1)" });
     }
   };
+
+  console.log(fetchProductInfoData);
   return (
     <>
       {!fetchProductInfoData ? (
@@ -250,9 +251,13 @@ function ProductInfoPage() {
                       </p>
                       <div className="flex items-center gap-2">
                         <i className="ri-calendar-todo-fill text-green-600 text-xl"></i>
-                        {fetchEmiData && (
+                        {fetchEmiData ? (
                           <p className="text-gray-500">
                             EMIs (Credit Cards) from ₹{fetchEmiData}/month.
+                          </p>
+                        ) : (
+                          <p className="text-gray-500">
+                            EMI options not available.
                           </p>
                         )}
                       </div>
@@ -332,30 +337,34 @@ function ProductInfoPage() {
                     <p className="text-green-600 text-sm font-semibold">
                       You Save: ₹{fetchPriceData?.discount}
                     </p>
-                    {/* {fetchEmiData?.lowestEMIAmount && (
+
+
+                    {fetchEmiData ? (
                       <p className="text-sm font-semibold text-gray-800">
                         EMIs (Credit Cards) from ₹
-                        {fetchEmiData?.lowestEMIAmount}/month |{" "}
-                        <span className="text-[#0B3B85] hover:underline cursor-pointer transition-all">
+                        {fetchEmiData}/month{" "}
+                        {/* <span className="text-[#0B3B85] hover:underline cursor-pointer transition-all">
                           View-Plans
-                        </span>
+                        </span> */}
                       </p>
-                    )} */}
-                    {/* {!fetchProductInfoData?.productData?.freeshipping && (
+                    ) : null}
+                    {fetchProductInfoData?._custom_json?.free_shippable && (
                       <h1 className="font-extrabold text-lg text-gray-800">
                         FREE Shipping!
                       </h1>
-                    )} */}
+                    )}
+
+                    
                     <div className="flex gap-2 w-full">
                       <button
                         className="bg-red-500 text-white p-2 text-lg font-semibold rounded-lg active:scale-[0.9]"
-                        onClick={() => addProduct(fetchProductInfoData)}
+                        onClick={() => addProduct(fetchProductInfoData, fetchPriceData)}
                       >
                         ADD TO CART
                       </button>
                       <button
                         className="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg active:scale-[0.9]"
-                        onClick={() => buyNow(fetchProductInfoData)}
+                        onClick={() => buyNow(fetchProductInfoData, fetchPriceData)}
                       >
                         BUY NOW
                       </button>
