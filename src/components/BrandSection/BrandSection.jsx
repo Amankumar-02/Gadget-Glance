@@ -12,30 +12,15 @@ function BrandSection({ brandSelectionData }) {
               THE GADGET GLANCE BRAND PROMISE
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-4 lg:pt-4 justify-center items-center">
-              {brandData.map(({ imageUrl, headline, content }, index) => (
+              {brandData.map(({ img, url }, index) => (
                 <div
                   key={index}
                   className="border border-gray-200 rounded-lg py-2 flex flex-col gap-2 items-center"
                 >
-                  {imageUrl ===
-                  "/medias/service-img.png?context=bWFzdGVyfGltYWdlc3w5MTB8aW1hZ2UvcG5nfGltYWdlcy9oMDYvaGEzLzkwOTA3OTc5OTQwMTQucG5nfGJjZmJhNzM1ODdkYTQ5ODI3YzNiMzQ1ZTdlM2JjNjUwMTBjM2E3YWFjNmUxZjdmMmEyOGRjZDMxOGI4ZWE0MWY" ? (
-                    <>
-                      <img
-                        src="https://img.icons8.com/?size=45&id=57926&format=png&color=133055"
-                        alt=""
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <img src={IMG_URL + imageUrl} alt="" />
-                    </>
-                  )}
+                  <img src={img} alt="" />
                   <div>
                     <p className="text-[#003088] font-semibold text-xs lg:text-sm text-center">
-                      {headline}
-                    </p>
-                    <p className="text-[10px] lg:text-xs text-gray-500 text-center">
-                      {content}
+                      {url}
                     </p>
                   </div>
                 </div>

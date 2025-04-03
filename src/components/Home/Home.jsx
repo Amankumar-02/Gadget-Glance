@@ -8,55 +8,87 @@ import {
   ExploreProducts,
   Shimmer,
 } from "../index.js";
-import { HOME_URL } from "../../utils/constant.js";
+import { HOMEITEMS_URL, HOMEBANNER_URL } from "../../utils/constant.js";
 
 function Home() {
   let [fetchHomeData, setFetchHomeData] = useState(null);
+  let [fetchHomeData2, setFetchHomeData2] = useState(null);
   // fetch Api
-  const {data: fetchedHomeData} = useApiFetch(HOME_URL)
+  const {data: fetchedHomeData} = useApiFetch(HOMEITEMS_URL)
+  const {data: fetchedHomeData2} = useApiFetch(HOMEBANNER_URL)
   useEffect(()=>{
-    if(fetchedHomeData?.data)
-    setFetchHomeData(fetchedHomeData?.data?.data);
-  }, [fetchedHomeData])
+    if(fetchedHomeData?.data && fetchedHomeData2?.data)
+    setFetchHomeData(fetchedHomeData?.data);
+    setFetchHomeData2(fetchedHomeData2?.data);
+  }, [fetchedHomeData, fetchedHomeData2])
 
+  console.log(fetchHomeData?.section1[0]?.items[0]);
   return (
     <>
-      {!fetchHomeData ? (
+      {!fetchHomeData && fetchHomeData2 ? (
         <Shimmer />
       ) : (
         <>
           <section>
-            <Slides liveCarousalData={fetchHomeData?.Section4[0]?.data} />
-            <Slides liveCarousalData={fetchHomeData?.Section11[0]?.data} />
+            <Slides liveCarousalData={fetchHomeData2?.banner1} />
           </section>
+
           <section className="py-4 lg:py-6">
-            {fetchHomeData?.Section5.map((item, index) => (
+            {fetchHomeData?.section1.map((item, index) => (
               <ProductSlider key={index} productSlideData={item} />
             ))}
           </section>
+
+          
+
           <section>
-            <GreatDeals greatDealsData={fetchHomeData?.Section2[0]} />
+            <GreatDeals greatDealsData={fetchHomeData2?.greatDeals} />
           </section>
+
           <section className="py-4 lg:py-6">
-            {fetchHomeData?.Section12.map((item, index) => (
+            {fetchHomeData?.section2.map((item, index) => (
               <ProductSlider key={index} productSlideData={item} />
             ))}
           </section>
+
           <section>
-            <Slides liveCarousalData={fetchHomeData?.Section4[1]?.data} />
+            <Slides liveCarousalData={fetchHomeData2?.banner3} />
           </section>
+
           <section className="py-4 lg:py-6">
-            {fetchHomeData?.Section8.map((item, index) => (
+            {fetchHomeData?.section3.map((item, index) => (
               <ProductSlider key={index} productSlideData={item} />
             ))}
           </section>
+
           <section>
+            <Slides liveCarousalData={fetchHomeData2?.banner2} />
+          </section>
+          
+          <section className="py-4 lg:py-6">
+            {fetchHomeData?.section4.map((item, index) => (
+              <ProductSlider key={index} productSlideData={item} />
+            ))}
+          </section>
+
+          <section>
+            <Slides liveCarousalData={fetchHomeData2?.banner1_2} />
+          </section>
+
+          <section className="py-4 lg:py-6">
+            {fetchHomeData?.section5.map((item, index) => (
+              <ProductSlider key={index} productSlideData={item} />
+            ))}
+          </section>
+
+          <section>
+            <Slides liveCarousalData={fetchHomeData2?.brandPromises} />
             <ExploreProducts
-              exploreProductsData={fetchHomeData?.Section10[0]}
+              exploreProductsData={fetchHomeData2?.exploreProductsRange}
             />
-            <BrandSection
-              brandSelectionData={fetchHomeData?.Section9[0]?.data}
-            />
+            {/* <BrandSection
+              brandSelectionData={brandPromises}
+            /> */}
           </section>
         </>
       )}

@@ -8,14 +8,14 @@ import { Pagination, Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
 
 function ExploreProducts({ exploreProductsData }) {
-  const { name, data } = exploreProductsData;
+  const data = exploreProductsData;
   return (
     <>
       {!exploreProductsData ? null : (
         <>
-          <div className="py-4 lg:py-8 px-2 lg:px-10">
+          <div className="py-8 lg:py-16 px-2 lg:px-10">
             <h1 className="text-center text-lg lg:text-2xl font-bold">
-              {name}
+            Explore Our Range Of Products
             </h1>
             <div className="pt-4 lg:pt-10">
               <Swiper
@@ -31,24 +31,19 @@ function ExploreProducts({ exploreProductsData }) {
                 }}
                 className="mySwiper"
               >
-                {data.map(({ name, imageUrl }, index) => (
+                {data.map(({ url, img }, index) => (
                   <SwiperSlide key={index}>
                     <div className="px-4">
                       <Link
-                        to={`/search/${name
-                          .toLowerCase()
-                          .replaceAll("%", " ")
-                          .replaceAll("|", " ")
-                          .replaceAll("/", " ")
-                          .replaceAll("&", "and")}`}
+                        to={`/`}
                       >
                         <img
-                          src={IMG_URL + imageUrl}
+                          src={img}
                           alt=""
                           className="scale-[0.95] hover:scale-[1.02] transition w-full"
                         />
                       </Link>
-                      <p className="text-center">{name}</p>
+                      <p className="text-center">{url}</p>
                     </div>
                   </SwiperSlide>
                 ))}

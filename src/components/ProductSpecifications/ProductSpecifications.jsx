@@ -4,10 +4,10 @@ function ProductSpecifications({ productSpecsData }) {
     <>
       <div className="w-full lg:w-[48%] flex flex-col gap-2 mt-4">
         <h4 className="text-gray-600 text-sm lg:text-base font-bold">
-          {productSpecsData?.name}
+          {productSpecsData?.title}
         </h4>
 
-        {productSpecsData?.features.map((item, index) => (
+        {productSpecsData?.details.map((item, index) => (
           <div key={index} className="flex gap-4">
             {/* Features Column */}
             <div className="w-[30%] flex flex-col gap-1">
@@ -15,7 +15,7 @@ function ProductSpecifications({ productSpecsData }) {
                 key={index}
                 className="text-gray-600 text-sm lg:text-base overflow-hidden break-words"
                 dangerouslySetInnerHTML={{
-                  __html: item?.name
+                  __html: item?.key
                     .replaceAll(
                       "reliancedigital@ril.com",
                       "gadgetglance@xyz.com"
@@ -33,7 +33,7 @@ function ProductSpecifications({ productSpecsData }) {
                 key={index}
                 className="w-[90%] text-gray-600 text-sm lg:text-base overflow-hidden break-words"
                 dangerouslySetInnerHTML={{
-                  __html: item?.featureValues[0]?.value
+                  __html: item?.value
                     .replaceAll(
                       "reliancedigital@ril.com",
                       "gadgetGlance@xyz.com"

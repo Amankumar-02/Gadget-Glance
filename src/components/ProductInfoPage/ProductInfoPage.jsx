@@ -4,55 +4,85 @@ import {
   PRODUCT_EMI_INFO_URL,
 } from "../../utils/constant";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
-import { ProductSpecifications, ProductReviews, Shimmer } from "../index";
-import { editCartQuantityData, storeCartData, storeBuyNowData } from "../../features/cart/cartSlice";
+import {
+  ProductSpecifications,
+  ProductReviews,
+  Shimmer,
+  ProductSlider,
+} from "../index";
+import {
+  editCartQuantityData,
+  storeCartData,
+  storeBuyNowData,
+} from "../../features/cart/cartSlice";
 import { useSelector, useDispatch } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 import useApiFetch from "../../hooks/useApiFetch";
 
 function ProductInfoPage() {
   const { userId } = useParams();
-  const productUrl = `${PRODUCT_INFO_URL}/${userId}`;
-  const productEmi = `${PRODUCT_EMI_INFO_URL}/${userId}`;
+  const [searchParams] = useSearchParams();
+  const item_code = searchParams.get("item_code");
+  const productUrl = `${PRODUCT_INFO_URL}/${userId}?item_code=${item_code}`;
+  // const productEmi = `${PRODUCT_EMI_INFO_URL}/${userId}`;
   const [fetchProductInfoData, setFetchProductData] = useState(null);
   const [fetchEmiData, setFetchEmiData] = useState(null);
+  const [fetchPriceData, setFetchPriceData] = useState(null);
+  const [fetchSimilarProducts, setFetchSimilarProducts] = useState(null);
+  const [fetchReviewsData, setFetchReviewsData] = useState(null);
   const [zoomImg, setZoomImg] = useState("");
 
   //fetch api
   const { data: fetchedProductData } = useApiFetch(productUrl);
-  const { data: fetchedProductEmiData } = useApiFetch(productEmi);
+  // const { data: fetchedProductEmiData } = useApiFetch(productEmi);
   useEffect(() => {
-    if (fetchedProductData?.data && fetchedProductEmiData?.data) {
-      setFetchProductData(fetchedProductData?.data?.data);
-      setFetchEmiData(fetchedProductEmiData?.data);
-      setZoomImg(fetchedProductData?.data?.data?.productData?.media[0].zoomUrl);
+    if (fetchedProductData?.data) {
+      // if (fetchedProductData?.data && fetchedProductEmiData?.data) {
+      setFetchProductData(fetchedProductData?.data?.info);
+      setFetchEmiData(
+        fetchedProductData?.data?.emiOptions?.data?.best_plan?.emi_amount
+      );
+      setFetchPriceData(fetchedProductData?.data?.prices);
+      setFetchSimilarProducts(fetchedProductData?.data?.similarProducts);
+      setFetchReviewsData(fetchedProductData?.data?.reviews);
+      setZoomImg(fetchedProductData?.data?.info?.medias[0].url);
     }
-  }, [fetchedProductData, fetchedProductEmiData]);
+    // }, [fetchedProductData, fetchedProductEmiData]);
+  }, [fetchedProductData]);
 
   const storeData = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const addProduct = (data) => {
-    const filterProduct = storeData.filter(item=>item?.productData?.code === data?.productData?.code)[0];
-    if(filterProduct?.productData?.code === data?.productData?.code){
-      dispatch(editCartQuantityData({ code: data?.productData?.code, task: "increase" }));
-    }else{
+    const filterProduct = storeData.filter(
+      (item) => item?.item_code === data?.item_code
+    )[0];
+    if (filterProduct?.item_code === data?.item_code) {
+      dispatch(
+        editCartQuantityData({
+          code: data?.item_code,
+          task: "increase",
+        })
+      );
+    } else {
       dispatch(storeCartData({ productQuantity: 1, ...data }));
-    };
+    }
     // navigate("/cart");
     toast.success("Product Added Successfully");
   };
-  const buyNow = (data)=>{
+
+  const buyNow = (data) => {
     dispatch(storeBuyNowData({ productQuantity: 1, ...data }));
     navigate("/buynow");
-  }
+  };
 
   const [isZoomVisible, setZoomVisible] = useState(false);
   const [zoomStyle, setZoomStyle] = useState({});
@@ -85,7 +115,7 @@ function ProductInfoPage() {
             <section>
               <div className="flex items-center justify-start flex-wrap py-1 px-4 text-gray-700 max-h-[45px] overflow-hidden">
                 <i className="ri-home-4-fill text-base"></i>
-                {fetchProductInfoData?.productData?.breadcrumbs.map(
+                {/* {fetchProductInfoData?.attributes?.categories.map(
                   ({ name }, index) => (
                     <div key={index} className="ms-2 text-xs">
                       {`> ${
@@ -93,7 +123,14 @@ function ProductInfoPage() {
                       }`}
                     </div>
                   )
-                )}
+                )} */}
+                <div className="ms-2 text-xs">
+                  Home Page {">"} {fetchProductInfoData?.categories[0].name}{" "}
+                  {">"}{" "}
+                  {fetchProductInfoData?.name.length > 80
+                    ? fetchProductInfoData?.name.slice(0, 80) + "..."
+                    : fetchProductInfoData?.name}
+                </div>
               </div>
             </section>
             <hr />
@@ -105,7 +142,7 @@ function ProductInfoPage() {
                   </div>
                   <div className="w-full flex items-center justify-center py-2">
                     <img
-                      src={IMG_URL + zoomImg}
+                      src={zoomImg}
                       alt=""
                       className="max-w-[60%] w-auto h-auto object-contain p-4"
                       onMouseMove={handleMouseMove}
@@ -125,15 +162,15 @@ function ProductInfoPage() {
                     modules={[Pagination, Navigation]}
                     className="mySwiper productSwiper px-8 h-auto"
                   >
-                    {fetchProductInfoData?.productData?.media.map(
-                      ({ thumbnailUrl, zoomUrl }, index) => (
+                    {fetchProductInfoData?.medias.map(
+                      ({ url, zoomUrl }, index) => (
                         <SwiperSlide key={index}>
                           <div className="px-2">
                             <img
-                              src={IMG_URL + thumbnailUrl}
+                              src={url}
                               alt=""
                               className="cursor-pointer"
-                              onClick={() => setZoomImg(zoomUrl)}
+                              onClick={() => setZoomImg(url)}
                             />
                           </div>
                         </SwiperSlide>
@@ -145,9 +182,9 @@ function ProductInfoPage() {
                 <div className="relative w-full lg:w-3/5 flex flex-wrap">
                   {/* Zoomed Image (popup) */}
                   {isZoomVisible && (
-                    <div className="absolute top-[2%] left-[10%] h-[70vh] p-2 bg-white border border-gray-300 overflow-hidden">
+                    <div className="absolute top-[2%] left-[0%] h-[70vh] p-2 bg-white border border-gray-300 overflow-hidden">
                       <img
-                        src={IMG_URL + zoomImg}
+                        src={zoomImg}
                         alt="Zoomed"
                         className="w-full h-full object-cover transition-transform duration-200 ease-in-out p-4"
                         style={zoomStyle}
@@ -157,11 +194,12 @@ function ProductInfoPage() {
 
                   <div className="w-full flex flex-col gap-2 py-4">
                     <h1 className="w-[86%] leading-5 text-lg font-extrabold text-gray-800">
-                      {fetchProductInfoData?.productData?.name}{" "}
-                      <span className="text-[15px]">{`(${fetchProductInfoData?.productData?.code})`}</span>
+                      {fetchProductInfoData?.name}{" "}
+                      <span className="text-[15px]">{`(${fetchProductInfoData?.uid})`}</span>
                     </h1>
                     <div className="flex flex-col lg:flex-row lg:items-center gap-1 lg:gap-4 text-[#0B3B85]">
-                      {fetchProductInfoData?.productData?.numberOfRatings? (
+                      {fetchProductInfoData?._custom_json?._app
+                        ?.ratingsCount ? (
                         <div className="flex gap-2 items-center">
                           <div className="text-yellow-500 font-medium text-lg">
                             <i className="ri-star-fill"></i>
@@ -170,15 +208,27 @@ function ProductInfoPage() {
                             <i className="ri-star-fill"></i>
                             <i className="ri-star-line"></i>
                           </div>
+                          <p className="text-black font-semibold">
+                            {
+                              fetchProductInfoData?._custom_json?._app
+                                ?.averageRating
+                            }
+                          </p>
                           <p>
                             (
-                            {fetchProductInfoData?.productData?.numberOfRatings}{" "}
+                            {
+                              fetchProductInfoData?._custom_json?._app
+                                ?.ratingsCount
+                            }{" "}
                             Ratings &{" "}
-                            {fetchProductInfoData?.productData?.numberOfReviews}{" "}
+                            {
+                              fetchProductInfoData?._custom_json?._app
+                                ?.reviewsCount
+                            }{" "}
                             Reviews)
                           </p>
                         </div>
-                      ): null}
+                      ) : null}
                       <div className="flex gap-2 lg:gap-4">
                         <i className="ri-share-forward-box-fill font-semibold cursor-pointer">
                           <span className="ps-2 font-medium">Share</span>
@@ -200,24 +250,32 @@ function ProductInfoPage() {
                       </p>
                       <div className="flex items-center gap-2">
                         <i className="ri-calendar-todo-fill text-green-600 text-xl"></i>
-                        {fetchEmiData?.lowestEMIAmount && (
+                        {fetchEmiData && (
                           <p className="text-gray-500">
-                            EMIs (Credit Cards) from ₹
-                            {fetchEmiData?.lowestEMIAmount}/month.
+                            EMIs (Credit Cards) from ₹{fetchEmiData}/month.
                           </p>
                         )}
                       </div>
                     </div>
-                    <div className="flex flex-col gap-3 w-[96%] lg:w-[90%] max-h-[200px] lg:max-h-[300px] overflow-hidden overflow-y-scroll scrollbar-hidden">
+                    <div className="flex flex-col gap-3 w-[96%] lg:w-[90%] ">
                       <h2 className="font-bold text-lg text-gray-700">
                         Key Features
                       </h2>
-                      <ul
+                      {/* <ul
                         className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm"
                         dangerouslySetInnerHTML={{
                           __html: fetchProductInfoData?.productData?.summary,
                         }}
-                      ></ul>
+                      ></ul> */}
+                      <div className="max-h-[200px] lg:max-h-[300px] overflow-hidden overflow-y-scroll scrollbar-hidden">
+                        <ul className="flex flex-col ms-6 gap-2 list-disc text-gray-600 text-sm ">
+                          {fetchProductInfoData?.highlights.map(
+                            (items, index) => (
+                              <li key={index}>{items}</li>
+                            )
+                          )}
+                        </ul>
+                      </div>
                     </div>
                     <div className="flex flex-col gap-3 w-[96%] lg:w-[90%]">
                       <h2 className="font-bold text-lg text-gray-700">
@@ -248,34 +306,33 @@ function ProductInfoPage() {
                     <p className="text-lg text-gray-800">
                       Deal Price:{" "}
                       <span className="text-xl text-[#0B3B85] font-semibold">
-                        {fetchProductInfoData?.productData?.price?.value.toLocaleString(
+                        {fetchPriceData?.price?.effective?.max.toLocaleString(
                           "en-IN",
                           { style: "currency", currency: "INR" }
                         )}
                       </span>
                     </p>
-                    {fetchProductInfoData?.productData?.price?.rrp && (
+                    {/* {fetchProductInfoData?._custom_json?.mrp && (
                       <p className="text-lg text-gray-800">
                         Offer Price:{" "}
                         <span className="line-through text-sm">
-                          ₹{fetchProductInfoData?.productData?.price?.rrp}.00
+                          ₹{fetchProductInfoData?._custom_json?.offer_price}.00
                         </span>
                       </p>
-                    )}
+                    )} */}
                     <p className="text-lg text-gray-800">
                       MRP:{" "}
                       <span className="line-through text-sm">
-                        ₹{fetchProductInfoData?.productData?.price?.mrp}.00
+                        ₹{fetchPriceData?.price?.marked?.max}.00
                       </span>{" "}
                       <span className="text-base">
                         (Inclusive of all taxes)
                       </span>
                     </p>
                     <p className="text-green-600 text-sm font-semibold">
-                      You Save: ₹
-                      {fetchProductInfoData?.productData?.price?.discount}
+                      You Save: ₹{fetchPriceData?.discount}
                     </p>
-                    {fetchEmiData?.lowestEMIAmount && (
+                    {/* {fetchEmiData?.lowestEMIAmount && (
                       <p className="text-sm font-semibold text-gray-800">
                         EMIs (Credit Cards) from ₹
                         {fetchEmiData?.lowestEMIAmount}/month |{" "}
@@ -283,12 +340,12 @@ function ProductInfoPage() {
                           View-Plans
                         </span>
                       </p>
-                    )}
-                    {!fetchProductInfoData?.productData?.freeshipping && (
+                    )} */}
+                    {/* {!fetchProductInfoData?.productData?.freeshipping && (
                       <h1 className="font-extrabold text-lg text-gray-800">
                         FREE Shipping!
                       </h1>
-                    )}
+                    )} */}
                     <div className="flex gap-2 w-full">
                       <button
                         className="bg-red-500 text-white p-2 text-lg font-semibold rounded-lg active:scale-[0.9]"
@@ -296,7 +353,10 @@ function ProductInfoPage() {
                       >
                         ADD TO CART
                       </button>
-                      <button className="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg active:scale-[0.9]" onClick={()=> buyNow(fetchProductInfoData)}>
+                      <button
+                        className="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg active:scale-[0.9]"
+                        onClick={() => buyNow(fetchProductInfoData)}
+                      >
                         BUY NOW
                       </button>
                     </div>
@@ -323,13 +383,18 @@ function ProductInfoPage() {
                       Customer Reviews
                     </h3>
                   </a>
+                  <a href="#similarProducts">
+                    <h3 className="text-sm lg:text-base font-bold text-gray-800 hover:underline transition-all">
+                      Similar Products
+                    </h3>
+                  </a>
                 </div>
 
                 <p
                   id="desc"
                   className="pt-[160px] lg:pt-[140px] font-light text-gray-600"
                   dangerouslySetInnerHTML={{
-                    __html: fetchProductInfoData?.productData?.description,
+                    __html: fetchProductInfoData?.attributes?.product_details,
                   }}
                 ></p>
 
@@ -338,15 +403,14 @@ function ProductInfoPage() {
                   className="pt-[160px] lg:pt-[140px] text-lg lg:text-2xl leading-5 lg:leading-none font-bold text-gray-800"
                 >
                   Specifications (
-                  {fetchProductInfoData?.productData?.name.length > 50
-                    ? fetchProductInfoData?.productData?.name.slice(0, 50) +
-                      "..."
-                    : fetchProductInfoData?.productData?.name}
+                  {fetchProductInfoData?.name.length > 50
+                    ? fetchProductInfoData?.name.slice(0, 50) + "..."
+                    : fetchProductInfoData?.name}
                   )
                 </h1>
 
                 <div className="flex flex-col lg:flex-row lg:flex-wrap lg:justify-between gap-4">
-                  {fetchProductInfoData?.productData?.classifications.map(
+                  {fetchProductInfoData?.grouped_attributes.map(
                     (item, index) => (
                       <ProductSpecifications
                         key={index}
@@ -363,15 +427,14 @@ function ProductInfoPage() {
                   Customer Reviews{" "}
                   <span className="text-[#0B3B85] leading-5 lg:leading-none text-sm lg:text-base font-semibold">
                     (
-                    {fetchProductInfoData?.productData?.name.length > 80
-                      ? fetchProductInfoData?.productData?.name.slice(0, 80) +
-                        "..."
-                      : fetchProductInfoData?.productData?.name}
+                    {fetchProductInfoData?.name.length > 80
+                      ? fetchProductInfoData?.name.slice(0, 80) + "..."
+                      : fetchProductInfoData?.name}
                     )
                   </span>
                 </h1>
 
-                {!fetchProductInfoData?.productData?.numberOfRatings ? (
+                {!fetchProductInfoData?._custom_json?._app?.ratingsCount ? (
                   <p className="py-4 text-gray-700">
                     There are no reviews for this product yet.
                   </p>
@@ -386,12 +449,17 @@ function ProductInfoPage() {
                         <i className="ri-star-line"></i>
                       </div>
                       <p className="text-xs text-yellow-600 font-semibold">
-                        {fetchProductInfoData?.productData?.averageRating}/5
+                        {
+                          fetchProductInfoData?._custom_json?._app
+                            ?.averageRating
+                        }
+                        /5
                       </p>
                       <p className="text-gray-600 font-semibold text-sm">
-                        ({fetchProductInfoData?.productData?.numberOfRatings}{" "}
+                        (
+                        {fetchProductInfoData?._custom_json?._app?.ratingsCount}{" "}
                         Ratings &{" "}
-                        {fetchProductInfoData?.productData?.numberOfReviews}{" "}
+                        {fetchProductInfoData?._custom_json?._app?.reviewsCount}{" "}
                         Reviews)
                       </p>
                     </div>
@@ -405,19 +473,21 @@ function ProductInfoPage() {
                       </p>
                     </div>
                     <div className="flex flex-col lg:flex-row lg:flex-wrap lg:justify-between gap-4">
-                      {fetchProductInfoData?.productData?.reviews.map(
-                        (item, index) => (
-                          <ProductReviews
-                            key={index}
-                            productReviewData={item}
-                          />
-                        )
-                      )}
+                      {fetchReviewsData?.data?.reviews.map((item, index) => (
+                        <ProductReviews key={index} productReviewData={item} />
+                      ))}
                     </div>
                   </>
                 )}
+
+                <div id="similarProducts" className="pt-[160px] lg:pt-[140px] text-lg lg:text-2xl leading-5 lg:leading-none font-bold text-gray-800">
+                  {fetchSimilarProducts.map((item, index) => (
+                    <ProductSlider key={index} productSlideData={item} />
+                  ))}
+                </div>
               </div>
             </section>
+            <section></section>
           </div>
         </>
       )}

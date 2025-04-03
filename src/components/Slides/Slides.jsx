@@ -28,18 +28,21 @@ function Slides({ liveCarousalData }) {
                   modules={[Autoplay, Pagination, Navigation]}
                   className="mySwiper"
                 >
-                  {liveCarousel.map(({ url, imageUrl, name }, index) => (
+                  {liveCarousel.map(({ url, img, name }, index) => (
                     <SwiperSlide key={index}>
-                      <Link
+                      {/* <Link
                         to={`search/${name
                           .toLowerCase()
                           .replaceAll("%", " ")
                           .replaceAll("|", " ")
                           .replaceAll("/", " ")
                           .replaceAll("&", "and")}`}
+                      > */}
+                      <Link
+                        to={`/`}
                       >
                         <img
-                          src={IMG_URL + imageUrl}
+                          src={img}
                           alt=""
                           className="w-full"
                         />
@@ -67,18 +70,13 @@ function Slides({ liveCarousalData }) {
                   modules={[Autoplay, Pagination, Navigation]}
                   className="mySwiper"
                 >
-                  {liveCarousel.map(({ url, imageUrl, name }, index) => (
+                  {liveCarousel.map(({ url, img, name }, index) => (
                     <SwiperSlide key={index}>
                       <Link
-                        to={`search/${name
-                          .toLowerCase()
-                          .replaceAll("%", " ")
-                          .replaceAll("|", " ")
-                          .replaceAll("/", " ")
-                          .replaceAll("&", "and")}`}
+                        to={`/`}
                       >
                         <img
-                          src={IMG_URL + imageUrl}
+                          src={img}
                           alt=""
                           className="w-full"
                         />
