@@ -130,8 +130,8 @@ const IMG_URL = "https://www.reliancedigital.in/";
 // const HOME_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageId=homepage&pageType=contentPage";
 // const HOMEITEMS_URL = "http://localhost:3000/api/gadget-glance/homeItems";
 // const HOMEBANNER_URL = "http://localhost:3000/api/gadget-glance/homeBanners";
-const HOMEITEMS_URL = "http://gadget-glance.vercel.app/api/gadget-glance/homeItems";
-const HOMEBANNER_URL = "http://gadget-glance.vercel.app/api/gadget-glance/homeBanners";
+const HOMEITEMS_URL = "https://gadget-glance.vercel.app/api/gadget-glance/homeItems";
+const HOMEBANNER_URL = "https://gadget-glance.vercel.app/api/gadget-glance/homeBanners";
 // const HOME_URL = "https://food-explorer-server-prime.vercel.app/api/gadget-glance/home";
 
 // const SEARCH_URL_CUSTOM = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productSearchPage&q=hp%20gaming%20laptop%3Arelevance&page=0&size=24&pc=110059"
@@ -140,7 +140,7 @@ const SEARCH_URL_CUSTOM = "https://food-explorer-server-prime.vercel.app/api/gad
 
 // const PRODUCT_INFO_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/cms/pagedata?pageType=productPage&pageId=productPage&productCode="
 // const PRODUCT_INFO_URL = "http://localhost:3000/api/gadget-glance/productInfo"
-const PRODUCT_INFO_URL = "http://gadget-glance.vercel.app/api/gadget-glance/productInfo"
+const PRODUCT_INFO_URL = "https://gadget-glance.vercel.app/api/gadget-glance/productInfo"
 // const PRODUCT_INFO_URL = "https://food-explorer-server-prime.vercel.app/api/gadget-glance/productInfo"
 
 // const PRODUCT_EMI_INFO_URL = "https://www.reliancedigital.in/rildigitalws/v2/rrldigital/emi/getAllEmiDetails?productPrice=1049&productCode="
