@@ -49,7 +49,7 @@ function BuyNow() {
     if (!orderPlaced && newStoreData.length === 0) {
       navigate("/");
     }
-  }, [orderPlaced, navigate]);
+  }, [orderPlaced, navigate, newStoreData]);
 
   const checkOutEvent = () => {
     setOrderPlaced(true);
@@ -98,10 +98,10 @@ function BuyNow() {
                   className="w-[250px] lg:w-[360px]"
                 />
                 <h1 className="mt-4 text-2xl font-semibold text-gray-600">
-                  Your cart is empty
+                  Your buy now is empty
                 </h1>
                 <p className="text-lg text-gray-500 text-center">
-                  Looks like you have not added anything to you cart. Go ahead &
+                  Looks like you have not added anything to you buy now. Go ahead &
                   explore top products.
                 </p>
                 <button
@@ -126,9 +126,9 @@ function BuyNow() {
               >
                 <div>
                   <h2 className="font-bold text-sm sm:text-base lg:text-lg">
-                    My Items{" "}
+                    My Buy Now{" "}
                     <span className="text-gray-500 font-normal">
-                      ({newStoreData.length} Items)
+                      {newStoreData.length > 1 ? (<>({newStoreData.length} Items)</>) : (<>({newStoreData.length} Item)</>)}
                     </span>
                   </h2>
                 </div>
