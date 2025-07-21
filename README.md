@@ -216,6 +216,21 @@ gadgetglance/
 
 ---
 
+## 🔧 Redux Store Structure
+```
+javascript
+
+// Store slices
+├── authSlice.js          # User authentication state
+├── productSlice.js       # Products and catalog state
+├── cartSlice.js          # Shopping cart management
+├── wishlistSlice.js      # User wishlist state
+├── orderSlice.js         # Order history and tracking
+└── uiSlice.js           # UI state (loading, modals, etc.)
+```
+
+---
+
 ## 🎨 UI Components
 
 - Responsive Product Cards with hover effects
