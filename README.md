@@ -1,4 +1,4 @@
-# 🛒 GadgetGlance - Modern Electronics E-commerce Platform
+## 🛒 GadgetGlance - Modern Electronics E-commerce Platform
 
 GadgetGlance is a comprehensive e-commerce platform specializing in electronics, delivering a seamless shopping experience with real-time product updates and secure payment processing.
 
@@ -270,5 +270,5 @@ Fast loading times with code splitting
 
 ---
 
-## Built with ❤️ for electronics enthusiasts
-# GadgetGlance - Your gateway to the latest gadgets! 🔌✨
+### Built with ❤️ for electronics enthusiasts
+## GadgetGlance - Your gateway to the latest gadgets! 🔌✨
