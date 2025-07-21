@@ -68,7 +68,10 @@ GadgetGlance is a full-stack e-commerce application built to provide customers w
 
 ### Backend Services
 
-- **Firebase** - Backend-as-a-Service platform (Authentication, Firestore Database, Cloud Storage)
+- **Firebase** - Backend-as-a-Service platform
+  - Authentication
+  - Firestore Database
+  - Cloud Storage
 - **Stripe** - Payment processing platform
 - **Reliance Digital API** - Product data integration
 
